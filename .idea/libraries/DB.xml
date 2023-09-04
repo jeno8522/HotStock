@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DB">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/fintech-finance-skeleton/DB.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

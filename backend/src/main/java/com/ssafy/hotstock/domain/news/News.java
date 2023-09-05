@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.news.domain;
+package com.ssafy.hotstock.domain.news;
 
 
 import com.ssafy.hotstock.domain.keyword.Keyword;
@@ -14,9 +14,7 @@ import static jakarta.persistence.GenerationType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class News {
-
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "news_id")
     private Long id;
@@ -24,20 +22,11 @@ public class News {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "summary")
+    private String summary;
 
     @Column(name = "link")
     private String link;
-
-    @Column(name = "date")
-    private String date;
-
-    @Column(name = "media_company_num")
-    private int mediaCompanyNum;
-
-    @Column(name = "article_num")
-    private int articleNum;
 
     @OneToOne(mappedBy = "news", fetch = LAZY)
     private Keyword keyword;

@@ -31,11 +31,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'mysql:mysql-connector-java:8.0.27'
-
-	implementation 'org.jsoup:jsoup:1.15.3'
-
-	// ?? 를 보기 쉽게 해주는 dependency
-	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7")
 }
 
 

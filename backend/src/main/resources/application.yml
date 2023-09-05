@@ -8,11 +8,17 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate.format_sql: true
 
+    properties:
+      hibernate:
+        format_sql: true
+        show-sql: true
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+server:
+  port: 8080  # 포트 설정
+  servlet:
+    context-path: /hotstock  # 기본 경로(prefix) 설정

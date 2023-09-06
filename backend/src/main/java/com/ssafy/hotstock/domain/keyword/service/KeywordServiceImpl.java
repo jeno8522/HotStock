@@ -1,9 +1,12 @@
-package com.ssafy.hotstock.domain.keyword;
+package com.ssafy.hotstock.domain.keyword.service;
 
 
-import com.ssafy.hotstock.domain.keywordsummary.KeywordSummaryService;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keyword.domain.KeywordRepository;
+import com.ssafy.hotstock.domain.keyword.service.KeywordService;
+import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 
-import com.ssafy.hotstock.domain.keywordsummary.KeywordSummary;
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
 
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.service.NewsService;

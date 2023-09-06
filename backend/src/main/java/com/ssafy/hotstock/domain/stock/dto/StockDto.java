@@ -1,5 +1,6 @@
-package com.ssafy.hotstock.domain.stock;
+package com.ssafy.hotstock.domain.stock.dto;
 
+import com.ssafy.hotstock.domain.stock.domain.Stock;
 import lombok.*;
 
 @Getter

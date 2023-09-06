@@ -1,7 +1,7 @@
-package com.ssafy.hotstock.domain.keyword;
+package com.ssafy.hotstock.domain.keyword.domain;
 
-import com.ssafy.hotstock.domain.keywordsummary.KeywordSummary;
-import com.ssafy.hotstock.domain.keywordtheme.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 
 import com.ssafy.hotstock.domain.news.domain.News;
 import jakarta.persistence.*;

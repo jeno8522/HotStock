@@ -1,5 +1,6 @@
-package com.ssafy.hotstock.domain.keywordtheme;
+package com.ssafy.hotstock.domain.keywordtheme.dto;
 
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import lombok.*;
 
 @Getter

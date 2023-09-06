@@ -1,9 +1,8 @@
-package com.ssafy.hotstock.domain.keyword;
+package com.ssafy.hotstock.domain.keyword.domain;
 
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface KeywordRepository extends JpaRepository<Keyword, Long> {

@@ -1,5 +1,6 @@
-package com.ssafy.hotstock.domain.keywordsummary;
+package com.ssafy.hotstock.domain.keywordsummary.dto;
 
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
 import lombok.*;
 
 import java.time.LocalDateTime;

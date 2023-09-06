@@ -1,7 +1,10 @@
-package com.ssafy.hotstock.domain.keywordsummary;
+package com.ssafy.hotstock.domain.keywordsummary.service;
 
 
 
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummaryRepository;
+import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

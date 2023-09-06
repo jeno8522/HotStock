@@ -1,6 +1,6 @@
-package com.ssafy.hotstock.domain.stock;
+package com.ssafy.hotstock.domain.stock.domain;
 
-import com.ssafy.hotstock.domain.theme.Theme;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import jakarta.persistence.*;
 import lombok.*;
 

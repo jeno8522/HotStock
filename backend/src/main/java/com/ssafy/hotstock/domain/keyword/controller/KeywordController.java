@@ -1,6 +1,8 @@
-package com.ssafy.hotstock.domain.keyword;
+package com.ssafy.hotstock.domain.keyword.controller;
 
 
+import com.ssafy.hotstock.domain.keyword.service.KeywordService;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;

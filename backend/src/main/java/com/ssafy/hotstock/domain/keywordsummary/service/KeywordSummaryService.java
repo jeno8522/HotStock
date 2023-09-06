@@ -1,4 +1,6 @@
-package com.ssafy.hotstock.domain.keywordsummary;
+package com.ssafy.hotstock.domain.keywordsummary.service;
+
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
 
 import java.util.List;
 import java.util.Optional;

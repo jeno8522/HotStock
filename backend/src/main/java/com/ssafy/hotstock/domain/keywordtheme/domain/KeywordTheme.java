@@ -1,7 +1,7 @@
-package com.ssafy.hotstock.domain.keywordtheme;
+package com.ssafy.hotstock.domain.keywordtheme.domain;
 
-import com.ssafy.hotstock.domain.keyword.Keyword;
-import com.ssafy.hotstock.domain.theme.Theme;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import jakarta.persistence.*;
 import lombok.*;
 

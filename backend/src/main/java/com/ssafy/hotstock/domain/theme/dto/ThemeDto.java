@@ -1,9 +1,7 @@
-package com.ssafy.hotstock.domain.theme;
+package com.ssafy.hotstock.domain.theme.dto;
 
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import lombok.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

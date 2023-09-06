@@ -1,14 +1,12 @@
-package com.ssafy.hotstock.domain.keywordsummary;
+package com.ssafy.hotstock.domain.keywordsummary.domain;
 
 
-import com.ssafy.hotstock.domain.keyword.Keyword;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.CascadeType.*;
-import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
 @Entity

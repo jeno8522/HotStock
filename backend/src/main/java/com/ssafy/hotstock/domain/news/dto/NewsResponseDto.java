@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.news.dao;
+package com.ssafy.hotstock.domain.news.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

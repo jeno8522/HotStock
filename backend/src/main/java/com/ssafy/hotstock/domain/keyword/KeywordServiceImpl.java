@@ -2,10 +2,11 @@ package com.ssafy.hotstock.domain.keyword;
 
 
 import com.ssafy.hotstock.domain.keywordsummary.KeywordSummaryService;
-import com.ssafy.hotstock.domain.news.News;
+
 import com.ssafy.hotstock.domain.keywordsummary.KeywordSummary;
 
-import com.ssafy.hotstock.domain.news.NewsService;
+import com.ssafy.hotstock.domain.news.domain.News;
+import com.ssafy.hotstock.domain.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

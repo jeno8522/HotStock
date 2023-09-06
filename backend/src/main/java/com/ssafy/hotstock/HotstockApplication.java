@@ -2,7 +2,7 @@ package com.ssafy.hotstock;
 
 import com.ssafy.hotstock.domain.keywordsummary.KeywordSummary;
 import com.ssafy.hotstock.domain.keywordtheme.KeywordTheme;
-import com.ssafy.hotstock.domain.news.News;
+import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.stock.Stock;
 import com.ssafy.hotstock.domain.theme.Theme;
 import com.ssafy.hotstock.domain.keyword.Keyword;
@@ -44,7 +44,7 @@ public class HotstockApplication implements CommandLineRunner {
 
 		News news = new News();
 		news.setTitle("Finance News Title");
-		news.setSummary("This is a summary");
+//		news.setSummary("This is a summary");
 		news.setLink("http://example.com");
 		em.persist(news);
 

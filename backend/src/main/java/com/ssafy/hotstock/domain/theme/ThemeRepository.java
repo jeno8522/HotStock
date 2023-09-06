@@ -7,5 +7,4 @@ import java.util.List;
 
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
-    List<ThemeRepository> findAllById(Long id);
 }

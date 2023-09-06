@@ -1,21 +1,30 @@
 package com.ssafy.hotstock.domain.news.service;
 
+
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
+import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -77,8 +86,6 @@ public class NewsServiceImpl implements NewsService {
                     }
                 }
 
-
-
                 // 날짜 찾아오기
                 String date = doc.select("span.media_end_head_info_datestamp_time")
                     .attr("data-date-time");
@@ -90,7 +97,7 @@ public class NewsServiceImpl implements NewsService {
                     // 첫 번째 태그의 내용 가져오기
                     if (!elements.isEmpty()) {
                         String dataTime = elements.first().text();
-                        date=formatDateTime(dataTime);
+                        date = formatDateTime(dataTime);
                     } else {
                         System.out.println("해당 날짜를 찾을 수 없습니다.");
                     }
@@ -104,7 +111,7 @@ public class NewsServiceImpl implements NewsService {
                     if (!elements.isEmpty()) {
                         String dataTime = elements.get(1).text();
                         dataTime = dataTime.replace("기사입력", "").trim();
-                        date=formatDateTime(dataTime);
+                        date = formatDateTime(dataTime);
                     } else {
                         System.out.println("해당 날짜를 찾을 수 없습니다.");
                     }
@@ -151,5 +158,56 @@ public class NewsServiceImpl implements NewsService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public News createNews(News news) {
+        return newsRepository.save(news);
+    }
+
+    @Override
+    public Optional<News> getNewsById(Long id) {
+        return newsRepository.findById(id);
+    }
+
+    @Override
+    public List<News> getAllNews() {
+        return newsRepository.findAll();
+    }
+
+    @Override
+    public News updateNews(News news) {
+        return newsRepository.save(news);  // JPA 에서는 업데이트도 save 사용
+    }
+
+    @Override
+    public void deleteNews(Long id) {
+        newsRepository.deleteById(id);
+    }
+
+    // 파이썬 서버에 뉴스기사 request -> response로 List<String[keyword, theme]> 받아옴
+    public KeywordResponseDto fetchKeywords(String title, String content) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
+
+        // Request Body 구성
+        Map<String, String> request = new HashMap<>();
+        request.put("title", title);
+        request.put("content", content);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
+
+        // HTTP POST 요청 보내기
+        ResponseEntity<KeywordResponseDto> response = restTemplate.exchange(url, HttpMethod.POST,
+            entity, KeywordResponseDto.class);
+
+        // Response Body에서 키워드, 관련 theme 리스트 추출
+        KeywordResponseDto keywordResponseDto = response.getBody();
+
+        return keywordResponseDto;
+
     }
 }

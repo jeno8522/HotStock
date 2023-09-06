@@ -1,7 +1,7 @@
 package com.ssafy.hotstock.domain.news.domain;
 
 
-import com.ssafy.hotstock.domain.keyword.Keyword;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import jakarta.persistence.*;
 import lombok.*;
 

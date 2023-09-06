@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface NewsService {
     List<News> crawlingNews(int mediaCompanyNum,int articleNum);
+
+    String formatDateTime(String dataTime);
 }

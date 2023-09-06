@@ -6,13 +6,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: create
-
     properties:
       hibernate:
         format_sql: true
         show-sql: true
+        ddl-auto: create
 logging:
   level:
     org.hibernate.SQL: debug

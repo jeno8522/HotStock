@@ -2,12 +2,13 @@ package com.ssafy.hotstock.domain.news.service;
 
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
-import jakarta.persistence.Column;
 import java.util.List;
 import java.util.Optional;
 
 public interface NewsService {
     List<News> crawlingNews(int mediaCompanyNum,int articleNum);
+
+    String formatDateTime(String dataTime);
     News createNews(News news);
 
     Optional<News> getNewsById(Long id);

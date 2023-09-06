@@ -1,13 +1,14 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/hotstock
-    username: ssafy
-    password: ssafy
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: create
+
     properties:
       hibernate:
         format_sql: true
@@ -21,3 +22,4 @@ server:
   port: 8080  # 포트 설정
   servlet:
     context-path: /hotstock  # 기본 경로(prefix) 설정
+

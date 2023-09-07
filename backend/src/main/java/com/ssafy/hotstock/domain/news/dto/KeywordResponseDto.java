@@ -12,6 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class KeywordResponseDto {
     // 뉴스에서 추출한 keyword와 이 keyword에 해당하는 theme을 담는 List
-    private List<String[]> keywordResults;
+    private String keywordContent;
+    private List<String> themeNames;
 
 }

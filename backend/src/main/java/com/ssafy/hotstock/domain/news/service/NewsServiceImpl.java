@@ -1,24 +1,36 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keyword.service.KeywordService;
+import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
 import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import com.ssafy.hotstock.domain.stock.domain.Stock;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
+import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,6 +45,11 @@ public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsRepository;
 
+    private final KeywordThemeService keywordThemeService;
+
+
+    private final ThemeService themeService;
+
     @Override
     public List<News> crawlingNews(int mediaCompanyNum, int articleNum) {
 
@@ -41,12 +58,12 @@ public class NewsServiceImpl implements NewsService {
 
             for (int i = 0; i < 100; i++) {
                 String link =
-                    "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
-                        + "/" + String.format("%010d", articleNum);
+                        "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
+                                + "/" + String.format("%010d", articleNum);
 
                 Connection conn = Jsoup.connect(link)
-                    .userAgent(
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
+                        .userAgent(
+                                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
 
                 Document doc = conn.get();
 
@@ -88,7 +105,7 @@ public class NewsServiceImpl implements NewsService {
 
                 // 날짜 찾아오기
                 String date = doc.select("span.media_end_head_info_datestamp_time")
-                    .attr("data-date-time");
+                        .attr("data-date-time");
 
                 // 시사/ 연예
                 if (date.isEmpty()) {
@@ -161,7 +178,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News createNews(News news) {
+    public News insertNews(News news) {
         return newsRepository.save(news);
     }
 
@@ -185,8 +202,10 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
-    // 파이썬 서버에 뉴스기사 request -> response로 List<String[keyword, theme]> 받아옴
-    public KeywordResponseDto fetchKeywords(String title, String content) {
+    // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
+    public void fetchKeywords(News news) {
+        String title = news.getTitle();
+        String content = news.getContent();
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
 
@@ -201,13 +220,62 @@ public class NewsServiceImpl implements NewsService {
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
 
         // HTTP POST 요청 보내기
-        ResponseEntity<KeywordResponseDto> response = restTemplate.exchange(url, HttpMethod.POST,
-            entity, KeywordResponseDto.class);
+        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(url, HttpMethod.POST,
+                entity, new ParameterizedTypeReference<List<KeywordResponseDto>>() {
+                });
 
         // Response Body에서 키워드, 관련 theme 리스트 추출
-        KeywordResponseDto keywordResponseDto = response.getBody();
+        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
 
-        return keywordResponseDto;
+        
+        //예외 처리 추가해야함유
+//        assert keywordResponseDtoList != null;
+        insertKeywordandThemeList(keywordResponseDtoList, news);
+    }
 
+
+    
+    // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
+    @Override
+    public void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news) {
+
+        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
+        ) {
+            String keywordContent = keywordResponseDto.getKeywordContent();
+            List<String> themeNames = keywordResponseDto.getThemeNames();
+
+            //수정 예정
+            List<Stock> stocks = new ArrayList<>();
+
+            LocalDateTime createDate = LocalDateTime.now();
+
+            Keyword keyword = Keyword.builder()
+                    .content(keywordContent)
+                    .createDate(createDate)
+                    .news(news)
+                    .build();
+
+
+            //수정 예정
+            KeywordSummary keywordSummary = KeywordSummary.builder()
+                    .count(1L)
+                    .createDate(createDate)
+                    .keyword(keyword)
+                    .build();
+            keyword.setKeywordSummary(keywordSummary);
+
+            for (String themeName : themeNames) {
+                Theme theme = Theme.builder()
+                        .name(themeName)
+                        .stocks(stocks)
+                        .build();
+                themeService.insertTheme(theme);
+                KeywordTheme keywordTheme = KeywordTheme.builder()
+                        .keyword(keyword)
+                        .theme(theme)
+                        .build();
+                keywordThemeService.insertKeywordTheme(keywordTheme);
+            }
+        }
     }
 }

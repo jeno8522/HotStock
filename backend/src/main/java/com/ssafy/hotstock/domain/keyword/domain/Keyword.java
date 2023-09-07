@@ -40,7 +40,6 @@ public class Keyword {
     @JoinColumn(name = "news_id")
     private News news;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
-    @JoinColumn(name = "keyword_summary_id")
+    @OneToOne(mappedBy = "keyword")
     private KeywordSummary keywordSummary;
 }

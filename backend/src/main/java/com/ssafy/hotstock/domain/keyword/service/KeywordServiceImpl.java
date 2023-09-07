@@ -29,9 +29,9 @@ public class KeywordServiceImpl implements KeywordService {
     private KeywordSummaryService keywordSummaryService;
 
     @Override
-    public Keyword createKeyword(Keyword keyword) {
-        News news = newsService.createNews(keyword.getNews());
-        KeywordSummary keywordSummary = keywordSummaryService.createKeywordSummary(keyword.getKeywordSummary());
+    public Keyword insertKeyword(Keyword keyword) {
+        News news = newsService.insertNews(keyword.getNews());
+        KeywordSummary keywordSummary = keywordSummaryService.insertKeywordSummary(keyword.getKeywordSummary());
         keyword.setNews(news);
         keyword.setKeywordSummary(keywordSummary);
 

@@ -2,14 +2,20 @@ package com.ssafy.hotstock.domain.news.service;
 
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface NewsService {
-    List<News> crawlingNews(int mediaCompanyNum,int articleNum);
+
+    News crawlingNews(int mediaCompanyNum,int articleNum) throws IOException;
+    List<News> crawlingNewsList(int mediaCompanyNum,int articleNum, String currentTime);
 
     String formatDateTime(String dataTime);
+
     News createNews(News news);
+
+    List<News> createNewsList(List<News> newsList);
 
     Optional<News> getNewsById(Long id);
 

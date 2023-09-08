@@ -3,6 +3,9 @@ package com.ssafy.hotstock.domain.news.controller;
 
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.service.NewsService;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,14 @@ public class NewsController {
     @GetMapping("/list")
     public ResponseEntity<?> addNews(@RequestParam int mediaCompanyNum, @RequestParam int articleNum) {
         long start = System.currentTimeMillis();
-        List<News> newsList = newsService.crawlingNews(mediaCompanyNum, articleNum);
+
+        ZonedDateTime currentTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        String format = currentTime.format(formatter);
+
+        List<News> newsList = newsService.crawlingNewsList(mediaCompanyNum, articleNum, format);
 
         long end = System.currentTimeMillis();
 

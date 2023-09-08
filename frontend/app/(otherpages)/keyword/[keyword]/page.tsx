@@ -1,41 +1,27 @@
-interface Article {
-    title: string;
-    content: string;
-}
+import { Keyword } from "@/types";
 
-interface Keyword {
-    name: string;
-    theme: string[];
-    article: Article[];
-}
+// interface KeywordProps {
+//     keyword: Keyword;
+// }
 
-const dummy: Keyword = {
-    name: "반도체",
-    theme: ["업종1", "업종2", "업종3"],
-    article: [
-        {
-            title: "기사 1 제목",
-            content: "기사 1 내용",
-        },
-        {
-            title: "기사 2 제목",
-            content: "기사 2 내용",
-        },
-    ],
-};
-export default function KeywordDetail({
+const KeywordDetail = ({
     params,
+    keyword,
 }: {
     params: { slug: string };
-}) {
+    keyword: Keyword;
+}) => {
+    const { name, id, themes } = keyword;
     return (
         <div>
-            <div>{dummy.name}</div>
+            <div>{name}</div>
             <div>
-                {dummy.theme.map((themeItem, index) => (
+                {themes.map((themeItem, index) => (
                     <div key={index}>{themeItem}</div>
                 ))}
             </div>
         </div>
     );
-}
+};
+
+export default KeywordDetail;

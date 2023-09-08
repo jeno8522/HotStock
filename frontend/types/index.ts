@@ -1,8 +1,8 @@
 export interface Article {
     title: string;
-    date: string;
+    date?: string;
     content: string;
-    company: string;
+    company?: string;
 }
 
 export interface Stock {
@@ -20,5 +20,5 @@ export interface Keyword {
     name: string;
     themes: string[];
     id: string;
-    // articles: Article[];
+    articles: Article[];
 }

@@ -5,12 +5,10 @@ interface ArticleProps {
 }
 
 const ArticleCard = ({ article }: ArticleProps) => {
-    const { title, date, content, company } = article;
+    const { title, content } = article;
     return (
         <div>
             <div>{title}</div>
-            <div>{company}</div>
-            <div>{date}</div>
             <div>{content}</div>
         </div>
     );

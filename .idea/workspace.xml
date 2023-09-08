@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="Feat : 테마 리스트 코드 추가">
+    <list default="true" id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/flask/keyword_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/keyword_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/flask/openai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/openai_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/flask/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/mecab_test_code.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/mecab_test_code.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +60,7 @@
       <workItem from="1693961305527" duration="2838000" />
       <workItem from="1693989534478" duration="105000" />
       <workItem from="1694045733239" duration="2572000" />
+      <workItem from="1694149244096" duration="1864000" />
     </task>
     <task id="LOCAL-00001" summary="Feat : 테마 리스트 코드 추가">
       <option name="closed" value="true" />
@@ -65,7 +70,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694097114629</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축">
+      <option name="closed" value="true" />
+      <created>1694149314234</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1694149314234</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,6 +97,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Feat : 테마 리스트 코드 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat : 테마 리스트 코드 추가" />
+    <MESSAGE value="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축" />
   </component>
 </project>

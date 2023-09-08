@@ -6,7 +6,7 @@ min_count = 2   # 단어의 최소 출현 빈도수 (그래프 생성 시)
 max_length = 10 # 단어의 최대 길이
 beta = 0.90    # PageRank의 decaying factor beta
 max_iter = 20
-extract_length = 5 # 우선순위로 정렬 후, 추출할 키워드의 갯수 
+extract_length = 5 # 우선순위로 정렬 후, 추출할 키워드의 최대 개수 
 
 
 class KeywordService:
@@ -27,7 +27,8 @@ class KeywordService:
         keywords, rank, graph = wordrank_extractor.extract([result_text], beta, max_iter)
         for word, r in sorted(keywords.items(), key=lambda x:x[1], reverse=True)[:extract_length]:
             #TODO: 가중치는 보완 필요
-            res[word] = r
+            # res[word] = r
+            res[word] = 1
             
         return res
                 

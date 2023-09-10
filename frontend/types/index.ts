@@ -16,6 +16,14 @@ export interface Theme {
     id: number;
 }
 
+export interface KeywordNowFormat {
+    id: string;
+    name: string;
+}
+
+export interface KeywordRes {
+    keywords: KeywordNowFormat[];
+}
 export interface Keyword {
     name: string;
     themes: string[];

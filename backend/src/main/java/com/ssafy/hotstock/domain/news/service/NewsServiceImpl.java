@@ -231,7 +231,11 @@ public class NewsServiceImpl implements NewsService {
         
         //예외 처리 추가해야함유
 //        assert keywordResponseDtoList != null;
-//        insertKeywordandThemeList(keywordResponseDtoList, news);
+//        if (keywordResponseDtoList == null) {
+//
+//        } else {
+//            insertKeywordandThemeList(keywordResponseDtoList, news);
+//        }
     }
 
 

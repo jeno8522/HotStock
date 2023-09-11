@@ -18,7 +18,7 @@ public class KeywordThemeDto {
         return KeywordThemeDto.builder()
                 .id(keywordTheme.getId())
                 .keywordId(keywordTheme.getKeyword().getId())
-                .themeId(keywordTheme.getTheme().getId())
+//                .themeId(keywordTheme.getTheme().getId())
                 .build();
     }
 }

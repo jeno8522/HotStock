@@ -6,6 +6,7 @@ import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
+import com.ssafy.hotstock.domain.news.dto.KeywordRequestDto;
 import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final KeywordService keywordService;
 
-    private final ThemeService themeService;
+
 
 
     /**
@@ -272,6 +273,11 @@ public class NewsServiceImpl implements NewsService {
 
         // Request Body 구성
         Map<String, String> request = new HashMap<>();
+
+        List<String[]> keywordRequestDtos = new ArrayList();
+        //for each 문 안에서
+//        newsList.add(new String[] {"title", "content"});
+
         request.put("title", title);
         request.put("content", content);
 

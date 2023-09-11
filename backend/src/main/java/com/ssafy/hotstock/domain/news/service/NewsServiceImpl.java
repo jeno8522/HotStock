@@ -1,6 +1,8 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
@@ -38,6 +40,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -204,40 +207,43 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
+    @Override
+
     // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
-    public void fetchKeywords(News news) {
-        String title = news.getTitle();
-        String content = news.getContent();
+    public void fetchKeywords(List<News> newsList) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
 
-        // Request Body 구성
-        Map<String, String> request = new HashMap<>();
+        // list(String[title, content]) request 작성
+        List<String[]> extractKeywordRequest = new ArrayList();
+        for (News news: newsList
+             ) {
+            String title = news.getTitle();
+            String content = news.getContent();
+            extractKeywordRequest.add(new String[]{title, content});
+        }
 
-        List<String[]> keywordRequestDtos = new ArrayList();
-        //for each 문 안에서
-//        newsList.add(new String[] {"title", "content"});
-
-        request.put("title", title);
-        request.put("content", content);
+        ObjectMapper mapper = new ObjectMapper();
+        String requestToJson = mapper.writeValueAsString(extractKeywordRequest);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
-        HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
+        HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
 
         // HTTP POST 요청 보내기
-        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(url, HttpMethod.POST,
-                entity, new ParameterizedTypeReference<List<KeywordResponseDto>>() {
-                });
+        ResponseEntity<List<String[]>> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<List<String[]>>() {}
+        );
+
+
 
         // Response Body에서 키워드, 관련 theme 리스트 추출
-        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
+        List<String[]> keywordResponseList = response.getBody();
 
-        
-        //예외 처리 추가해야함유
-//        assert keywordResponseDtoList != null;
-//        insertKeywordandThemeList(keywordResponseDtoList, news);
     }
 
 

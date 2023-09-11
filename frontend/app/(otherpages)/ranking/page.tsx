@@ -57,6 +57,7 @@ const Ranking = () => {
                     </div>
                 ))}
             </div>
+            {/* <RankingList/> */}
         </div>
     );
 };

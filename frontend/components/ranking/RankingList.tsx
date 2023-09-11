@@ -1,36 +1,23 @@
-import Link from "next/link";
-import { KeywordNowFormat, KeywordRes } from "../../types/index";
-import { GetServerSideProps } from "next";
+import { KeywordProps } from "../../types/index";
+import { RankingCard } from "..";
+import { fetchKeywords } from "@/utils";
 
-interface getKeywordsProps {
-    fetchedKeywords: KeywordNowFormat[];
-}
-const getKeywordsNow: GetServerSideProps<getKeywordsProps> = async () => {
-    // try {
-    const res = await fetch("url", { cache: "no-store" });
-    const data: KeywordRes = await res.json();
-    return {
-        props: {
-            fetchedKeywords: data.keywords,
-        },
-    };
-    // } catch (err) {
-    //     console.log(err);
-    // }
-};
+const RankingList = async () => {
+    const allKeywords = await fetchKeywords();
+    const isEmpty =
+        !Array.isArray(allKeywords) || allKeywords.length < 1 || !allKeywords;
 
-const RankingList = async ({ fetchedKeywords }: getKeywordsProps) => {
     return (
         <div>
-            <div>
-                {/* {keywords.map((keyword, index) => (
-                    <div key={index}>
-                        <Link href={`/keyword/${keyword.id}`}>
-                            {keyword.name}
-                        </Link>
-                    </div>
-                ))} */}
-            </div>
+            {!isEmpty ? (
+                <div>
+                    {allKeywords?.map((keyword, index) => (
+                        <RankingCard key={index} keyword={keyword} />
+                    ))}
+                </div>
+            ) : (
+                <div>없어안돼돌아가</div>
+            )}
         </div>
     );
 };

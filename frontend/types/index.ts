@@ -16,14 +16,11 @@ export interface Theme {
     id: number;
 }
 
-export interface KeywordNowFormat {
+export interface KeywordProps {
     id: string;
     name: string;
 }
 
-export interface KeywordRes {
-    keywords: KeywordNowFormat[];
-}
 export interface Keyword {
     name: string;
     themes: string[];

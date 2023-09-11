@@ -1,7 +1,9 @@
 package com.ssafy.hotstock.domain.keywordtheme.service;
 
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordThemeRepository;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,7 +16,11 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     private final KeywordThemeRepository keywordThemeRepository;
 
     @Override
-    public KeywordTheme insertKeywordTheme(KeywordTheme keywordTheme) {
+    public KeywordTheme insertKeywordTheme(Keyword keyword, Theme theme) {
+        KeywordTheme keywordTheme = KeywordTheme.builder()
+                .keyword(keyword)
+                .theme(theme)
+                .build();
         return keywordThemeRepository.save(keywordTheme);
     }
 

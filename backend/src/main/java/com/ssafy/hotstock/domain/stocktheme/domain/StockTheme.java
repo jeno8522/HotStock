@@ -24,7 +24,6 @@ public class StockTheme {
     @JoinColumn(name = "stock_id")
     private Stock stock;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "theme_id")
+    @Enumerated(EnumType.STRING)
     private Theme theme;
 }

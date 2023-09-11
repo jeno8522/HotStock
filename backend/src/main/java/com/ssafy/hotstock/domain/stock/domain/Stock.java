@@ -1,8 +1,12 @@
 package com.ssafy.hotstock.domain.stock.domain;
 
+import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.*;
@@ -27,8 +31,8 @@ public class Stock {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(fetch = LAZY, cascade = ALL)
-    @JoinColumn(name = "theme_id")
-    private Theme theme;
+    @OneToMany(mappedBy = "stock", cascade = ALL)
+    private List<StockTheme> stockThemes = new ArrayList<>();
+
 
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface KeywordSummaryService {
 
-    KeywordSummary createKeywordSummary(KeywordSummary keywordSummary);
+    KeywordSummary insertKeywordSummary(KeywordSummary keywordSummary);
 
     Optional<KeywordSummary> getKeywordSummaryById(Long id);
 

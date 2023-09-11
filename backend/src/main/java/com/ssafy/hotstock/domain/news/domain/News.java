@@ -2,9 +2,14 @@ package com.ssafy.hotstock.domain.news.domain;
 
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
@@ -39,6 +44,7 @@ public class News {
     @Column(name = "article_num")
     private int articleNum;
 
-    @OneToOne(mappedBy = "news", fetch = LAZY)
-    private Keyword keyword;
+    @OneToMany(mappedBy = "news", cascade = ALL)
+    private List<KeywordNews> keywordNews  = new ArrayList<>();
+
 }

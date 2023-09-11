@@ -53,8 +53,8 @@ public class KeywordController {
 //    "keywordTheme": {}
 //}
     @PostMapping
-    public ResponseEntity<Keyword> createKeyword(@RequestBody Keyword keyword) {
-        Keyword createdKeyword = keywordService.createKeyword(keyword);
+    public ResponseEntity<Keyword> insertKeyword(@RequestBody Keyword keyword) {
+        Keyword createdKeyword = keywordService.insertKeyword(keyword);
         return ResponseEntity.ok(createdKeyword);
     }
 

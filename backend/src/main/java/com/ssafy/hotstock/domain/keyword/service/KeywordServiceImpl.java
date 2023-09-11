@@ -22,18 +22,14 @@ public class KeywordServiceImpl implements KeywordService {
     @Autowired
     private KeywordRepository keywordRepository;
 
-    @Autowired
-    private NewsService newsService;
+//    @Autowired
+//    private NewsService newsService;
 
     @Autowired
     private KeywordSummaryService keywordSummaryService;
 
     @Override
-    public Keyword createKeyword(Keyword keyword) {
-        News news = newsService.createNews(keyword.getNews());
-        KeywordSummary keywordSummary = keywordSummaryService.createKeywordSummary(keyword.getKeywordSummary());
-        keyword.setNews(news);
-        keyword.setKeywordSummary(keywordSummary);
+    public Keyword insertKeyword(Keyword keyword) {
 
         return keywordRepository.save(keyword);
     }
@@ -51,11 +47,6 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public Keyword updateKeyword(Keyword keyword) {
 
-        News updatedNews = newsService.updateNews(keyword.getNews());
-        KeywordSummary updatedKeywordSummary = keywordSummaryService.updateKeywordSummary(keyword.getKeywordSummary());
-        keyword.setNews(updatedNews);
-        keyword.setKeywordSummary(updatedKeywordSummary);
-
         return keywordRepository.save(keyword);
     }
 
@@ -63,8 +54,7 @@ public class KeywordServiceImpl implements KeywordService {
     public void deleteKeyword(Long id) {
         Keyword existingKeyword = keywordRepository.findById(id).orElse(null);
         if (existingKeyword != null) {
-            newsService.deleteNews(existingKeyword.getNews().getId());
-            keywordSummaryService.deleteKeywordSummary(existingKeyword.getKeywordSummary().getId());
+//            newsService.deleteNews(existingKeyword.getNews().getId());
         }
 
         keywordRepository.deleteById(id);

@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.*;
 
 @Entity
@@ -26,6 +28,7 @@ public class KeywordSummary {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @OneToOne(mappedBy = "keywordSummary")
-    private Keyword keyword;
+//    @OneToOne(fetch = LAZY, cascade = ALL)
+//    @JoinColumn(name = "keyword_id")
+//    private Keyword keyword;
 }

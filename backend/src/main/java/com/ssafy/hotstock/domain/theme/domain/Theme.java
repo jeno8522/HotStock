@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.theme.domain;
 
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.stock.domain.Stock;
+import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +31,5 @@ public class Theme {
     private List<KeywordTheme> keywordThemes = new ArrayList<>();
 
     @OneToMany(mappedBy = "theme", cascade = ALL)
-    private List<Stock> stocks = new ArrayList<>();
+    private List<StockTheme> stockThemes = new ArrayList<>();
 }

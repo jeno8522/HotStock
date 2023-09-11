@@ -23,5 +23,5 @@ public interface NewsService {
     void fetchKeywords(News news);
 
     // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
-    void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news);
+//    void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news);
 }

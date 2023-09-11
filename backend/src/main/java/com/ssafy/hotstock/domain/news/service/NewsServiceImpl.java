@@ -47,6 +47,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final KeywordThemeService keywordThemeService;
 
+    private final KeywordService keywordService;
 
     private final ThemeService themeService;
 
@@ -230,52 +231,52 @@ public class NewsServiceImpl implements NewsService {
         
         //예외 처리 추가해야함유
 //        assert keywordResponseDtoList != null;
-        insertKeywordandThemeList(keywordResponseDtoList, news);
+//        insertKeywordandThemeList(keywordResponseDtoList, news);
     }
 
 
     
     // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
-    @Override
-    public void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news) {
-
-        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
-        ) {
-            String keywordContent = keywordResponseDto.getKeywordContent();
-            List<String> themeNames = keywordResponseDto.getThemeNames();
-
-            //수정 예정
-            List<Stock> stocks = new ArrayList<>();
-
-            LocalDateTime createDate = LocalDateTime.now();
-
-            Keyword keyword = Keyword.builder()
-                    .content(keywordContent)
-                    .createDate(createDate)
-                    .news(news)
-                    .build();
-
-
-            //수정 예정
-            KeywordSummary keywordSummary = KeywordSummary.builder()
-                    .count(1L)
-                    .createDate(createDate)
-                    .keyword(keyword)
-                    .build();
-            keyword.setKeywordSummary(keywordSummary);
-
-            for (String themeName : themeNames) {
-                Theme theme = Theme.builder()
-                        .name(themeName)
-                        .stocks(stocks)
-                        .build();
-                themeService.insertTheme(theme);
-                KeywordTheme keywordTheme = KeywordTheme.builder()
-                        .keyword(keyword)
-                        .theme(theme)
-                        .build();
-                keywordThemeService.insertKeywordTheme(keywordTheme);
-            }
-        }
-    }
+//    @Override
+//    public void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news) {
+//
+//        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
+//        ) {
+//            String keywordContent = keywordResponseDto.getKeywordContent();
+//            List<String> themeNames = keywordResponseDto.getThemeNames();
+//
+//            //수정 예정
+//            List<Stock> stocks = new ArrayList<>();
+//
+//            LocalDateTime createDate = LocalDateTime.now();
+//
+//            Keyword keyword = Keyword.builder()
+//                    .content(keywordContent)
+//                    .createDate(createDate)
+//                    .news(news)
+//                    .build();
+//            keywordService.insertKeyword(keyword);
+//
+//            //수정 예정
+//            KeywordSummary keywordSummary = KeywordSummary.builder()
+//                    .count(1L)
+//                    .createDate(createDate)
+//                    .keyword(keyword)
+//                    .build();
+//            keyword.setKeywordSummary(keywordSummary);
+//
+//            for (String themeName : themeNames) {
+//                Theme theme = Theme.builder()
+//                        .name(themeName)
+//                        .stocks(stocks)
+//                        .build();
+//                themeService.insertTheme(theme);
+//                KeywordTheme keywordTheme = KeywordTheme.builder()
+//                        .keyword(keyword)
+//                        .theme(theme)
+//                        .build();
+//                keywordThemeService.insertKeywordTheme(keywordTheme);
+//            }
+//        }
+//    }
 }

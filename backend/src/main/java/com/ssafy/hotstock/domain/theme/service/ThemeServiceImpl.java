@@ -32,13 +32,15 @@ public class ThemeServiceImpl implements ThemeService {
         return themeRepository.findAll();
     }
 
+    //일단 주석처리
     public Theme updateTheme(Long id, Theme updatedTheme) {
-        return themeRepository.findById(id).map(theme -> {
-            theme.setName(updatedTheme.getName());
-            theme.setKeywordThemes(updatedTheme.getKeywordThemes());
-            theme.setStocks(updatedTheme.getStocks());
-            return themeRepository.save(theme);
-        }).orElseThrow(() -> new ResourceNotFoundException("Theme with id " + id + " not found"));
+        return null;
+//        return themeRepository.findById(id).map(theme -> {
+//            theme.setName(updatedTheme.getName());
+//            theme.setKeywordThemes(updatedTheme.getKeywordThemes());
+//            theme.setStocks(updatedTheme.getStocks());
+//            return themeRepository.save(theme);
+//        }).orElseThrow(() -> new ResourceNotFoundException("Theme with id " + id + " not found"));
     }
 
     // Delete a Theme by ID

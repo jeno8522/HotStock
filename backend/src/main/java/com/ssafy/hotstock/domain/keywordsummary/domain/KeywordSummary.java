@@ -28,7 +28,7 @@ public class KeywordSummary {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
-    @JoinColumn(name = "keyword_id")
-    private Keyword keyword;
+//    @OneToOne(fetch = LAZY, cascade = ALL)
+//    @JoinColumn(name = "keyword_id")
+//    private Keyword keyword;
 }

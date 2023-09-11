@@ -16,6 +16,11 @@ export interface Theme {
     id: number;
 }
 
+export interface KeywordProps {
+    id: string;
+    name: string;
+}
+
 export interface Keyword {
     name: string;
     themes: string[];

@@ -1,6 +1,7 @@
 import KeywordDetail from "../keyword/[key]/page";
 import { Keyword } from "@/types";
 import Link from "next/link";
+import { RankingList } from "@/components";
 
 const dummy: Keyword[] = [
     {
@@ -41,8 +42,12 @@ const dummy: Keyword[] = [
 
 const Ranking = () => {
     return (
-        <div>
-            <h2>키워드 랭킹 페이지</h2>
+        <div className="max-w-screen-xl px-8 xl:px-16 mx-auto">
+            <div className="flex flex-col justify-center items-start row-start-2 sm:row-start-1">
+                <h2>키워드 랭킹 페이지</h2>
+                <p>지금 가장 핫한 키워드들을 보여드려요</p>
+            </div>
+
             <div>
                 {dummy.map((keyword, index) => (
                     <div key={index}>
@@ -52,6 +57,7 @@ const Ranking = () => {
                     </div>
                 ))}
             </div>
+            {/* <RankingList/> */}
         </div>
     );
 };

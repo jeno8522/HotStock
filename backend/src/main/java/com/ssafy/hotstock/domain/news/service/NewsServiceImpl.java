@@ -8,6 +8,7 @@ import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
+import com.ssafy.hotstock.domain.news.dto.KeywordRequestDto;
 import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
 
 import java.io.IOException;
@@ -21,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
-import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
@@ -49,7 +50,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final KeywordService keywordService;
 
-    private final ThemeService themeService;
+
 
     @Override
     public List<News> crawlingNews(int mediaCompanyNum, int articleNum) {
@@ -212,6 +213,11 @@ public class NewsServiceImpl implements NewsService {
 
         // Request Body 구성
         Map<String, String> request = new HashMap<>();
+
+        List<String[]> keywordRequestDtos = new ArrayList();
+        //for each 문 안에서
+//        newsList.add(new String[] {"title", "content"});
+
         request.put("title", title);
         request.put("content", content);
 

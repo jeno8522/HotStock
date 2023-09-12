@@ -1,4 +1,4 @@
-from theme_service import snapshot
+from service.theme_service import snapshot
 import json
 
 import openai
@@ -9,8 +9,9 @@ __test_api_key = "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"
 openai.api_key = __test_api_key
 
 command = """
-For each of the above keywords, compile related themes from the themes provided above and return them in JSON format.
-At this time, you must not add any other words, and must answer only in JSON.
+위 keywords, themes에 대하여 분석할거야.
+각 keyword에 대하여, 관련이 있는 모든 theme들을 (단, keyword는 theme가 아니다) 엮어서 JSON 형태로 반환해줘.
+이 때, 다른 말은 하나도 더하면 안되고, JSON으로만 대답해줘야해.
 """
 
 
@@ -22,12 +23,11 @@ def make_prompt(keywords:list) :
 class OpenAIService:
     
     def __init__(self):
-        self.content = ""
-        pass
+        self.content = ""#TODO : 삭제해야할 코드, 테스트를 위한 log 확인용
+
     
     def get_themes_of_keywords(self, keywords:list): 
         content = make_prompt(keywords)
-        self.content = content #테스트용
         messages = [{"role":"user", "content":content}]
         
         completion = openai.ChatCompletion.create(
@@ -37,4 +37,5 @@ class OpenAIService:
         )
         chat_response = completion.choices[0].message.content
         
+        self.content = content #TODO : 삭제해야할 코드, 테스트를 위한 log 확인용
         return chat_response

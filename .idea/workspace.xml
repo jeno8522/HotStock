@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축">
+    <list default="true" id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="Feat : python api서버 키워드-테마 연결 api 성능 개선">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-server/test/flask/keyword_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/keyword_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-server/test/flask/openai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/openai_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-server/test/flask/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/flask/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-server/test/mecab_test_code.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/test/mecab_test_code.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +27,28 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Uy2VlnAuLOIiAFPl4np8L17aAO" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;ToolWindow변경 내용.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindow변경 내용.ShowToolbar": "false",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/project1/master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
@@ -60,7 +61,8 @@
       <workItem from="1693961305527" duration="2838000" />
       <workItem from="1693989534478" duration="105000" />
       <workItem from="1694045733239" duration="2572000" />
-      <workItem from="1694149244096" duration="1864000" />
+      <workItem from="1694149244096" duration="2349000" />
+      <workItem from="1694405598149" duration="2974000" />
     </task>
     <task id="LOCAL-00001" summary="Feat : 테마 리스트 코드 추가">
       <option name="closed" value="true" />
@@ -78,7 +80,23 @@
       <option name="project" value="LOCAL" />
       <updated>1694149314234</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Feat : python api서버 키워드-테마 연결 api 성능 개선">
+      <option name="closed" value="true" />
+      <created>1694163090117</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694163090117</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Feat : python api서버 키워드-테마 연결 api 성능 개선">
+      <option name="closed" value="true" />
+      <created>1694163489359</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1694163489359</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -96,8 +114,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Feat : 테마 리스트 코드 추가" />
     <MESSAGE value="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축" />
+    <MESSAGE value="Feat : python api서버 키워드-테마 연결 api 성능 개선" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat : python api서버 키워드-테마 연결 api 성능 개선" />
   </component>
 </project>

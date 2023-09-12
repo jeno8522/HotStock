@@ -15,16 +15,21 @@ class KeywordService:
         self.mecab = MeCab()
         
     
-    
     # :text를 받아 키워드를 추출하는 함수
     # :str -> dict
+    #FIXME : 영어만 들어오는 경우 아예 추출하지 못함. 추출하지 못하는 경우 에러가 발생하니 처리가 필요함
     def get_keyword(self, text:str):
         res = dict()
         
         result_text = ' '.join(self.mecab.nouns(text))
-        
         wordrank_extractor = KRWordRank(min_count=min_count, max_length=max_length)
-        keywords, rank, graph = wordrank_extractor.extract([result_text], beta, max_iter)
+        
+        #FIXME : 추출하지 못하는 경우 에러가 발생하니 처리가 필요함. 현재는 그냥 빈 dict를 반환하도록 설정함.
+        try : 
+            keywords, rank, graph = wordrank_extractor.extract([result_text], beta, max_iter)
+        except :
+            return res
+            
         for word, r in sorted(keywords.items(), key=lambda x:x[1], reverse=True)[:extract_length]:
             #TODO: 가중치는 보완 필요
             # res[word] = r

@@ -14,6 +14,8 @@ public interface KeywordService {
     // 키워드 ID로 조회
     Optional<Keyword> getKeywordById(Long id);
 
+
+
     // 모든 키워드 조회
     List<Keyword> getAllKeywords();
 
@@ -22,5 +24,8 @@ public interface KeywordService {
 
     // 키워드 삭제
     void deleteKeyword(Long id);
+
+
+    Keyword findKeywordByContent(String content);
 
 }

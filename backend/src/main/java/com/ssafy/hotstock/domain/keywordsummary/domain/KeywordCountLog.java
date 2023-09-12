@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.news.domain;
+package com.ssafy.hotstock.domain.keywordsummary.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.yaml.snakeyaml.events.Event.ID;
 
 @Entity
 @Getter
@@ -22,21 +20,20 @@ import org.yaml.snakeyaml.events.Event.ID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class CountLog {
+public class KeywordCountLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="count_log_id")
     private Long id;
 
-    @Column(name = "keyword")
-    private String keyword;
+    @Column(name = "content")
+    private String content;
 
     @Column(name = "sub_count")
     private int subCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="check_point_id")
-    private CheckPoint checkPoint;
+    private KeywordCheckPoint keywordCheckPoint;
 }

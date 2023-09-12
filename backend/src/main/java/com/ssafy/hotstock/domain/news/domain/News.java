@@ -19,7 +19,6 @@ import static jakarta.persistence.GenerationType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class News {
 
     @Id @GeneratedValue(strategy = IDENTITY)

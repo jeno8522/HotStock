@@ -1,6 +1,7 @@
 package com.ssafy.hotstock.domain.theme.domain;
 
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import io.lettuce.core.dynamic.annotation.CommandNaming.Strategy;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @NoArgsConstructor
 public class Theme {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_id")
     private Long id;
 

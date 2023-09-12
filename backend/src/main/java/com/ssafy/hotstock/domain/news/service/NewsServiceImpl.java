@@ -1,14 +1,13 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
-import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordResponseDto;
+import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
-import com.ssafy.hotstock.domain.news.dto.KeywordRequestDto;
-import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
-import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +25,13 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 
 @Slf4j
@@ -37,18 +42,52 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
     private final MediaService mediaService;
 
-    private final KeywordThemeService keywordThemeService;
+    private final KeywordSummaryService keywordSummaryService;
 
-    private final KeywordService keywordService;
+    /**
+     * 최신 뉴스 기사 번호 찾기 mediaCompanyNum : 언론사 번호
+     */
+    @Override
+    public int findArticleNum(int mediaCompanyNum) {
+        String articleNum = null;
+        try {
+            String link =
+                "https://media.naver.com/press/" + String.format("%03d", mediaCompanyNum)
+                    + "/ranking?type=popular";
 
+            Connection conn = Jsoup.connect(link)
+                .userAgent(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
 
+            Document doc = conn.get();
+
+            String href = doc.select("li.as_thumb a").attr("href");
+
+            // URL에서 숫자 부분을 추출하는 정규 표현식 패턴
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(href);
+
+            // 숫자가 매칭된 경우 추출
+            while (matcher.find()) {
+                articleNum = matcher.group();
+            }
+
+        } catch (IOException e) {
+            log.error("처음 최신 기사 번호 가져오기 오류: " + e.getCause());
+
+        }
+
+        if (articleNum == null) {
+            return 1;
+        } else {
+            return Integer.parseInt(articleNum);
+        }
+    }
 
 
     /**
-     * 뉴스 1개 크롤링 해오기
-     * mediaCompanyNum : 언론사 번호
-     * articleNum : 기사번호
-     * */
+     * 뉴스 1개 크롤링 해오기 mediaCompanyNum : 언론사 번호 articleNum : 기사번호
+     */
 
     @Override
     public News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException {
@@ -59,13 +98,11 @@ public class NewsServiceImpl implements NewsService {
                 "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
                     + "/" + String.format("%010d", articleNum);
 
-
             Connection conn = Jsoup.connect(link)
                 .userAgent(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
 
             Document doc = conn.get();
-
 
             // 제목 찾아오기
             String title = doc.select("h2#title_area").text();
@@ -233,7 +270,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public  List<News> createNewsList(List<News> newsList) {
+    public List<News> createNewsList(List<News> newsList) {
         return newsRepository.saveAll(newsList);
     }
 
@@ -257,53 +294,49 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
-//    @Override
+    // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
+    public void fetchKeywords(List<News> newsList) {
 
-        
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
+
+        List<String[]> extractKeywordRequest = new ArrayList();
+
+        for (News news : newsList) {
+
+            String title = news.getTitle();
+            String content = news.getContent();
+            extractKeywordRequest.add(new String[]{title, content});
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String requestToJson = null;
+        try {
+            requestToJson = mapper.writeValueAsString(extractKeywordRequest);
+        } catch (JsonProcessingException e) {
+            log.error("JSON 매핑 오류: " + e.getCause());
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
+        // HTTP POST 요청 보내기
+        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(url,
+            HttpMethod.POST, entity, new ParameterizedTypeReference<List<KeywordResponseDto>>() {
+            });
+
+        // Response Body에서 키워드, 관련 theme 리스트 추출
+        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
+
+        System.out.println("keywordResponseDtoList = " + keywordResponseDtoList);
+
         //예외 처리 추가해야함유
-//        assert keywordResponseDtoList != null;
-//        if (keywordResponseDtoList == null) {
-//
-//        } else {
-//            insertKeywordandThemeList(keywordResponseDtoList, news);
-//        }
+        if (keywordResponseDtoList == null) {
+            return;
+        } else {
+            keywordSummaryService.insertKeywordList(keywordResponseDtoList);
+        }
     }
 
-
-    
-//    // 현웅이 파이썬 서버에서 받은 response로 List<String[title, content]> -> 우리 엔티티에 저장하는 로직
-//    @Override
-//    public void insertKeywordandThemeList(List<KeywordResponseDto>, News news) {
-//
-//        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
-//        ) {
-//            String keywordContent = keywordResponseDto.getKeywordContent();
-//            List<String> themeNames = keywordResponseDto.getThemeNames();
-//
-//            //수정 예정
-//            List<Stock> stocks = new ArrayList<>();
-//
-//            LocalDateTime createDate = LocalDateTime.now();
-//
-//            Keyword keyword = Keyword.builder()
-//                    .content(keywordContent)
-//                    .createDate(createDate)
-//                    .build();
-//            keywordService.insertKeyword(keyword);
-//
-//
-//            for (String themeName : themeNames) {
-//                Theme theme = Theme.builder()
-//                        .name(themeName)
-//                        .stocks(stocks)
-//                        .build();
-//                themeService.insertTheme(theme);
-//                KeywordTheme keywordTheme = KeywordTheme.builder()
-//                        .keyword(keyword)
-//                        .theme(theme)
-//                        .build();
-//                keywordThemeService.insertKeywordTheme(keywordTheme);
-//            }
-//        }
-//    }
 }

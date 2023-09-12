@@ -32,9 +32,6 @@ public class Keyword {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "create_date")
-    private LocalDateTime createDate;
-
     @Column(name = "count")
     private Long count;
 

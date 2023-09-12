@@ -1,45 +1,26 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
-import com.ssafy.hotstock.domain.news.dto.KeywordRequestDto;
-import com.ssafy.hotstock.domain.news.dto.KeywordResponseDto;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
-import com.ssafy.hotstock.domain.stock.domain.Stock;
-import com.ssafy.hotstock.domain.theme.domain.Theme;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 
 @Slf4j
@@ -207,50 +188,50 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
-    @Override
+//    @Override
 
     // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
-    public void fetchKeywords(List<News> newsList) throws JsonProcessingException {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
-
-        // list(String[title, content]) request 작성
-        List<String[]> extractKeywordRequest = new ArrayList();
-        for (News news: newsList
-             ) {
-            String title = news.getTitle();
-            String content = news.getContent();
-            extractKeywordRequest.add(new String[]{title, content});
-        }
-
-        ObjectMapper mapper = new ObjectMapper();
-        String requestToJson = mapper.writeValueAsString(extractKeywordRequest);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
-
-        // HTTP POST 요청 보내기
-        ResponseEntity<List<String[]>> response = restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                entity,
-                new ParameterizedTypeReference<List<String[]>>() {}
-        );
-
-
-
-        // Response Body에서 키워드, 관련 theme 리스트 추출
-        List<String[]> keywordResponseList = response.getBody();
-
-    }
+//    public void fetchKeywords(List<News> newsList) throws JsonProcessingException {
+//        RestTemplate restTemplate = new RestTemplate();
+//        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
+//
+//        // list(String[title, content]) request 작성
+//        List<String[]> extractKeywordRequest = new ArrayList();
+//        for (News news: newsList
+//             ) {
+//            String title = news.getTitle();
+//            String content = news.getContent();
+//            extractKeywordRequest.add(new String[]{title, content});
+//        }
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        String requestToJson = mapper.writeValueAsString(extractKeywordRequest);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Content-Type", "application/json");
+//
+//        HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
+//
+//        // HTTP POST 요청 보내기
+//        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(
+//                url,
+//                HttpMethod.POST,
+//                entity,
+//                new ParameterizedTypeReference<List<KeywordResponseDto>>() {}
+//        );
+//
+//
+//        //{ keyword : [theme] } // {String : List<String>}
+//        // Response Body에서 키워드, 관련 theme 리스트 추출
+//        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
+//
+//    }
 
 
     
-    // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
+//    // 현웅이 파이썬 서버에서 받은 response로 List<String[title, content]> -> 우리 엔티티에 저장하는 로직
 //    @Override
-//    public void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news) {
+//    public void insertKeywordandThemeList(List<KeywordResponseDto>, News news) {
 //
 //        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
 //        ) {
@@ -265,17 +246,9 @@ public class NewsServiceImpl implements NewsService {
 //            Keyword keyword = Keyword.builder()
 //                    .content(keywordContent)
 //                    .createDate(createDate)
-//                    .news(news)
 //                    .build();
 //            keywordService.insertKeyword(keyword);
 //
-//            //수정 예정
-//            KeywordSummary keywordSummary = KeywordSummary.builder()
-//                    .count(1L)
-//                    .createDate(createDate)
-//                    .keyword(keyword)
-//                    .build();
-//            keyword.setKeywordSummary(keywordSummary);
 //
 //            for (String themeName : themeNames) {
 //                Theme theme = Theme.builder()

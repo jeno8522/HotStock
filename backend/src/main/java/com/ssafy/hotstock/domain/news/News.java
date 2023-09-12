@@ -1,10 +1,15 @@
-package com.ssafy.hotstock.domain.news;
+package com.ssafy.hotstock.domain.news.domain;
 
 
-import com.ssafy.hotstock.domain.keyword.Keyword;
+import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
@@ -14,7 +19,9 @@ import static jakarta.persistence.GenerationType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class News {
+
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "news_id")
     private Long id;
@@ -22,12 +29,22 @@ public class News {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "summary")
-    private String summary;
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
 
     @Column(name = "link")
     private String link;
 
-    @OneToOne(mappedBy = "news", fetch = LAZY)
-    private Keyword keyword;
+    @Column(name = "date")
+    private String date;
+
+    @Column(name = "media_company_num")
+    private int mediaCompanyNum;
+
+    @Column(name = "article_num")
+    private int articleNum;
+
+    @OneToMany(mappedBy = "news", cascade = ALL)
+    private List<KeywordNews> keywordNews  = new ArrayList<>();
+
 }

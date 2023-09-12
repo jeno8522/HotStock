@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="Feat : python api서버 키워드-테마 연결 api 성능 개선">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="Init : 기존 Git 저장소 내용 이전" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="feat/keyword-textrank" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -26,98 +21,71 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Uy2VlnAuLOIiAFPl4np8L17aAO" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2Uv2FydNrqMQf15bZej4O8QrF9r" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindow변경 내용.ShowToolbar": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/project1/master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/woong/S09P22A206&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="S09P22A206" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="com.soywiz.korge.intellij.UpdateResourceBeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="S09P22A206" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="com.soywiz.korge.intellij.UpdateResourceBeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="320741cc-ca29-4c3d-a33c-933bdef88984" name="변경" comment="" />
-      <created>1693897529446</created>
+      <changelist id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="" />
+      <created>1693805634094</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1693897529446</updated>
-      <workItem from="1693897531272" duration="2338000" />
-      <workItem from="1693961305527" duration="2838000" />
-      <workItem from="1693989534478" duration="105000" />
-      <workItem from="1694045733239" duration="2572000" />
-      <workItem from="1694149244096" duration="2349000" />
-      <workItem from="1694405598149" duration="2974000" />
+      <updated>1693805634094</updated>
+      <workItem from="1693805635064" duration="1672000" />
+      <workItem from="1693814754012" duration="168000" />
+      <workItem from="1693814933910" duration="47000" />
+      <workItem from="1693814995002" duration="861000" />
     </task>
-    <task id="LOCAL-00001" summary="Feat : 테마 리스트 코드 추가">
+    <task id="LOCAL-00001" summary="Init : 기존 Git 저장소 내용 이전">
       <option name="closed" value="true" />
-      <created>1694097114629</created>
+      <created>1693805805415</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1694097114629</updated>
+      <updated>1693805805415</updated>
     </task>
-    <task id="LOCAL-00002" summary="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축">
-      <option name="closed" value="true" />
-      <created>1694149314234</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1694149314234</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Feat : python api서버 키워드-테마 연결 api 성능 개선">
-      <option name="closed" value="true" />
-      <created>1694163090117</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1694163090117</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Feat : python api서버 키워드-테마 연결 api 성능 개선">
-      <option name="closed" value="true" />
-      <created>1694163489359</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1694163489359</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Feat : 테마 리스트 코드 추가" />
-    <MESSAGE value="Feat : python api서버 키워드 처리 및 chatgpt 연결까지 구축" />
-    <MESSAGE value="Feat : python api서버 키워드-테마 연결 api 성능 개선" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat : python api서버 키워드-테마 연결 api 성능 개선" />
+    <MESSAGE value="Init : 기존 Git 저장소 내용 이전" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init : 기존 Git 저장소 내용 이전" />
   </component>
 </project>

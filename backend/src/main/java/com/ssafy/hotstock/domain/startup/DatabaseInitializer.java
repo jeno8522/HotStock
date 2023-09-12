@@ -20,7 +20,7 @@ public class DatabaseInitializer implements CommandLineRunner {
          * 조선, 중앙, 동아, 경향, 한겨레, 한국경제, 매일경제 순
          * */
         int[] mediaCompanyNum = {23, 25, 20, 32, 28, 15, 9};
-        int[] articleNum = {3786617, 3306317, 3518828, 3247888, 2655741, 4889467, 5183849,};
+//        int[] articleNum = {3787327, 3306318, 3518829, 3247930, 2656210, 4890738, 5185375,};
 
         /**
          * 현재 시간 가져오기
@@ -35,7 +35,9 @@ public class DatabaseInitializer implements CommandLineRunner {
          * 전체 기사 가져오기  -2023-09-01 이후부터
          * */
         for (int i = 0; i < mediaCompanyNum.length; i++) {
-            newsService.crawlingNewsList(mediaCompanyNum[i], articleNum[i], format);
+            int articleNum = newsService.findArticleNum(mediaCompanyNum[i]);
+            newsService.crawlingNewsList(mediaCompanyNum[i], articleNum, format);
         }
+
     }
 }

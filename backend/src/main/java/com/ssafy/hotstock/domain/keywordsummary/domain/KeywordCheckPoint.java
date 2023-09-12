@@ -1,20 +1,19 @@
-package com.ssafy.hotstock.domain.news.domain;
+package com.ssafy.hotstock.domain.keywordsummary.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.yaml.snakeyaml.events.Event.ID;
 
 @Entity
 @Getter
@@ -22,21 +21,18 @@ import org.yaml.snakeyaml.events.Event.ID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class CountLog {
+public class KeywordCheckPoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="count_log_id")
+    @Column(name="check_point_id")
     private Long id;
 
-    @Column(name = "keyword")
-    private String keyword;
+    @Column(name="check_time")
+    private String checkTime;
 
-    @Column(name = "sub_count")
-    private int subCount;
+    @OneToMany(mappedBy = "keywordCheckPoint")
+    private List<KeywordCountLog> keywordCountLog = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="check_point_id")
-    private CheckPoint checkPoint;
+
 }

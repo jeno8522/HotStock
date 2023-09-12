@@ -1,9 +1,9 @@
 export interface News {
-    id: number;
-    title: string;
-    date: string;
-    content: string;
-    company: string;
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+  company: string;
 }
 
 // export interface Stock {
@@ -13,20 +13,20 @@ export interface News {
 // }
 
 export interface Theme {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 // 워드클라우드 type
 export interface KeywordProps {
-    id: number;
-    text: string;
-    value: number;
+  id: number;
+  text: string;
+  value: number;
 }
 
 export interface Keyword {
-    id: number;
-    name: string;
-    themes: Theme[];
-    newslist: News[];
+  id: number;
+  name: string;
+  themes: Theme[];
+  newslist: News[];
 }

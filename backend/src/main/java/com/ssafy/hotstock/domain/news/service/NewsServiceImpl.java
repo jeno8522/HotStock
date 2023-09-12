@@ -16,9 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,13 +26,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -264,35 +257,7 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
-    // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
-    public void fetchKeywords(News news) {
-        String title = news.getTitle();
-        String content = news.getContent();
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
-
-        // Request Body 구성
-        Map<String, String> request = new HashMap<>();
-
-        List<String[]> keywordRequestDtos = new ArrayList();
-        //for each 문 안에서
-//        newsList.add(new String[] {"title", "content"});
-
-        request.put("title", title);
-        request.put("content", content);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
-
-        // HTTP POST 요청 보내기
-        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(url, HttpMethod.POST,
-                entity, new ParameterizedTypeReference<List<KeywordResponseDto>>() {
-                });
-
-        // Response Body에서 키워드, 관련 theme 리스트 추출
-        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
+//    @Override
 
         
         //예외 처리 추가해야함유
@@ -306,9 +271,9 @@ public class NewsServiceImpl implements NewsService {
 
 
     
-    // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
+//    // 현웅이 파이썬 서버에서 받은 response로 List<String[title, content]> -> 우리 엔티티에 저장하는 로직
 //    @Override
-//    public void insertKeywordandThemeList(List<KeywordResponseDto> keywordResponseDtoList, News news) {
+//    public void insertKeywordandThemeList(List<KeywordResponseDto>, News news) {
 //
 //        for (KeywordResponseDto keywordResponseDto : keywordResponseDtoList
 //        ) {
@@ -323,17 +288,9 @@ public class NewsServiceImpl implements NewsService {
 //            Keyword keyword = Keyword.builder()
 //                    .content(keywordContent)
 //                    .createDate(createDate)
-//                    .news(news)
 //                    .build();
 //            keywordService.insertKeyword(keyword);
 //
-//            //수정 예정
-//            KeywordSummary keywordSummary = KeywordSummary.builder()
-//                    .count(1L)
-//                    .createDate(createDate)
-//                    .keyword(keyword)
-//                    .build();
-//            keyword.setKeywordSummary(keywordSummary);
 //
 //            for (String themeName : themeNames) {
 //                Theme theme = Theme.builder()

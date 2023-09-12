@@ -1,17 +1,17 @@
-import { Article } from "@/types";
+import { News } from "@/types";
 
 interface ArticleProps {
-    article: Article;
+  news: News;
 }
 
-const ArticleCard = ({ article }: ArticleProps) => {
-    const { title, content } = article;
-    return (
-        <div>
-            <div>{title}</div>
-            <div>{content}</div>
-        </div>
-    );
+const ArticleCard = ({ news }: ArticleProps) => {
+  const { title, content } = news;
+  return (
+    <div>
+      <div>{title}</div>
+      <div>{content}</div>
+    </div>
+  );
 };
 
 export default ArticleCard;

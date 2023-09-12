@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "keword_theme")
+//@Table(name = "keyword_theme", indexes = @Index(name = "idx_theme", columnList = "theme"))
 public class KeywordTheme {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,6 @@ public class KeywordTheme {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme_id")
+    @Enumerated(EnumType.STRING)
     private Theme theme;
 }

@@ -18,7 +18,7 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
     private KeywordSummaryRepository keywordSummaryRepository;
 
     @Override
-    public KeywordSummary createKeywordSummary(KeywordSummary keywordSummary) {
+    public KeywordSummary insertKeywordSummary(KeywordSummary keywordSummary) {
         return keywordSummaryRepository.save(keywordSummary);
     }
 

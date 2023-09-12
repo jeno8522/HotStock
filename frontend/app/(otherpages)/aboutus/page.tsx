@@ -1,3 +1,11 @@
-export default function AboutUs() {
-    return <div>소개소개 페이지 루루룰루</div>;
-}
+import Top from "@/components/aboutus/Top";
+
+const AboutUs = () => {
+    return (
+        <div>
+            <Top />
+        </div>
+    );
+};
+
+export default AboutUs;

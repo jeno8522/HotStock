@@ -20,6 +20,7 @@ public class KeywordDto {
     private List<String> keywordThemes;
     private Long newsId;
     private Long keywordSummaryId;
+    private Long count;
 
 
     public static KeywordDto fromEntity(Keyword keyword) {

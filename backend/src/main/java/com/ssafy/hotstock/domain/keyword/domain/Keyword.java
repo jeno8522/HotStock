@@ -1,5 +1,6 @@
 package com.ssafy.hotstock.domain.keyword.domain;
 
+import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
 import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 
@@ -21,6 +22,7 @@ import static jakarta.persistence.GenerationType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "keyword", indexes = @Index(name = "idx_keyword_content", columnList = "content"))
 public class Keyword {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -33,14 +35,16 @@ public class Keyword {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
+    @Column(name = "count")
+    private Long count;
+
     @OneToMany(mappedBy = "keyword", cascade = ALL)
     private List<KeywordTheme> keywordThemes = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
-    @JoinColumn(name = "news_id")
-    private News news;
+    @OneToMany(mappedBy = "keyword", cascade = ALL)
+    private List<KeywordNews> keywordNews  = new ArrayList<>();
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
-    @JoinColumn(name = "keyword_summary_id")
-    private KeywordSummary keywordSummary;
+
+//    @OneToOne(mappedBy = "keyword")
+//    private KeywordSummary keywordSummary;
 }

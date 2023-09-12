@@ -22,6 +22,7 @@ public class KeywordTheme {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theme_id")
     private Theme theme;
 }

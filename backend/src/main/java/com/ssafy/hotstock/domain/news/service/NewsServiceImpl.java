@@ -3,11 +3,11 @@ package com.ssafy.hotstock.domain.news.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.domain.NewsRepository;
-import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordResponseDto;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,9 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +32,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -311,7 +310,7 @@ public class NewsServiceImpl implements NewsService {
         }
 
         ObjectMapper mapper = new ObjectMapper();
-        String requestToJson=null;
+        String requestToJson = null;
         try {
             requestToJson = mapper.writeValueAsString(extractKeywordRequest);
         } catch (JsonProcessingException e) {
@@ -339,4 +338,5 @@ public class NewsServiceImpl implements NewsService {
             keywordSummaryService.insertKeywordList(keywordResponseDtoList);
         }
     }
+
 }

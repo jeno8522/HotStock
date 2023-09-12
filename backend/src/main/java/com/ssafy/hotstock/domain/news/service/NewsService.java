@@ -8,8 +8,10 @@ import java.util.Optional;
 public interface NewsService {
 
     int findArticleNum(int mediaCompanyNum);
-    News crawlingNews(int mediaCompanyNum,int articleNum) throws IOException;
-    List<News> crawlingNewsList(int mediaCompanyNum,int articleNum, String currentTime);
+
+    News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException;
+
+    List<News> crawlingNewsList(int mediaCompanyNum, int articleNum, String currentTime);
 
     String formatDateTime(String dataTime);
 

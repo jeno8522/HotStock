@@ -1,7 +1,9 @@
 package com.ssafy.hotstock.domain.keywordtheme.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 
 import java.util.List;
@@ -13,4 +15,8 @@ public interface KeywordThemeService {
     List<KeywordTheme> getAllKeywordThemes();
     KeywordTheme updateKeywordTheme(KeywordTheme keywordTheme);
     void deleteKeywordTheme(Long id);
+
+    List<KeywordThemeResponseDto> fetchKeywordTheme(String[] keywords) throws JsonProcessingException;
+
+    void insertKeywordTheme(List<KeywordThemeResponseDto> keywordThemeResponseDtos);
 }

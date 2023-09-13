@@ -28,4 +28,8 @@ public interface KeywordService {
 
     Keyword findKeywordByContent(String content);
 
+    List<Keyword> getTopKeywordsByCount();
+
+
+
 }

@@ -7,6 +7,7 @@ import com.ssafy.hotstock.domain.keyword.domain.KeywordRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class KeywordServiceImpl implements KeywordService {
 
-    @Autowired
-    private KeywordRepository keywordRepository;
+    private final KeywordRepository keywordRepository;
 
 //    @Autowired
 //    private NewsService newsService;
@@ -29,10 +29,10 @@ public class KeywordServiceImpl implements KeywordService {
 
     /**
      *
-     * @param inputKeyword
+
      * inputKeyword가 이미 존재하면 count값만 증가 시킴
      * 존재하지 않다면 DB 테이블에 초기화
-     * @return
+
      *
      */
     @Override
@@ -87,5 +87,12 @@ public class KeywordServiceImpl implements KeywordService {
             return keywordRepository.findByContent(content).orElse(null);
 
     }
+    
 
+    
+    // count 기준 상위 20 개 혹은 그 이하의 키워드 들을 DB에서 가져오는 메소드
+    @Override
+    public List<Keyword> getTopKeywordsByCount() {
+        return keywordRepository.findTopKeywordsByCount(PageRequest.of(0, 20));
+    }
 }

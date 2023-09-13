@@ -27,4 +27,4 @@ logging:
 server:
   port: 8080  # 포트 설정
   servlet:
-    context-path: /hotstock  # 기본 경로(prefix) 설정
+    context-path: /api  # 기본 경로(prefix) 설정

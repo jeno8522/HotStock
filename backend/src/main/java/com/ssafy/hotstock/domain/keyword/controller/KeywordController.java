@@ -1,8 +1,11 @@
 package com.ssafy.hotstock.domain.keyword.controller;
 
 
+import com.ssafy.hotstock.domain.keyword.domain.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,20 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = {"*"})
-@RequestMapping("keyword")
+@RequestMapping("/keyword")
 public class KeywordController {
 
-//    http://localhost:8080/hotstock/swagger-ui/index.html  -> swagger-ui URL 주소
+//    http://localhost:8080/api/swagger-ui/index.html  -> swagger-ui URL 주소
 
 
     @Autowired
     private KeywordService keywordService;
+
+    private KeywordThemeService keywordThemeService;
 
 
     //  POST keyword  swagger 용 더미데이터
@@ -52,35 +60,30 @@ public class KeywordController {
 //},
 //    "keywordTheme": {}
 //}
-    @PostMapping
-    public ResponseEntity<Keyword> insertKeyword(@RequestBody Keyword keyword) {
-        Keyword createdKeyword = keywordService.insertKeyword(keyword);
-        return ResponseEntity.ok(createdKeyword);
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Keyword> getKeywordById(@PathVariable Long id) {
-        return keywordService.getKeywordById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+
+//    Todo: KeywordNews 이거 만들어야함
+//    @GetMapping("/{keyword_id}")
+//    public ResponseEntity<Keyword> getKeywordThemeNewsById(@PathVariable Long keyword_id) {
+//        List<KeywordTheme> keywordThemes= keywordThemeService.getKeywordThemeByKeywordId(keyword_id);
+////        List<KewordNews> keywordNews =
+////        키워드로 추출한 뉴스 가져오는 로직 필요
+//        ResponseEntity keyword = new ResponseEntity<>();
+//        return keyword;
+//    }
+
+
 
     @GetMapping
-    public ResponseEntity<List<Keyword>> getAllKeywords() {
-        List<Keyword> keywords = keywordService.getAllKeywords();
-        return ResponseEntity.ok(keywords);
-    }
+    public List<TopKeywordsResponseDto> getTopKeywordsByCount() {
+        List<Keyword> keywords = keywordService.getTopKeywordsByCount();
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Keyword> updateKeyword(@PathVariable Long id, @RequestBody Keyword keyword) {
-        keyword.setId(id);
-        Keyword updatedKeyword = keywordService.updateKeyword(keyword);
-        return ResponseEntity.ok(updatedKeyword);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteKeyword(@PathVariable Long id) {
-        keywordService.deleteKeyword(id);
-        return ResponseEntity.noContent().build();
+        return keywords.stream()
+                .map(keyword -> TopKeywordsResponseDto.builder()
+                        .id(keyword.getId())
+                        .text(keyword.getContent())
+                        .value(keyword.getCount())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

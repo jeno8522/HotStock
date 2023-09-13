@@ -12,6 +12,10 @@ import java.util.Optional;
 public interface KeywordThemeService {
     KeywordTheme insertKeywordTheme(Keyword keyword, Theme theme);
     Optional<KeywordTheme> getKeywordThemeById(Long id);
+
+    List<KeywordTheme> getKeywordThemeByKeywordId(Long keywordId);
+    List<KeywordTheme> getKeywordThemeByThemeId(Long themeId);
+
     List<KeywordTheme> getAllKeywordThemes();
     KeywordTheme updateKeywordTheme(KeywordTheme keywordTheme);
     void deleteKeywordTheme(Long id);

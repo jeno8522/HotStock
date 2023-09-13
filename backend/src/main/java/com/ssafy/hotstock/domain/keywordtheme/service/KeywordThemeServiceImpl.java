@@ -46,6 +46,16 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     }
 
     @Override
+    public List<KeywordTheme> getKeywordThemeByKeywordId(Long keywordId) {
+        return keywordThemeRepository.findByKeywordId(keywordId);
+    }
+
+    @Override
+    public List<KeywordTheme> getKeywordThemeByThemeId(Long themeId) {
+        return keywordThemeRepository.findByThemeId(themeId);
+    }
+
+    @Override
     public List<KeywordTheme> getAllKeywordThemes() {
         return keywordThemeRepository.findAll();
     }

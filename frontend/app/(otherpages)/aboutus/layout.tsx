@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localfont from "next/font/local";
 
-const cafe24SsurroundAir = localfont({
+const Cafe24SsurroundAir = localfont({
   src: [
     {
-      path: "../../../public/fonts/cafe24SsurroundAir.ttf",
+      path: "../../../public/fonts/Cafe24SsurroundAir.ttf",
       weight: "normal",
       style: "normal",
     },
@@ -23,7 +23,7 @@ export default function AboutUsLayout({
 }) {
   return (
     <>
-      <div className={cafe24SsurroundAir.className}>
+      <div className={Cafe24SsurroundAir.className}>
         <div>{children}</div>
       </div>
     </>

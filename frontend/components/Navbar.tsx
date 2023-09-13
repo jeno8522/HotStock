@@ -3,10 +3,10 @@ import Image from "next/image";
 import logo from "../public/images/hotstocklogo.png";
 import localfont from "next/font/local";
 
-const cafe24SsurroundAir = localfont({
+const Cafe24SsurroundAir = localfont({
   src: [
     {
-      path: "../public/fonts/cafe24SsurroundAir.ttf",
+      path: "../public/fonts/Cafe24SsurroundAir.ttf",
       weight: "normal",
       style: "normal",
     },
@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <header>
       <nav
-        className={`mx-auto flex justify-between items-center sm:px-10 px-6 py-2 bg-[#2A509D] ${cafe24SsurroundAir.className}`}
+        className={`mx-auto flex justify-between items-center sm:px-10 px-6 py-2 bg-[#2A509D] ${Cafe24SsurroundAir.className}`}
       >
         <Link href="/">
           <Image src={logo} alt="logo" width={90} className="object-contain" />

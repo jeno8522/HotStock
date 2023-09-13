@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="Init : 기존 Git 저장소 내용 이전" />
+    <list default="true" id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="Feat : python api 서버 폴더 구조 개선 및 테스트 log 업로드">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/flask/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/service/openai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-server/flask/service/openai_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/test_code/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/test_code/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/test_code/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/test_code/test_big.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +30,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Uv2FydNrqMQf15bZej4O8QrF9r" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,6 +80,7 @@
       <workItem from="1693814754012" duration="168000" />
       <workItem from="1693814933910" duration="47000" />
       <workItem from="1693814995002" duration="861000" />
+      <workItem from="1694489017956" duration="3081000" />
     </task>
     <task id="LOCAL-00001" summary="Init : 기존 Git 저장소 내용 이전">
       <option name="closed" value="true" />
@@ -83,6 +95,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="feat/keyword-textrank" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init : 기존 Git 저장소 내용 이전" />

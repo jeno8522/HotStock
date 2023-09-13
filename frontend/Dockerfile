@@ -6,6 +6,8 @@ WORKDIR /app
 COPY package*.json ./
 # npm install을 실행합니다.
 RUN npm install
+# npm sharp를 설치합니다.
+RUN npm i sharp
 # 소스코드를 복사합니다.
 COPY . .
 # npm run build를 실행합니다.

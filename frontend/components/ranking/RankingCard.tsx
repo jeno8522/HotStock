@@ -7,10 +7,10 @@ interface getKeywordsProps {
   index: number;
 }
 
-const cafe24SsurroundAir = localfont({
+const Cafe24SsurroundAir = localfont({
   src: [
     {
-      path: "../../public/fonts/cafe24SsurroundAir.ttf",
+      path: "../../public/fonts/Cafe24SsurroundAir.ttf",
       weight: "normal",
       style: "normal",
     },
@@ -24,7 +24,7 @@ const RankingCard = ({ keyword, index }: getKeywordsProps) => {
       <Link href={`/keyword/${keyword.id}`} className="flex">
         <div className="text-black-500 m-2">{index}</div>
         <div
-          className={`text-gray-700 m-2 truncate ${cafe24SsurroundAir.className}`}
+          className={`text-gray-700 m-2 truncate ${Cafe24SsurroundAir.className}`}
         >
           {text}
         </div>

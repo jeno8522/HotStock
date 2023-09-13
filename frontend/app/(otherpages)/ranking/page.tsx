@@ -1,7 +1,7 @@
 import { RankingList } from "@/components";
 import localfont from "next/font/local";
 
-const cafe24SsurroundAir = localfont({
+const Cafe24SsurroundAir = localfont({
   src: [
     {
       path: "../../../public/fonts/Cafe24SsurroundAir.ttf",
@@ -14,7 +14,7 @@ const cafe24SsurroundAir = localfont({
 const Ranking = () => {
   return (
     <div
-      className={`max-w-screen-xl px-8 xl:px-16 mx-auto ${cafe24SsurroundAir.className}`}
+      className={`max-w-screen-xl px-8 xl:px-16 mx-auto ${Cafe24SsurroundAir.className}`}
     >
       <div className="flex flex-col m-5 justify-center lg:items-end row-start-2 sm:flex-row sm:justify-start sm:items-start">
         <h3

@@ -3,14 +3,9 @@ package com.ssafy.hotstock.domain.keyword.service;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.domain.KeywordRepository;
-import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 
-import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
-
-import com.ssafy.hotstock.domain.news.domain.News;
-import com.ssafy.hotstock.domain.news.service.NewsService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class KeywordServiceImpl implements KeywordService {
 
     @Autowired
@@ -26,8 +22,6 @@ public class KeywordServiceImpl implements KeywordService {
 //    @Autowired
 //    private NewsService newsService;
 
-    @Autowired
-    private KeywordSummaryService keywordSummaryService;
 
 
 
@@ -86,6 +80,12 @@ public class KeywordServiceImpl implements KeywordService {
         }
 
         keywordRepository.deleteById(id);
+    }
+
+    @Override
+    public Keyword findKeywordByContent(String content) {
+            return keywordRepository.findByContent(content).orElse(null);
+
     }
 
 }

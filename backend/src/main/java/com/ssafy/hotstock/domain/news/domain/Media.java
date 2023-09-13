@@ -5,9 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,19 +18,20 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class CheckPoint {
+public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="check_point_id")
+    @Column(name = "media_id")
     private Long id;
 
-    @Column(name="check_time")
-    private String checkTime;
+    @Column(name = "media_company_num")
+    private int mediaCompanyNum;
 
-    @OneToMany(mappedBy = "checkPoint")
-    private List<CountLog> countLog = new ArrayList<>();
+    @Column(name = "curr_article_num")
+    private int currArticleNum;
 
-
+    public Media(int mediaCompanyNum) {
+        this.mediaCompanyNum = mediaCompanyNum;
+    }
 }

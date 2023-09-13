@@ -27,7 +27,6 @@ public class KeywordDto {
         return KeywordDto.builder()
                 .id(keyword.getId())
                 .content(keyword.getContent())
-                .createDate(keyword.getCreateDate())
                 // .keywordThemes(keyword.getKeywordThemes()) // 필요한 로직으로 변환
                 // .newsId(keyword.getNews().getId()) // Null 체크 등 필요한 로직으로 변환
                 // .keywordSummaryId(keyword.getKeywordSummary().getId()) // Null 체크 등 필요한 로직으로 변환

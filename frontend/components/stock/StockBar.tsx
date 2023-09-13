@@ -1,16 +1,16 @@
-import { Stock } from "@/types";
+// import { Stock } from "@/types";
 
-interface StockProps {
-    stock: Stock;
-}
+// interface StockProps {
+//   stock: Stock;
+// }
 
-const StockBar = ({ stock }: StockProps) => {
-    const { name } = stock;
-    return (
-        <div>
-            <div>{name}</div>
-        </div>
-    );
-};
+// const StockBar = ({ stock }: StockProps) => {
+//   const { name } = stock;
+//   return (
+//     <div>
+//       <div>{name}</div>
+//     </div>
+//   );
+// };
 
-export default StockBar;
+// export default StockBar;

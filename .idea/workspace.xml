@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="Init : 기존 Git 저장소 내용 이전" />
+    <list default="true" id="e376b1bf-c28d-4bbd-934c-e844e7b5c76c" name="변경" comment="Docs : python 서버 README.md에 종속성 설치 방법 추가, requirements.txt에 종속성 정보 추가">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/model/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/service/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/service/keyword_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/service/openai_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/service/theme_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/util/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/flask/util/json_util.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/flask_test.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/get_thema_list.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/mecab_test_code.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/okt_test_code.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/test결과/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/test결과/입력(프롬프트).txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_extract_test/test결과/출력(chatgpt).txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/keyword_theme_NLP_test/gensim_test_code.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/test_code/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/test_code/log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/test_code/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python-server/test/test_code/test_big.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +50,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Uv2FydNrqMQf15bZej4O8QrF9r" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,15 +62,21 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/woong/S09P22A206&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/woong/S09P22A206/python-server/flask&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\woong\S09P22A206\python-server\flask" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="S09P22A206" />
@@ -69,6 +106,9 @@
       <workItem from="1693814754012" duration="168000" />
       <workItem from="1693814933910" duration="47000" />
       <workItem from="1693814995002" duration="861000" />
+      <workItem from="1694489017956" duration="3081000" />
+      <workItem from="1694564367455" duration="4205000" />
+      <workItem from="1694584960057" duration="57000" />
     </task>
     <task id="LOCAL-00001" summary="Init : 기존 Git 저장소 내용 이전">
       <option name="closed" value="true" />
@@ -78,14 +118,58 @@
       <option name="project" value="LOCAL" />
       <updated>1693805805415</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Feat : python api 서버 폴더 구조 개선, 테스트 폴더 구조 개선, keyword-themes 연결에 word2vec 적용">
+      <option name="closed" value="true" />
+      <created>1694564677883</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1694564677883</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Docs : python 서버 README.md에 종속성 설치 방법 추가, requirements.txt에 종속성 정보 추가">
+      <option name="closed" value="true" />
+      <created>1694571223200</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694571223200</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="feat/keyword-textrank" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init : 기존 Git 저장소 내용 이전" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init : 기존 Git 저장소 내용 이전" />
+    <MESSAGE value="Feat : python api 서버 폴더 구조 개선, 테스트 폴더 구조 개선, keyword-themes 연결에 word2vec 적용" />
+    <MESSAGE value="Docs : python 서버 README.md에 종속성 설치 방법 추가, requirements.txt에 종속성 정보 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="Docs : python 서버 README.md에 종속성 설치 방법 추가, requirements.txt에 종속성 정보 추가" />
   </component>
 </project>

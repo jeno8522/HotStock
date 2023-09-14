@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.keyword.domain;
+package com.ssafy.hotstock.domain.keyword.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

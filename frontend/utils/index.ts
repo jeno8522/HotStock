@@ -6,14 +6,14 @@ export const fetchKeywords = async () => {
 };
 
 // 키워드 상세 조회하기 :: 키워드 아이디로 GET
-export const fetchKeywordDetail = async (key: string) => {
+export const fetchKeywordDetail = async (key: number) => {
   const res = await fetch("url");
   const data = await res.json();
   return data;
 };
 
 // 테마에 따른 종목 조회하기
-export const fetchStockByTheme = async (themeId: string) => {
+export const fetchStockByTheme = async (themeId: number) => {
   const res = await fetch("url");
   const data = await res.json();
   return data;

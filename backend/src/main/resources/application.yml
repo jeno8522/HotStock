@@ -17,12 +17,6 @@ spring:
         format_sql: true
         show-sql: true
 
-    defer-datasource-initialization: true   #-> data.sql을 사용하기 위해 추가
-  # data.sql을 사용하기 위해 추가
-  sql:
-    init:
-      mode: always
-
 #  data:
 #    redis:
 #      host: localhost

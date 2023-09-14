@@ -3,9 +3,7 @@ package com.ssafy.hotstock.domain.keywordsummary.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordCheckPoint;
-import com.ssafy.hotstock.domain.keywordsummary.repository.KeywordCheckPointRepository;
 import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordCountLog;
-import com.ssafy.hotstock.domain.keywordsummary.repository.KeywordCountLogRepository;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import java.time.ZoneId;
@@ -51,7 +49,7 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
 
         for (KeywordSubCountResponseDto keywordSubCountResponseDto : keywordSubCountResponseDtoList) {
             String keywordContent = keywordSubCountResponseDto.getKeywordContent();
-            int subCount = keywordSubCountResponseDto.getNewsIds().size();;
+            int subCount = keywordSubCountResponseDto.getNewsIds().size();
 
             KeywordCountLog keywordCountLog = KeywordCountLog.builder()
                 .keywordContent(keywordContent)
@@ -82,8 +80,6 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         ObjectMapper mapper = new ObjectMapper();
         String requestToJson = null;
 
-        System.out.println("여기");
-
         try {
             requestToJson = mapper.writeValueAsString(extractKeywordRequest);
         } catch (JsonProcessingException e) {
@@ -94,15 +90,12 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         headers.set("Content-Type", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
-        System.out.println("post 요청 전");
-        System.out.println("entity = " + entity.getBody());
 
         // HTTP POST 요청 보내기
         ResponseEntity<List<KeywordSubCountResponseDto>> response = restTemplate.exchange(url,
             HttpMethod.POST, entity,
             new ParameterizedTypeReference<List<KeywordSubCountResponseDto>>() {
             });
-        System.out.println("post 요청 후");
         // Response Body에서 키워드, 관련 theme 리스트 추출
         List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = response.getBody();
 

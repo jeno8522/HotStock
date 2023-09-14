@@ -1,13 +1,10 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordResponseDto;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
-import com.ssafy.hotstock.domain.news.domain.NewsRepository;
+import com.ssafy.hotstock.domain.news.repository.NewsRepository;
+import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +21,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 
 @Slf4j
@@ -42,7 +32,7 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
     private final MediaService mediaService;
 
-    private final KeywordSummaryService keywordSummaryService;
+
 
     /**
      * 최신 뉴스 기사 번호 찾기 mediaCompanyNum : 언론사 번호
@@ -171,6 +161,7 @@ public class NewsServiceImpl implements NewsService {
                 }
             }
 
+
             news.setTitle(title);
             news.setContent(content);
             news.setLink(link);
@@ -178,9 +169,11 @@ public class NewsServiceImpl implements NewsService {
             news.setMediaCompanyNum(mediaCompanyNum);
             news.setArticleNum(articleNum);
 
+
         } catch (IOException e) {
             throw e;
         }
+
 
         return news;
 
@@ -190,7 +183,7 @@ public class NewsServiceImpl implements NewsService {
      * 뉴스기사들 리스트로 가져오기
      */
     @Override
-    public List<News> crawlingNewsList(int mediaCompanyNum, int articleNum, String currentTime) {
+    public List<NewsResponseDto> crawlingNewsList(int mediaCompanyNum, int articleNum, String currentTime) {
 
         /**
          * 뉴스 가져온 후 저장
@@ -202,6 +195,10 @@ public class NewsServiceImpl implements NewsService {
                 News news = crawlingNews(mediaCompanyNum, articleNum);
                 newsList.add(news);
                 articleNum++;
+
+                /**
+                 * 현재 시간과 기사가 적혀진 시간을 비교하여 현재 시간까지의 최신 기사만을 가져온다.
+                 */
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime articleTime = LocalDateTime.parse(news.getDate(), formatter);
                 LocalDateTime currTime = LocalDateTime.parse(currentTime, formatter);
@@ -230,6 +227,11 @@ public class NewsServiceImpl implements NewsService {
 
         createNewsList(newsList);
 
+        List<NewsResponseDto> newsResponseDtoList = new ArrayList<>();
+        for (News news : newsList) {
+            newsResponseDtoList.add(NewsResponseDto.from(news));
+        }
+
         /**
          * 현재까지 가져온 기사의 번호 저장
          * */
@@ -241,7 +243,7 @@ public class NewsServiceImpl implements NewsService {
 
         System.out.println("articleNum = " + articleNum);
 
-        return newsList;
+        return newsResponseDtoList;
 
     }
 
@@ -270,13 +272,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> createNewsList(List<News> newsList) {
-        return newsRepository.saveAll(newsList);
+    public void createNewsList(List<News> newsList) {
+        newsRepository.saveAll(newsList);
     }
 
     @Override
-    public Optional<News> getNewsById(Long id) {
-        return newsRepository.findById(id);
+    public News getNewsById(Long id) {
+        return newsRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -294,49 +296,6 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
-    // 파이썬 서버에 뉴스기사 request -> response로 List<KeywordResponseDto> 받아옴
-    public void fetchKeywords(List<News> newsList) {
 
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
-
-        List<String[]> extractKeywordRequest = new ArrayList();
-
-        for (News news : newsList) {
-
-            String title = news.getTitle();
-            String content = news.getContent();
-            extractKeywordRequest.add(new String[]{title, content});
-        }
-
-        ObjectMapper mapper = new ObjectMapper();
-        String requestToJson = null;
-        try {
-            requestToJson = mapper.writeValueAsString(extractKeywordRequest);
-        } catch (JsonProcessingException e) {
-            log.error("JSON 매핑 오류: " + e.getCause());
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
-        // HTTP POST 요청 보내기
-        ResponseEntity<List<KeywordResponseDto>> response = restTemplate.exchange(url,
-            HttpMethod.POST, entity, new ParameterizedTypeReference<List<KeywordResponseDto>>() {
-            });
-
-        // Response Body에서 키워드, 관련 theme 리스트 추출
-        List<KeywordResponseDto> keywordResponseDtoList = response.getBody();
-
-        System.out.println("keywordResponseDtoList = " + keywordResponseDtoList);
-
-        //예외 처리 추가해야함유
-        if (keywordResponseDtoList == null) {
-            return;
-        } else {
-            keywordSummaryService.insertKeywordList(keywordResponseDtoList);
-        }
-    }
 
 }

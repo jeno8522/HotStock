@@ -61,10 +61,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = keywordSummaryService.fetchKeywords(
             allNewsResponseDtoList);
 
-        for (KeywordSubCountResponseDto keywordSubCountResponseDto : keywordSubCountResponseDtoList) {
-            System.out.println("keywordSubCountResponseDto.getKeywordContent() = " + keywordSubCountResponseDto.getKeywordContent());
-            System.out.println("keywordSubCountResponseDto.getNewsIds().size() = " + keywordSubCountResponseDto.getNewsIds().size());
-        }
         /**
          * Keyword, KeywordNews 저장
          */

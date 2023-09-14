@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://j9a206.p.ssafy.io:3306/hotstock
+#    url: jdbc:mysql://localhost:3306/hotstock
     username: A206
     password: ssafyA206
 #    username: ssafy
@@ -15,6 +16,13 @@ spring:
       hibernate:
         format_sql: true
         show-sql: true
+
+    defer-datasource-initialization: true   #-> data.sql을 사용하기 위해 추가
+  # data.sql을 사용하기 위해 추가
+  sql:
+    init:
+      mode: always
+
 #  data:
 #    redis:
 #      host: localhost

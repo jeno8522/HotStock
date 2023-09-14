@@ -1,9 +1,8 @@
-import { Keyword } from "@/types";
-import { ArticleCard } from "@/components";
+import { Keyword, Theme } from "@/types";
+import { ArticleCard, StockBar } from "@/components";
+import { fetchKeywordDetail, fetchStockByTheme } from "@/utils";
+import Link from "next/link";
 
-// interface KeywordProps {
-//     keyword: Keyword;
-// }
 const dummy: Keyword[] = [
   {
     id: 1,
@@ -69,16 +68,29 @@ const dummy: Keyword[] = [
   },
 ];
 
-const KeywordDetail = ({ params }: { params: { key: string } }) => {
+const KeywordDetailWithTheme = async ({
+  params,
+}: {
+  params: { key: string; themeId: string };
+}) => {
   // ----------------------------------------
   // 더미데이터 활용하려고 작성함
   // api 호출하면 response된 데이터로 받을거니까 아래 내용은 필요없을것임
   const keyNumber = parseInt(params.key, 10);
+  const themeNumber = parseInt(params.themeId, 10);
+
+  // const keywordDetails = await fetchKeywordDetail(keyNumber);
+  // const stockDetails = await fetchStockByTheme(themeNumber);
+
   const selectedKeyword: Keyword = {
     name: "",
     themes: [],
     id: 0,
     newslist: [],
+  };
+  const selectedTheme: Theme = {
+    id: 0,
+    name: "",
   };
 
   for (const keyword of dummy) {
@@ -90,23 +102,58 @@ const KeywordDetail = ({ params }: { params: { key: string } }) => {
       break;
     }
   }
-  // ----------------------------------------
 
+  for (const theme of selectedKeyword.themes) {
+    if (theme.id === themeNumber) {
+      selectedTheme.name = theme.name;
+    }
+  }
+
+  // ----------------------------------------
   return (
-    <div className="max-w-screen-xl px-8 xl:px-16 mx-auto">
-      <div className="flex items-center xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
-        <div className="text-[30px] font-bold">{selectedKeyword.name}</div>
-        <div>
-          <div className="items-center text-[20px]">
+    <div className="max-w-screen-xl px-8 xl:px-10 mt-10 mx-auto">
+      <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
+        {/* 왼쪽 이름 탭 */}
+        <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] xl:w-1/5 font-bold">
+          {selectedKeyword.name}
+        </div>
+        {/* 오른쪽 정보 탭  */}
+        <div className="items-center xl:w-4/5">
+          {/* 테마 탭 */}
+          <div className="flex">
             {selectedKeyword.themes.map((themeItem, index) => (
-              <div className="" key={index}>
-                {themeItem.name}
+              <div className="text-[20px] pr-5" key={index}>
+                {themeItem.id === themeNumber ? (
+                  <div className="font-bold">
+                    <Link
+                      href={`/keyword/${selectedKeyword.id}/${themeItem.id}`}
+                    >
+                      {themeItem.name}
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Link
+                      href={`/keyword/${selectedKeyword.id}/${themeItem.id}`}
+                    >
+                      {themeItem.name}
+                    </Link>
+                  </div>
+                )}
               </div>
             ))}
           </div>
           <div>
-            여기에 주식들 들어갈거임 위에서 선택한 업종에 따른 주식 상위 N개
+            {/* {stockDetails.stock.map((stocks) => (
+              <StockBar stock = {stock}/>
+            ))} */}
+            <StockBar />
+            <StockBar />
+            <StockBar />
+            <StockBar />
+            <StockBar />
           </div>
+          {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>
             {selectedKeyword.newslist.map((news, index) => (
@@ -121,4 +168,4 @@ const KeywordDetail = ({ params }: { params: { key: string } }) => {
   );
 };
 
-export default KeywordDetail;
+export default KeywordDetailWithTheme;

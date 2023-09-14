@@ -1,29 +1,39 @@
-export interface Article {
-    title: string;
-    date?: string;
-    content: string;
-    company?: string;
+export interface News {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+  company: string;
 }
 
 export interface Stock {
-    name: string;
-    code: number;
-    articles: Article[];
+  id: number;
+  title: string;
+  price: number;
+  code: string;
+  articles?: News[];
 }
 
 export interface Theme {
-    name: string;
-    id: number;
+  id: number;
+  name: string;
 }
 
+// 워드클라우드 type
 export interface KeywordProps {
-    id: string;
-    name: string;
+  id: number;
+  text: string;
+  value: number;
+}
+
+export interface ThemeProps {
+  keywords: Keyword[];
+  stocks: Stock[];
 }
 
 export interface Keyword {
-    name: string;
-    themes: string[];
-    id: string;
-    articles: Article[];
+  id: number;
+  name: string;
+  themes: Theme[];
+  newslist: News[];
 }

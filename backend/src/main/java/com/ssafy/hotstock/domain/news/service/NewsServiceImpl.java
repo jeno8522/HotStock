@@ -3,8 +3,8 @@ package com.ssafy.hotstock.domain.news.service;
 
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
-import com.ssafy.hotstock.domain.news.repository.NewsRepository;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
+import com.ssafy.hotstock.domain.news.repository.NewsRepository;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -254,7 +255,7 @@ public class NewsServiceImpl implements NewsService {
     public String formatDateTime(String dataTime) {
         try {
             // 주어진 날짜와 시간 형식을 해석
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy.MM.dd. a hh:mm");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy.MM.dd. a hh:mm", Locale.KOREA);
             Date date = inputFormat.parse(dataTime);
 
             // 원하는 형식으로 출력 형식 지정

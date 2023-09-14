@@ -73,14 +73,15 @@ const KeywordDetailWithTheme = async ({
 }: {
   params: { key: string; themeId: string };
 }) => {
-  // const keywordDetails = await fetchKeywordDetail(params.key);
-  // const themeDetails = await fetchStockByTheme(params.themeId);
-
   // ----------------------------------------
   // 더미데이터 활용하려고 작성함
   // api 호출하면 response된 데이터로 받을거니까 아래 내용은 필요없을것임
   const keyNumber = parseInt(params.key, 10);
   const themeNumber = parseInt(params.themeId, 10);
+
+  // const keywordDetails = await fetchKeywordDetail(keyNumber);
+  // const stockDetails = await fetchStockByTheme(themeNumber);
+
   const selectedKeyword: Keyword = {
     name: "",
     themes: [],
@@ -143,6 +144,9 @@ const KeywordDetailWithTheme = async ({
             ))}
           </div>
           <div>
+            {/* {stockDetails.stock.map((stocks) => (
+              <StockBar stock = {stock}/>
+            ))} */}
             <StockBar />
             <StockBar />
             <StockBar />

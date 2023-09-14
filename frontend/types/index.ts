@@ -8,7 +8,9 @@ export interface News {
 
 export interface Stock {
   id: number;
-  name: string;
+  title: string;
+  price: number;
+  code: string;
   articles?: News[];
 }
 

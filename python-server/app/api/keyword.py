@@ -1,28 +1,34 @@
 from flask import request, Response
-from app import app
-from ..service.keyword_service import KeywordService
-from ..util.json_util import to_json
+from flask_restx import Resource, Namespace, fields
+from app.service.keyword_service import KeywordService
+from app.util.json_util import to_json
 
 keyword_service = KeywordService()
 
-
-# text 여러 개를 받아 키워드 추출
-@app.route('/keyword', methods=['POST'])
-def get_keywords():
-    data: dict = keyword_service.get_keywords(
-        list(request.json['texts']))  # { keyword : weight }
-
-    response = Response(
-        to_json(data), content_type='application/json; charset=utf-8')
-    return response
+ns = Namespace('keyword', description='Keyword API')
+news_item = fields.List(fields.String, description='News data in the format [news_id, news_title, news_content]')
 
 
-# 테스트를 위해 get 형태로 text 하나에서 키워드 추출
-# XXX : 사용하지 않음. 테스트용
-@app.route('/keyword/<content>', methods=['GET'])
-def get_keyword(content):
-    data: dict = keyword_service.get_keyword(content)  # { keyword : weight }
+@ns.route('/')
+class Keywords(Resource):
+    @ns.expect([news_item])
+    @ns.doc(description='payload\'s ["string"] is in the format [news_id, news_title, news_content]', responses={200: 'Success', 400: 'Invalid Argument'})
+    def post(self):
+        data: list = list(request.json)
+        response_data : dict = keyword_service.get_keywords(data)
+        response = Response(
+            to_json(response_data, "keywords"), content_type='application/json; charset=utf-8')
+        return response
 
-    response = Response(
-        to_json(data), content_type='application/json; charset=utf-8')
-    return response
+
+#테스트용도, 실제로 사용하지 않을 예정
+@ns.route('/<news_id>/<news_title>/<news_content>')
+class Keyword(Resource):
+    def get(self, news_id, news_title, news_content):
+        response_data : dict = keyword_service.get_keyword(news_id, news_title, news_content)
+        response = Response(
+            to_json(response_data, "keywords"), content_type='application/json; charset=utf-8')
+        return response
+
+from app import api_root
+api_root.add_namespace(ns)

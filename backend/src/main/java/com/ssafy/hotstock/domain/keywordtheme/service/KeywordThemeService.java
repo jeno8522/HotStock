@@ -23,4 +23,6 @@ public interface KeywordThemeService {
     List<KeywordThemeResponseDto> fetchKeywordTheme(String[] keywords) throws JsonProcessingException;
 
     void insertKeywordTheme(List<KeywordThemeResponseDto> keywordThemeResponseDtos);
+
+    List<Keyword> getKeywordFromKeywordThemes(List<KeywordTheme> keywordThemes);
 }

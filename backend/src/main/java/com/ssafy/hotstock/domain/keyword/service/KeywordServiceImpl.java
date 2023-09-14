@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KeywordServiceImpl implements KeywordService {
 
     private final KeywordRepository keywordRepository;
@@ -36,7 +37,6 @@ public class KeywordServiceImpl implements KeywordService {
      *
      */
     @Override
-    @Transactional
     public Keyword insertKeyword(Keyword inputKeyword) {
         // 최종 변경된 keyword를 저장하고 반환
         return keywordRepository.save(inputKeyword);

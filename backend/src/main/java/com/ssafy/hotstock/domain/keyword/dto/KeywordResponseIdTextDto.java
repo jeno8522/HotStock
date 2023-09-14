@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.keyword.domain;
+package com.ssafy.hotstock.domain.keyword.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TopKeywordsResponseDto {
+public class KeywordResponseIdTextDto {
     private Long id;
     private String text;
-    private int value;
 }

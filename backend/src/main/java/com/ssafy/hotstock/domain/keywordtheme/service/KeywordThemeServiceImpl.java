@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -124,6 +125,13 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
                 insertKeywordTheme(keyword, theme);
             }
         }
+    }
+
+    @Override
+    public List<Keyword> getKeywordFromKeywordThemes(List<KeywordTheme> keywordThemes) {
+        return keywordThemes.stream()
+                .map(KeywordTheme::getKeyword)
+                .toList();
     }
 
 

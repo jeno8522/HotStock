@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend-green
+    image: mydowson/a206:back
+    ports:
+      - '8081:8080'

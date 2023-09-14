@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend-blue
+    image: mydowson/a206:back
+    ports:
+      - '8080:8080'
+
+networks:
+  default:
+    external: true
+    name: service-network

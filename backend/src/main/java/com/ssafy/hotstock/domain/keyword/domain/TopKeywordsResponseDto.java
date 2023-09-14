@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class TopKeywordsResponseDto {
     private Long id;
     private String text;
-    private Long value;
+    private int value;
 }

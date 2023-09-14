@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://j9a206.p.ssafy.io:3306/hotstock
+#    url: jdbc:mysql://localhost:3306/hotstock
     username: A206
     password: ssafyA206
 #    username: ssafy

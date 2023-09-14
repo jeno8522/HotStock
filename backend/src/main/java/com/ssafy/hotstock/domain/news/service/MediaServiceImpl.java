@@ -1,7 +1,9 @@
 package com.ssafy.hotstock.domain.news.service;
 
 import com.ssafy.hotstock.domain.news.domain.Media;
-import com.ssafy.hotstock.domain.news.domain.MediaRepository;
+import com.ssafy.hotstock.domain.news.repository.MediaRepository;
+import com.ssafy.hotstock.domain.news.dto.MediaResponseDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -34,15 +36,23 @@ public class MediaServiceImpl implements MediaService {
      * 언론사 정보 저장
      */
     @Override
-    public Media saveMedia(Media media) {
-        return mediaRepository.save(media);
+    public void saveMedia(Media media) {
+        mediaRepository.save(media);
     }
 
     /**
      * 모든 언론사 정보 가져오기
      */
     @Override
-    public List<Media> getAllMedia() {
-        return mediaRepository.findAll();
+    public List<MediaResponseDto> getAllMedia() {
+        List<Media> mediaList = mediaRepository.findAll();
+
+        List<MediaResponseDto> mediaResponseDtoList = new ArrayList<>();
+        for (Media media : mediaList) {
+            MediaResponseDto mediaResponseDto = MediaResponseDto.from(media);
+            mediaResponseDtoList.add(mediaResponseDto);
+        }
+
+        return mediaResponseDtoList;
     }
 }

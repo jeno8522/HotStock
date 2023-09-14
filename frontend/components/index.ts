@@ -7,6 +7,7 @@ import RankingCard from "./ranking/RankingCard";
 import Top from "./aboutus/Top";
 import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
 // import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
+import TextSphere from "./Sphere";
 
 export {
   Footer,
@@ -17,5 +18,6 @@ export {
   RankingCard,
   Top,
   ThemeListForKeywords,
+  TextSphere
   // ScrollAnimationWrapper,
 };

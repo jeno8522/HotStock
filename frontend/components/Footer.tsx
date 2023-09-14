@@ -1,3 +1,4 @@
 export default function Footer() {
-  return <div>Footer</div>;
+  return <div>푸터푸터얌<div>
+    푸터푸터</div></div>;
 }

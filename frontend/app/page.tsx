@@ -1,5 +1,12 @@
+import { TextSphere } from "@/components";
+
 const Home = () => {
-  return <div>워드클라우드주세요</div>;
+  return (<>
+          
+              <TextSphere />
+          
+              
+          </>);
 };
 
 export default Home;

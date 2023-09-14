@@ -2,11 +2,12 @@ package com.ssafy.hotstock.domain.keyword.service;
 
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import com.ssafy.hotstock.domain.keyword.domain.KeywordRepository;
+import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KeywordServiceImpl implements KeywordService {
 
-    @Autowired
-    private KeywordRepository keywordRepository;
+    private final KeywordRepository keywordRepository;
 
 //    @Autowired
 //    private NewsService newsService;
@@ -29,30 +30,16 @@ public class KeywordServiceImpl implements KeywordService {
 
     /**
      *
-     * @param inputKeyword
+
      * inputKeyword가 이미 존재하면 count값만 증가 시킴
      * 존재하지 않다면 DB 테이블에 초기화
-     * @return
+
      *
      */
     @Override
-    @Transactional
     public Keyword insertKeyword(Keyword inputKeyword) {
-        String content = inputKeyword.getContent();
-
-        // 이미 들어온 keyword가 DB에 존재하는 지 확인
-        Keyword existingKeyword = keywordRepository.findByContent(content).orElseGet(() -> {
-            Keyword newKeyword = new Keyword();
-            newKeyword.setContent(content);
-            newKeyword.setCount(0L);  // 초기값 설정
-            return keywordRepository.save(newKeyword);
-        });
-
-        // count 증가하는 부분 -> 10분단위로 count한 값을 한번에 더해줘야할 것 같음
-        existingKeyword.setCount(existingKeyword.getCount() + 1);
-
         // 최종 변경된 keyword를 저장하고 반환
-        return keywordRepository.save(existingKeyword);
+        return keywordRepository.save(inputKeyword);
     }
 
 
@@ -87,5 +74,12 @@ public class KeywordServiceImpl implements KeywordService {
             return keywordRepository.findByContent(content).orElse(null);
 
     }
+    
 
+    
+    // count 기준 상위 20 개 혹은 그 이하의 키워드 들을 DB에서 가져오는 메소드
+    @Override
+    public List<Keyword> getTopKeywordsByCount() {
+        return keywordRepository.findTopKeywordsByCount(PageRequest.of(0, 20));
+    }
 }

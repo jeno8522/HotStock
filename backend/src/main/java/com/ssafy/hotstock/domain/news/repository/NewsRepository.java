@@ -1,5 +1,6 @@
-package com.ssafy.hotstock.domain.news.domain;
+package com.ssafy.hotstock.domain.news.repository;
 
+import com.ssafy.hotstock.domain.news.domain.News;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

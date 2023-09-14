@@ -37,7 +37,7 @@ public class Keyword {
     private String content;
 
     @Column(name = "count")
-    private Long count;
+    private int count;
 
     @OneToMany(mappedBy = "keyword", cascade = ALL)
     private List<KeywordTheme> keywordThemes = new ArrayList<>();

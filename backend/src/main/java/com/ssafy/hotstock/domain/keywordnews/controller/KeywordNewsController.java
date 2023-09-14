@@ -1,7 +1,7 @@
-package com.ssafy.hotstock.domain.keywordsummary.controller;
+package com.ssafy.hotstock.domain.keywordnews.controller;
 
+import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,16 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/keyword/summary")
+@RequestMapping("/keyword/news")
 @RequiredArgsConstructor
-public class KeywordSummaryController {
+public class KeywordNewsController {
 
-    private final KeywordSummaryService keywordSummaryService;
+    private final KeywordNewsService keywordNewsService;
+
     @PostMapping
     public ResponseEntity<?> add(@RequestBody List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList) {
 
-        keywordSummaryService.insertKeywordList(keywordSubCountResponseDtoList);
+        keywordNewsService.insertKeywordNews(keywordSubCountResponseDtoList);
 
         return new ResponseEntity<>("", HttpStatus.OK);
     }
+
 }

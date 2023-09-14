@@ -1,12 +1,18 @@
-package com.ssafy.hotstock.domain.keyword.domain;
+package com.ssafy.hotstock.domain.keyword.repository;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface KeywordRepository extends JpaRepository<Keyword, Long> {
     Optional<Keyword> findByContent(String content);
+
+    @Query(value = "SELECT k FROM Keyword k ORDER BY k.count DESC")
+    List<Keyword> findTopKeywordsByCount(Pageable pageable);
 }

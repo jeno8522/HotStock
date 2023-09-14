@@ -1,6 +1,6 @@
 package com.ssafy.hotstock.domain.keywordsummary.controller;
 
-import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordResponseDto;
+import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class KeywordSummaryController {
 
     private final KeywordSummaryService keywordSummaryService;
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody List<KeywordResponseDto> keywordResponseDtoList) {
+    public ResponseEntity<?> add(@RequestBody List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList) {
 
-        keywordSummaryService.insertKeywordList(keywordResponseDtoList);
+        keywordSummaryService.insertKeywordList(keywordSubCountResponseDtoList);
 
         return new ResponseEntity<>("", HttpStatus.OK);
     }

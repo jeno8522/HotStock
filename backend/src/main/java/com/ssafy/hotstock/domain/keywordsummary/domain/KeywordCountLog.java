@@ -27,8 +27,8 @@ public class KeywordCountLog {
     @Column(name ="count_log_id")
     private Long id;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "keywordContent")
+    private String keywordContent;
 
     @Column(name = "sub_count")
     private int subCount;

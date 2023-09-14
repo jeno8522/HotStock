@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.news.controller;
 
 
 import com.ssafy.hotstock.domain.news.domain.News;
+import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.NewsService;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -34,7 +35,8 @@ public class NewsController {
 
         String format = currentTime.format(formatter);
 
-        List<News> newsList = newsService.crawlingNewsList(mediaCompanyNum, articleNum, format);
+        List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(mediaCompanyNum,
+            articleNum, format);
 
         long end = System.currentTimeMillis();
 
@@ -42,6 +44,6 @@ public class NewsController {
 
         System.out.println("tmp = " + tmp);
 
-        return new ResponseEntity<>(newsList, HttpStatus.OK);
+        return new ResponseEntity<>(newsResponseDtoList, HttpStatus.OK);
     }
 }

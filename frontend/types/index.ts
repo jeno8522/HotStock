@@ -6,11 +6,13 @@ export interface News {
   company: string;
 }
 
-// export interface Stock {
-//     name: string;
-//     code: number;
-//     articles: Article[];
-// }
+export interface Stock {
+  id: number;
+  title: string;
+  price: number;
+  code: string;
+  articles?: News[];
+}
 
 export interface Theme {
   id: number;
@@ -22,6 +24,11 @@ export interface KeywordProps {
   id: number;
   text: string;
   value: number;
+}
+
+export interface ThemeProps {
+  keywords: Keyword[];
+  stocks: Stock[];
 }
 
 export interface Keyword {

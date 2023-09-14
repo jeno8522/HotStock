@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.news.domain;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
+import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -79,10 +79,10 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     // 파이썬 서버에 keyword list request -> response로 List<KeywordThemeResponseDto> 받아옴
     // KeywordThemeResponseDto -> list <keyword : list<theme>>
     @Override
-    public List<KeywordThemeResponseDto> fetchKeywordTheme(String[] keywords) throws JsonProcessingException {
+    public List<KeywordThemeResponseDto> fetchKeywordTheme(List<String> keywords) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
-
+        String url = "http://localhost:4443/theme/"; // Python 서버 URL
+    
         ObjectMapper mapper = new ObjectMapper();
         String requestToJson = mapper.writeValueAsString(keywords);
 

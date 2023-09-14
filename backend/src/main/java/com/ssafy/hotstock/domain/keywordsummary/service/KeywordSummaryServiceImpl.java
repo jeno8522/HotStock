@@ -68,19 +68,22 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         List<NewsResponseDto> newsResponseDtoList) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://your-python-server.com/extract-keywords"; // Python 서버 URL
+        String url = "http://localhost:4443/keyword/"; // Python 서버 URL
 
         List<String[]> extractKeywordRequest = new ArrayList();
 
         for (NewsResponseDto newsResponseDto : newsResponseDtoList) {
             String newsId = String.valueOf(newsResponseDto.getNewsId());
             String title = newsResponseDto.getTitle();
-            String keywordContent = newsResponseDto.getContent();
-            extractKeywordRequest.add(new String[]{newsId, title, keywordContent});
+            String content = newsResponseDto.getContent();
+            extractKeywordRequest.add(new String[]{newsId, title, content});
         }
 
         ObjectMapper mapper = new ObjectMapper();
         String requestToJson = null;
+
+        System.out.println("여기");
+
         try {
             requestToJson = mapper.writeValueAsString(extractKeywordRequest);
         } catch (JsonProcessingException e) {
@@ -91,12 +94,15 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         headers.set("Content-Type", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<>(requestToJson, headers);
+        System.out.println("post 요청 전");
+        System.out.println("entity = " + entity.getBody());
+
         // HTTP POST 요청 보내기
         ResponseEntity<List<KeywordSubCountResponseDto>> response = restTemplate.exchange(url,
             HttpMethod.POST, entity,
             new ParameterizedTypeReference<List<KeywordSubCountResponseDto>>() {
             });
-
+        System.out.println("post 요청 후");
         // Response Body에서 키워드, 관련 theme 리스트 추출
         List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = response.getBody();
 

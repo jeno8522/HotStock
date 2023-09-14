@@ -99,8 +99,6 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         // Response Body에서 키워드, 관련 theme 리스트 추출
         List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = response.getBody();
 
-        System.out.println("keywordResponseDtoList = " + keywordSubCountResponseDtoList);
-
         //예외 처리 추가해야함유
         if (keywordSubCountResponseDtoList == null) {
             log.error("기사와 관련 키워드가 존재하지 않습니다.");

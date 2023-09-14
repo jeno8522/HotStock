@@ -9,6 +9,7 @@ openai_service = OpenAIService()
 ko_model = FastText.load_fasttext_format('vectordb_model/ko.bin')
 
 
+#TODO : 테마 아이디를 가지고 있어야 나중에 저장하기 쉬움.
 def map_keywords_themes(keywords: list):
     themes = snapshot
 
@@ -18,7 +19,7 @@ def map_keywords_themes(keywords: list):
         for theme in themes:
             if keyword_dict.get(keyword) == None:
                 keyword_dict[keyword] = []
-            theme_temp = theme.replace(")").split("(")[-1]
+            theme_temp = theme.replace(")","").split("(")[-1]
             heapq.heappush(
                 keyword_dict[keyword], (-ko_model.wv.similarity(keyword, theme_temp), theme))
 
@@ -26,13 +27,13 @@ def map_keywords_themes(keywords: list):
     mapping_data = dict()
     for keyword in keywords:
         now = keyword_dict[keyword]
-        temp = []
+        temp_list = []
         while now:
             data = heapq.heappop(keyword_dict[keyword])
             if (data[0] > -0.53):
                 break
-            temp.append(data[1])
-        mapping_data[keyword] = temp
+            temp_list.append(data[1])
+        mapping_data[keyword] = temp_list
 
     return mapping_data
 
@@ -47,6 +48,12 @@ class ThemeService:
         return snapshot
 
     def get_themes_of_keywords(self, keywords: list):
-        mapping_data = map_keywords_themes(keywords)
-        chat_response = openai_service.generate_chat_reply(mapping_data)
+        print(keywords)
+        print()
+        mapping_data: dict = map_keywords_themes(keywords) # keyword:str -> [theme:str]
+        print(mapping_data)
+        print()
+        chat_response:str = openai_service.generate_chat_reply(mapping_data)
+        print(chat_response)
+        print()
         return chat_response

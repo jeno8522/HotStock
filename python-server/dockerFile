@@ -15,5 +15,6 @@ COPY . .
 # 포트 4443 열기
 EXPOSE 4443
 
+
 # 애플리케이션 실행
-CMD ["gunicorn", "-b", "0.0.0.0:4443", "run:app"]
+CMD ["gunicorn", "--timeout", "600", "-b", "0.0.0.0:5000", "run:app"]

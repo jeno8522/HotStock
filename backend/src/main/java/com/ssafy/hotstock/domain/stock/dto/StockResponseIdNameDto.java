@@ -1,6 +1,5 @@
 package com.ssafy.hotstock.domain.stock.dto;
 
-import com.ssafy.hotstock.domain.stock.domain.Stock;
 import lombok.*;
 
 @Getter
@@ -8,10 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockDto {
+public class StockResponseIdNameDto {
     private Long id;
     private String name;
-    private String content;
-    private Long themeId;
-    
 }

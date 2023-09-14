@@ -12,4 +12,7 @@ public interface StockThemeService {
     Optional<StockTheme> findById(Long id);
     List<StockTheme> findAll();
     void delete(StockTheme stockTheme);
+
+    List<StockTheme> findStockThemesByThemeId(Long themeId);
+    List<Stock> getStockFromStockThemes(List<StockTheme> stockThemes);
 }

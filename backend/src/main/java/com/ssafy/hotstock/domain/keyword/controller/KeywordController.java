@@ -1,28 +1,24 @@
 package com.ssafy.hotstock.domain.keyword.controller;
 
 
-import com.ssafy.hotstock.domain.keyword.domain.TopKeywordsResponseDto;
+import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @CrossOrigin(origins = {"*"})
 @RequestMapping("/keyword")
 public class KeywordController {
@@ -34,6 +30,8 @@ public class KeywordController {
     private KeywordService keywordService;
 
     private KeywordThemeService keywordThemeService;
+
+    private static final Logger log = LoggerFactory.getLogger(KeywordController.class);
 
 
     //  POST keyword  swagger 용 더미데이터
@@ -77,13 +75,25 @@ public class KeywordController {
     @GetMapping
     public List<TopKeywordsResponseDto> getTopKeywordsByCount() {
         List<Keyword> keywords = keywordService.getTopKeywordsByCount();
+//        System.out.println("!!!!!!!!!!!!!!!!topkeywords = " + keywords.toString());
 
-        return keywords.stream()
+        List<TopKeywordsResponseDto> response = keywords.stream()
                 .map(keyword -> TopKeywordsResponseDto.builder()
                         .id(keyword.getId())
                         .text(keyword.getContent())
                         .value(keyword.getCount())
                         .build())
                 .collect(Collectors.toList());
+
+//        log.info("top 키워드들이에요!!! : {}", response);
+//        TopKeywordsResponseDto dummy = TopKeywordsResponseDto.builder()
+//                .id(1L)
+//                .text("hihihi")
+//                .value(100L)
+//                .build();
+//        response.add(dummy);
+        return response;
+
     }
+
 }

@@ -1,4 +1,4 @@
-package com.ssafy.hotstock.domain.keyword.domain;
+package com.ssafy.hotstock.domain.keyword.repository;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import org.springframework.data.jpa.repository.JpaRepository;

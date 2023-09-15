@@ -16,7 +16,7 @@ import static jakarta.persistence.FetchType.*;
 @NoArgsConstructor
 public class StockTheme {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stock_theme_id")
     private Long id;
 

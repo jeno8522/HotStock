@@ -15,7 +15,7 @@ public class ThemeServiceImpl implements ThemeService{
 
 
     @Override
-    public Theme save(Theme theme) {
+    public Theme insertTheme(Theme theme) {
         return themeRepository.save(theme);
     }
 

@@ -24,7 +24,6 @@ public class Stock {
     @Column(name = "stock_id")
     private Long id;
 
-
     @Column(name = "name")
     private String name;
 

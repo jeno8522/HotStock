@@ -1,5 +1,7 @@
 package com.ssafy.hotstock.domain.startup;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
@@ -7,6 +9,10 @@ import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.NewsService;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
+import com.ssafy.hotstock.domain.stocktheme.service.StockThemeService;
+import java.io.File;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,12 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class DatabaseInitializer implements CommandLineRunner {
 
+    private final StockThemeService stockThemeService;
     private final NewsService newsService;
     private final KeywordSummaryService keywordSummaryService;
     private final KeywordNewsService keywordNewsService;
@@ -27,6 +35,24 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        // JSON 파일 경로
+        String jsonFilePath = "src/main/resources/stocks.json";
+
+        // ObjectMapper 초기화
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // JSON 파일을 읽어서 Java 객체로 변환
+            List<StockThemeResponseDto> stockThemeResponseDtoList = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<StockThemeResponseDto>>() {});
+
+            stockThemeService.insertStockTheme(stockThemeResponseDtoList);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         /**
          * 조선, 중앙, 동아, 경향, 한겨레, 한국경제, 매일경제 순
          * */

@@ -18,7 +18,7 @@ public interface NewsService {
 
     News insertNews(News news);
 
-    void createNewsList(List<News> newsList);
+    List<News> createNewsList(List<News> newsList);
 
     News getNewsById(Long id);
 

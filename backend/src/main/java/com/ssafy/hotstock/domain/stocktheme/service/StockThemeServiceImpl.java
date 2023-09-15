@@ -1,21 +1,18 @@
 package com.ssafy.hotstock.domain.stocktheme.service;
 
+import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stock.service.StockService;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
-import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
-import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
-import com.ssafy.hotstock.domain.theme.service.ThemeServiceImpl;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -59,8 +56,8 @@ public class StockThemeServiceImpl implements StockThemeService {
     }
 
     @Override
-    public Optional<StockTheme> findById(Long id) {
-        return stockThemeRepository.findById(id);
+    public StockTheme findStockThemeById(Long id) {
+        return stockThemeRepository.findById(id).orElse(null);
     }
 
     @Override

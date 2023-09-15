@@ -66,7 +66,7 @@ public class KeywordSummaryServiceImpl implements KeywordSummaryService {
         List<NewsResponseDto> newsResponseDtoList) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:4443/keyword/"; // Python 서버 URL
+        String url = "http://hot-stock.shop:5000/keyword/"; // Python 서버 URL
 
         List<String[]> extractKeywordRequest = new ArrayList();
 

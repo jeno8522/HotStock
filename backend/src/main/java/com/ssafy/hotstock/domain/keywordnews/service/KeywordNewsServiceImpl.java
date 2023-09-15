@@ -84,7 +84,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
 
                 List<KeywordNews> keywordNewsList = new ArrayList<>();
                 for (Long newsId : keywordSubCountResponseDto.getNewsIds()) {
-                    News news = newsService.getNewsById(newsId);
+                    News news = newsService.findNewsById(newsId);
                     if (news ==null) {
                         log.debug("해당 newsId 값과 일치하는 뉴스가 존재하지 않습니다.");
                     }

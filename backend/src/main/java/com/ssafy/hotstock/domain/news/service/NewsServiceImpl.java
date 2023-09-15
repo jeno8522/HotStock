@@ -216,7 +216,6 @@ public class NewsServiceImpl implements NewsService {
                     String status = matcher.group(1); // 첫 번째 그룹을 가져옴
                     if (status.equals("404")) {
                         articleNum++;
-                        continue;
                     } else {
                         break;
                     }
@@ -278,7 +277,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News getNewsById(Long id) {
+    public News findNewsById(Long id) {
         return newsRepository.findById(id).orElse(null);
     }
 

@@ -273,8 +273,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void createNewsList(List<News> newsList) {
-        newsRepository.saveAll(newsList);
+    public List<News> createNewsList(List<News> newsList) {
+        return newsRepository.saveAll(newsList);
     }
 
     @Override

@@ -82,6 +82,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                 .build();
                 keywordService.insertKeyword(keyword);
 
+                List<KeywordNews> keywordNewsList = new ArrayList<>();
                 for (Long newsId : keywordSubCountResponseDto.getNewsIds()) {
                     News news = newsService.getNewsById(newsId);
                     if (news ==null) {
@@ -92,8 +93,9 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                         .news(news)
                         .keyword(keyword)
                         .build();
-                    insertKeywordNews(keywordNews);
+                    keywordNewsList.add(keywordNews);
                 }
+                insertKeywordNewsList(keywordNewsList);
 
                 keywordList.add(keywordContent);
             }
@@ -113,8 +115,8 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
 
 
     @Override
-    public KeywordNews insertKeywordNews(KeywordNews keywordNews) {
-        return keywordNewsRepository.save(keywordNews);
+    public List<KeywordNews> insertKeywordNewsList(List<KeywordNews> keywordNewsList) {
+        return keywordNewsRepository.saveAll(keywordNewsList);
     }
 
 }

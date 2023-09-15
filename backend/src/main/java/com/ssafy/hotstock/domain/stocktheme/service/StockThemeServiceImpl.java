@@ -1,7 +1,9 @@
 package com.ssafy.hotstock.domain.stocktheme.service;
 
+import com.ssafy.hotstock.domain.stock.service.StockService;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
 import com.ssafy.hotstock.domain.stock.domain.Stock;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
@@ -24,10 +26,36 @@ public class StockThemeServiceImpl implements StockThemeService {
 
     private final ThemeService themeService;
 
+    private final StockService stockService;
     @Override
-    @Transactional
-    public StockTheme save(StockTheme stockTheme) {
-        return stockThemeRepository.save(stockTheme);
+    public void insertStockTheme(List<StockThemeResponseDto> stockThemeResponseDtoList) {
+
+        for (StockThemeResponseDto stockThemeResponseDto : stockThemeResponseDtoList) {
+            String themeName = stockThemeResponseDto.getThemeName();
+            Theme theme= Theme.builder()
+                .name(themeName)
+                .build();
+            themeService.insertTheme(theme);
+
+            ArrayList<Stock> stockList = new ArrayList<>();
+
+            ArrayList<StockTheme> stockThemeList = new ArrayList<>();
+            for (String stockName : stockThemeResponseDto.getStockNames()) {
+                Stock stock=Stock.builder()
+                    .name(stockName)
+                    .build();
+                stockList.add(stock);
+
+                StockTheme stockTheme= StockTheme.builder()
+                    .stock(stock)
+                    .theme(theme)
+                    .build();
+                stockThemeList.add(stockTheme);
+            }
+
+            stockService.insertStockList(stockList);
+            stockThemeRepository.saveAll(stockThemeList);
+        }
     }
 
     @Override

@@ -30,6 +30,17 @@ class KeywordsThemes(Resource):
         response = Response(
             to_json(response_data), content_type='application/json; charset=utf-8')
         return response
+    
+@ns.route('/gpt')
+class TempKeywordsThemes(Resource):
+    @ns.expect([keyword_item])
+    @ns.doc(description='payload\'s ["string"] is in the format [keyword]')
+    def post(self):
+        data: list = list(request.json)
+        response_data:dict = theme_service.get_themes_of_keywords(data,'gpt')
+        response = Response(
+            to_json(response_data, "keywords_themes"), content_type='application/json; charset=utf-8')
+        return response
 
 from app import api_root
 api_root.add_namespace(ns)

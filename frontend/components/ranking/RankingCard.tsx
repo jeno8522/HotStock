@@ -8,10 +8,10 @@ interface getKeywordsProps {
   index: number;
 }
 
-const Cafe24SsurroundAir = localfont({
+const NanumBarunGothicLight = localfont({
   src: [
     {
-      path: "../../public/fonts/Cafe24SsurroundAir.ttf",
+      path: "../../public/fonts/NanumBarunGothicLight.ttf",
       weight: "normal",
       style: "normal",
     },
@@ -23,17 +23,16 @@ const RankingCard = async ({ keyword, index }: getKeywordsProps) => {
   // const firstThemeIdOfKeyword = getKeywordDetail.theme[0].themeId;
   const firstThemeIdOfKeyword = 12;
   const { text } = keyword;
-  console.log(keyword);
   return (
-    <div className="mx-3 my-5">
+    <div className="mx-3 my-10">
       {/* <Link href={`/keyword/${keyword.id}`} className="flex"> */}
       <Link
         href={`/keyword/${keyword.id}/${firstThemeIdOfKeyword}`}
         className="flex"
       >
-        <div className="text-black-500 m-2">{index}</div>
+        <div className="text-black-500 font-bold text-center w-5 m-2">{index}</div>
         <div
-          className={`text-gray-700 m-2 truncate ${Cafe24SsurroundAir.className}`}
+          className="text-gray-700 m-2 truncate"
         >
           {text}
         </div>

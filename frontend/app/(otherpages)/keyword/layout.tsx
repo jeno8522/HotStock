@@ -21,7 +21,7 @@ export default function KeywordDetailLayout({
 }) {
   return (
     <>
-      <div className={Cafe24SsurroundAir.className}>
+      <div>
         <div>{children}</div>
       </div>
     </>

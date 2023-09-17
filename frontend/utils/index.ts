@@ -1,6 +1,6 @@
 // 랭킹 키워드 호출하기 :: 전체 일괄 호출(현재 순위 25개)
 export const fetchKeywords = async () => {
-  const res = await fetch("url");
+  const res = await fetch("http://localhost:8080/api/keyword");
   const data = await res.json();
   return data;
 };
@@ -14,7 +14,7 @@ export const fetchKeywordDetail = async (key: number) => {
 
 // 테마에 따른 종목 조회하기
 export const fetchStockByTheme = async (themeId: number) => {
-  const res = await fetch("url");
+  const res = await fetch(`http://localhost:8080/api/theme/${themeId}`);
   const data = await res.json();
   return data;
 };

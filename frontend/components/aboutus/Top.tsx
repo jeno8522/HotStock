@@ -5,6 +5,7 @@ import ScrollAnimationWrapper from "../ScrollAnimationWrapper";
 import { motion } from "framer-motion";
 import React, { useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import analyticImage from "@/public/images/undraw_Predictive_analytics_re_wxt8.png";
 
 const Top = () => {
@@ -26,7 +27,9 @@ const Top = () => {
             <p className="text-black-500 mt-4 mb-6">
               유사 빅데이터 유사 인공지능이지만 그래도 나름 핀테크임 (진짜)
             </p>
-            <button>랭킹 바로가기</button>
+            <Link href="/ranking">
+              <button>랭킹 바로가기</button>
+            </Link>
           </div>
           <div className="flex w-full">
             <motion.div className="h-full w-full" variants={scrollAnimation}>
@@ -34,8 +37,6 @@ const Top = () => {
                 src={analyticImage}
                 alt="analytics"
                 quality={100}
-                // width={612}
-                // height={350}
                 layout="responsive"
               />
             </motion.div>

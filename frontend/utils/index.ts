@@ -25,3 +25,10 @@ export const fetchStockDetail = async () => {
   const data = await res.json();
   return data;
 };
+
+// 종목 검색하기 :: 종목 명 혹은 종목 코드 상관없이 string으로 전송
+export const searchStocks = async (searchInput : string) => {
+  const res = await fetch("url");
+  const data = await res.json();
+  return data;
+}

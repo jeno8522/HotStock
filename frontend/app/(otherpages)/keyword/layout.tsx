@@ -4,16 +4,6 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Cafe24SsurroundAir = localfont({
-  src: [
-    {
-      path: "../../../public/fonts/Cafe24SsurroundAir.ttf",
-      weight: "normal",
-      style: "normal",
-    },
-  ],
-});
-
 export default function KeywordDetailLayout({
   children,
 }: {
@@ -21,7 +11,7 @@ export default function KeywordDetailLayout({
 }) {
   return (
     <>
-      <div className={Cafe24SsurroundAir.className}>
+      <div>
         <div>{children}</div>
       </div>
     </>

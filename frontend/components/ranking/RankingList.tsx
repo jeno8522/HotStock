@@ -42,9 +42,9 @@ const RankingList = async () => {
   }
   // console.log(eachKeywords);
   return (
-    <div className="relative bg-white px-6 pt-3 pb-3 shadow-xl ring-1 rounded-2xl ring-gray-900/5">
+    <div className="relative bg-white px-6 pt-3 pb-3 shadow-xl h-[30rem] ring-1 rounded-2xl ring-gray-900/5">
       {!isEmpty ? (
-        <div className="flex justify-between mx-2 overflow-hidden">
+        <div className="flex justify-between mx-2 overflow-hidden ">
           {eachKeywords?.map((group, eIndex) => (
             <div key={eIndex} className="flex-1">
               {group?.map((keyword, gIndex) => (

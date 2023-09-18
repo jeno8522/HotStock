@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Navbar, Footer } from "@/components";
 import localfont from "next/font/local";
-import {Providers} from "./providers";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${NanumBarunGothicLight.className}`}>
         <Providers>
           <Navbar />
-            {children}
+          <div className="min-h-[90vh]">{children}</div>
           <Footer />
         </Providers>
       </body>

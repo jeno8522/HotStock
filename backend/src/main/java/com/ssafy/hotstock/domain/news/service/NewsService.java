@@ -4,7 +4,6 @@ import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public interface NewsService {
 
@@ -18,9 +17,9 @@ public interface NewsService {
 
     News insertNews(News news);
 
-    void createNewsList(List<News> newsList);
+    List<News> createNewsList(List<News> newsList);
 
-    News getNewsById(Long id);
+    News findNewsById(Long id);
 
     List<News> getAllNews();
 

@@ -20,7 +20,7 @@ public interface KeywordThemeService {
     KeywordTheme updateKeywordTheme(KeywordTheme keywordTheme);
     void deleteKeywordTheme(Long id);
 
-    List<KeywordThemeResponseDto> fetchKeywordTheme(String[] keywords) throws JsonProcessingException;
+    List<KeywordThemeResponseDto> fetchKeywordTheme(List<String> keywords) throws JsonProcessingException;
 
     void insertKeywordTheme(List<KeywordThemeResponseDto> keywordThemeResponseDtos);
 

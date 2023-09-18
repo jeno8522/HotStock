@@ -12,8 +12,8 @@ RUN pip install -r requirements.txt
 COPY . .
 
 
-# 포트 4443 열기
-EXPOSE 4443
+# 포트 5000 열기
+EXPOSE 5000
 
 
 # 애플리케이션 실행

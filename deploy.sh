@@ -9,7 +9,7 @@ if [ -z "$EXIST_BLUE" ]; then
         BEFORE_PORT=8081
         AFTER_PORT=8080
 else
-        docker-compose -p mydowson-green -f /var/lib/jenkins/wrokspace/A206/docker-compose.green.yaml up -d
+        docker-compose -p mydowson-green -f /var/lib/jenkins/workspace/A206/docker-compose.green.yaml up -d
         BEFORE_COLOR="blue"
         AFTER_COLOR="green"
         BEFORE_PORT=8080

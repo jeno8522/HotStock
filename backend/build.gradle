@@ -45,6 +45,10 @@ dependencies {
 
     // ?? 를 보기 쉽게 해주는 dependency
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+    // 모니터링을 위한 actuator, proemtheus
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 

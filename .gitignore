@@ -1,2 +1,6 @@
 /.idea/
+/.vscode/
 /python-server/vectordb_model/
+*.iml
+*.idea
+*.pyc

@@ -80,7 +80,10 @@ const KeywordDetailWithTheme = async ({
   const themeNumber = parseInt(params.themeId, 10);
 
   // const keywordDetails = await fetchKeywordDetail(keyNumber);
-  // const stockDetails = await fetchStockByTheme(themeNumber);
+  // const stockList = await fetchStockByTheme(themeNumber);
+
+  const stockIsEmpty =
+    !Array.isArray(stockList) || stockList.length < 1 || !stockList;
 
   const selectedKeyword: Keyword = {
     name: "",
@@ -144,14 +147,16 @@ const KeywordDetailWithTheme = async ({
             ))}
           </div>
           <div>
-            {/* {stockDetails.stock.map((stocks) => (
-              <StockBar stock = {stock}/>
-            ))} */}
-            <StockBar />
-            <StockBar />
-            <StockBar />
-            <StockBar />
-            <StockBar />
+            {!stockIsEmpty ? (
+              <div>
+                {stockList?.map((stock, index) => (
+                  // <div key={index}>{stock.name}</div>
+                  <StockBar key={index} stock={stock} />
+                ))}
+              </div>
+            ) : (
+              <div>이 테마에 해당하는 종목이 존재하지 않습니다.</div>
+            )}
           </div>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
@@ -169,3 +174,66 @@ const KeywordDetailWithTheme = async ({
 };
 
 export default KeywordDetailWithTheme;
+
+const stockList = [
+  {
+    stockName: "1번종목",
+    code: "090909",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "2번종목",
+    code: "808080",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "3번종목",
+    code: "989898",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "4번종목",
+    code: "579598",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "5번종목",
+    code: "367536",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+];

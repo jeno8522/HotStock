@@ -19,8 +19,8 @@ export const fetchStockByTheme = async (themeId: number) => {
   return data;
 };
 
-// 종목 상세 조회하기 :: 종목 아이디로 GET
-export const fetchStockDetail = async () => {
+// 종목 상세 조회하기 :: 종목코드로 GET
+export const fetchStockDetail = async ( code : string) => {
   const res = await fetch("url");
   const data = await res.json();
   return data;

@@ -1,7 +1,6 @@
 package com.ssafy.hotstock.domain.theme.domain;
 
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
-import io.lettuce.core.dynamic.annotation.CommandNaming.Strategy;
+import com.ssafy.hotstock.relationships.keywordtheme.domain.KeywordTheme;
 import jakarta.persistence.*;
 import lombok.*;
 

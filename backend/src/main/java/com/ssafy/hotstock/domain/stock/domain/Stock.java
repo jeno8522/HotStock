@@ -1,7 +1,6 @@
 package com.ssafy.hotstock.domain.stock.domain;
 
-import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
-import com.ssafy.hotstock.domain.theme.domain.Theme;
+import com.ssafy.hotstock.relationships.stocktheme.domain.StockTheme;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.*;
-import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
 @Entity

@@ -4,6 +4,7 @@ package com.ssafy.hotstock.domain.keyword.service;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
 
+import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class KeywordServiceImpl implements KeywordService {
 
     private final KeywordRepository keywordRepository;
 
+    private final ThemeService themeService;
 //    @Autowired
 //    private NewsService newsService;
 

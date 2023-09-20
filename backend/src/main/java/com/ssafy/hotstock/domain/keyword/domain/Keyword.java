@@ -3,8 +3,8 @@ package com.ssafy.hotstock.domain.keyword.domain;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.relationships.keywordnews.domain.KeywordNews;
+import com.ssafy.hotstock.relationships.keywordtheme.domain.KeywordTheme;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

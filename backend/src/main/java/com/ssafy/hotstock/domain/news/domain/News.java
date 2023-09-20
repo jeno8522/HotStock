@@ -1,9 +1,7 @@
 package com.ssafy.hotstock.domain.news.domain;
 
 
-import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
-import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
+import com.ssafy.hotstock.relationships.keywordnews.domain.KeywordNews;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
 
 @Entity

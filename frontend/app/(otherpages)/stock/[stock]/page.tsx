@@ -23,7 +23,8 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         title: "이건기사제목이야",
         date: "2023-09-19",
         content: "이건기사내용이야",
-        company: "한겨레",
+        company: 28,
+        url: "https://www.naver.com/",
       },
     ],
   };
@@ -39,9 +40,14 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
       <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
         {/* 왼쪽 이름 탭 */}
         <div className="xl:w-1/5">
-          <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] font-bold">
-            {stockInfo.stockName}
-          </div>
+          <a
+            target="_blank"
+            href={`https://finance.daum.net/quotes/A${stockInfo.code}#home`}
+          >
+            <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] font-bold">
+              {stockInfo.stockName}
+            </div>
+          </a>
           <StockInfo stock={stockInfo} />
         </div>
         {/* 오른쪽 정보 탭  */}

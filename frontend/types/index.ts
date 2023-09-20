@@ -3,7 +3,8 @@ export interface News {
   title: string;
   date: string;
   content: string;
-  company: string;
+  company: number;
+  url: string;
 }
 
 export interface Stock {

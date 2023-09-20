@@ -24,14 +24,16 @@ const dummy: Keyword[] = [
         title: "반도체 기사 1번 제목임",
         content: "반도체 기사 1번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
       {
         id: 412345,
         title: "반도체 기사 2번 제목임",
         content: "반도체 기사 2번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
     ],
   },
@@ -55,14 +57,16 @@ const dummy: Keyword[] = [
         title: "초전도체 기사 1번 제목임",
         content: "초전도체 기사 1번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
       {
         id: 18324,
         title: "초전도체 기사 2번 제목임",
         content: "초전도체 기사 2번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
     ],
   },
@@ -81,6 +85,7 @@ const KeywordDetailWithTheme = async ({
 
   // const keywordDetails = await fetchKeywordDetail(keyNumber);
   // const stockList = await fetchStockByTheme(themeNumber);
+  // console.log(stockList);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;

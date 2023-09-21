@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.keywordnews.service;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
+import com.ssafy.hotstock.domain.keywordnews.dto.NewsByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordnews.repository.KeywordNewsRepository;
 import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordCountLog;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
@@ -42,9 +43,9 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
         Long checkPointId = keywordCheckPointService.getLastCheckPointId();
 
         // 24시간이 지났으므로 24시간 10분전 키워드의 카운트 줄이기
-        if (checkPointId - 3L >= 0L) {
+        if (checkPointId - 144L >= 0L) {
             List<KeywordCountLog> keywordCountLogList = keywordCountLogService.getKeywordCountLogByCheckPointId(
-                checkPointId - 3L);
+                checkPointId - 144L);
 
             for (KeywordCountLog keywordCountLog : keywordCountLogList) {
                 String keywordContent = keywordCountLog.getKeywordContent();
@@ -104,19 +105,37 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
     }
 
     @Override
-    public List<KeywordNews> getKeywordNewsByKeywordId(Long keywordId) {
-        return keywordNewsRepository.findByKeywordId(keywordId);
-    }
-
-    @Override
-    public List<KeywordNews> getKeywordNewsByNewsId(Long newsId) {
-        return keywordNewsRepository.findByNewsId(newsId);
-    }
-
-
-    @Override
     public List<KeywordNews> insertKeywordNewsList(List<KeywordNews> keywordNewsList) {
         return keywordNewsRepository.saveAll(keywordNewsList);
+    }
+
+    @Override
+    public List<NewsByKeywordIdResponseDto> getNewsByKeywordIdWithNews(Long keywordId) {
+
+        
+        // 뉴스 가져오기
+        List<KeywordNews> newsByKeywordId = keywordNewsRepository.findByKeywordIdWithNews(
+            keywordId);
+        if (newsByKeywordId == null) {
+            return null;
+        }
+
+        List<NewsByKeywordIdResponseDto> newsByKeywordIdResponseDtoList = new ArrayList<>();
+
+        for (KeywordNews keywordNews : newsByKeywordId) {
+            News news = keywordNews.getNews();
+            NewsByKeywordIdResponseDto newsByKeywordIdResponseDto = NewsByKeywordIdResponseDto.builder()
+                .newsId(news.getId())
+                .title(news.getTitle())
+                .content(news.getContent())
+                .link(news.getLink())
+                .date(news.getDate())
+                .mediaCompanyNum(news.getMediaCompanyNum())
+                .build();
+            newsByKeywordIdResponseDtoList.add(newsByKeywordIdResponseDto);
+        }
+
+        return newsByKeywordIdResponseDtoList;
     }
 
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
+import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.domain.News;
@@ -30,7 +30,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     private final StockThemeService stockThemeService;
     private final NewsService newsService;
-    private final KeywordSummaryService keywordSummaryService;
+    private final KeywordCountLogService keywordCountLogService;
     private final KeywordNewsService keywordNewsService;
     private final KeywordThemeService keywordThemeService;
 
@@ -90,7 +90,7 @@ public class DatabaseInitializer implements CommandLineRunner {
              * 가져온 기사들을 사용해 키워드 추출 및 저장
              * KeywordCheckPoint, KeywordCountLog 저장
              */
-            List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = keywordSummaryService.fetchKeywords(
+            List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = keywordCountLogService.fetchKeywords(
                 allNewsResponseDtoList);
 
             /**

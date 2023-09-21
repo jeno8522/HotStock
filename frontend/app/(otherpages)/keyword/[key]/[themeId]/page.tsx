@@ -24,14 +24,16 @@ const dummy: Keyword[] = [
         title: "반도체 기사 1번 제목임",
         content: "반도체 기사 1번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
       {
         id: 412345,
         title: "반도체 기사 2번 제목임",
         content: "반도체 기사 2번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
     ],
   },
@@ -55,14 +57,16 @@ const dummy: Keyword[] = [
         title: "초전도체 기사 1번 제목임",
         content: "초전도체 기사 1번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
       {
         id: 18324,
         title: "초전도체 기사 2번 제목임",
         content: "초전도체 기사 2번 내용임",
         date: "string",
-        company: "한겨레",
+        company: 23,
+        url: "",
       },
     ],
   },
@@ -80,7 +84,11 @@ const KeywordDetailWithTheme = async ({
   const themeNumber = parseInt(params.themeId, 10);
 
   // const keywordDetails = await fetchKeywordDetail(keyNumber);
-  // const stockDetails = await fetchStockByTheme(themeNumber);
+  // const stockList = await fetchStockByTheme(themeNumber);
+  // console.log(stockList);
+
+  const stockIsEmpty =
+    !Array.isArray(stockList) || stockList.length < 1 || !stockList;
 
   const selectedKeyword: Keyword = {
     name: "",
@@ -111,7 +119,7 @@ const KeywordDetailWithTheme = async ({
 
   // ----------------------------------------
   return (
-    <div className="max-w-screen-xl px-8 xl:px-10 mt-10 mx-auto">
+    <div className="max-w-screen-lg px-8 xl:px-10 mt-10 mx-auto">
       <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
         {/* 왼쪽 이름 탭 */}
         <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] xl:w-1/5 font-bold">
@@ -144,14 +152,16 @@ const KeywordDetailWithTheme = async ({
             ))}
           </div>
           <div>
-            {/* {stockDetails.stock.map((stocks) => (
-              <StockBar stock = {stock}/>
-            ))} */}
-            <StockBar />
-            <StockBar />
-            <StockBar />
-            <StockBar />
-            <StockBar />
+            {!stockIsEmpty ? (
+              <div>
+                {stockList?.map((stock, index) => (
+                  // <div key={index}>{stock.name}</div>
+                  <StockBar key={index} stock={stock} />
+                ))}
+              </div>
+            ) : (
+              <div>이 테마에 해당하는 종목이 존재하지 않습니다.</div>
+            )}
           </div>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
@@ -169,3 +179,75 @@ const KeywordDetailWithTheme = async ({
 };
 
 export default KeywordDetailWithTheme;
+
+const stockList = [
+  {
+    stockName: "1번종목종목종목가나다라마밧가",
+    code: "858757",
+    openPrice: 0,
+    currPrice: 5700,
+    fluctuationRate: -0.71,
+    diff: 200,
+    tradingVolume: 14770506,
+    highPrice: 5830,
+    lowPrice: 5650,
+    newslist: [
+      {
+        id: 123,
+        title: "이건기사제목이야",
+        date: "2023-09-19",
+        content: "이건기사내용이야",
+        company: 28,
+        url: "https://www.naver.com/",
+      },
+    ],
+  },
+  {
+    stockName: "2번종목",
+    code: "808080",
+    openPrice: 0,
+    currPrice: 5700,
+    fluctuationRate: 0.71,
+    diff: 200,
+    tradingVolume: 14770506,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "3번종목",
+    code: "989898",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "4번종목",
+    code: "579598",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+  {
+    stockName: "5번종목",
+    code: "367536",
+    openPrice: 0,
+    currPrice: 0,
+    fluctuationRate: 0,
+    diff: 0,
+    tradingVolume: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    newslist: [],
+  },
+];

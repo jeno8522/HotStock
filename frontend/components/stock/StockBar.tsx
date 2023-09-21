@@ -11,12 +11,6 @@ interface StockProps {
 const StockBar = ({ stock }: StockProps) => {
   const { stockName, currPrice, code, fluctuationRate, diff } = stock;
 
-  // const StockBar = () => {
-  // dummy --------------------------------
-  // const stockName: string = "종목이름이얌";
-  // const currPrice: number = 12312;
-  // const code: string = "142434";
-  // --------------------------------------
   return (
     <div>
       <div className="flex justify-between rounded-md my-3 border-2 border-gray-300 p-4">

@@ -7,8 +7,10 @@ import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordThemeRepository;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
+import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,7 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
 
     @Override
     public List<KeywordTheme> getKeywordThemeByKeywordId(Long keywordId) {
+
         return keywordThemeRepository.findByKeywordId(keywordId);
     }
 
@@ -132,6 +135,28 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
         return keywordThemes.stream()
             .map(KeywordTheme::getKeyword)
             .toList();
+    }
+
+    @Override
+    public List<ThemeByKeywordIdResponseDto> getThemeByKeywordIdWithTheme(Long keywordId) {
+
+        List<KeywordTheme> keywordThemeList = keywordThemeRepository.findByKeywordIdWithTheme(keywordId);
+
+        if (keywordThemeList == null) {
+            return null;
+        }
+
+        List<ThemeByKeywordIdResponseDto> themeByKeywordIdResponseDtoList = new ArrayList<>();
+        for (KeywordTheme keywordTheme : keywordThemeList) {
+            Theme theme = keywordTheme.getTheme();
+            ThemeByKeywordIdResponseDto themeByKeywordIdResponseDto = ThemeByKeywordIdResponseDto.builder()
+                .themeId(theme.getId())
+                .name(theme.getName())
+                .build();
+            themeByKeywordIdResponseDtoList.add(themeByKeywordIdResponseDto);
+        }
+
+        return themeByKeywordIdResponseDtoList;
     }
 
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
+import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface KeywordThemeService {
     void insertKeywordTheme(List<KeywordThemeResponseDto> keywordThemeResponseDtos);
 
     List<Keyword> getKeywordFromKeywordThemes(List<KeywordTheme> keywordThemes);
+
+    List<ThemeByKeywordIdResponseDto> getThemeByKeywordIdWithTheme(Long keywordId);
 }

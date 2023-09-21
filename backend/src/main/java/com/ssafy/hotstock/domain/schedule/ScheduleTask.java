@@ -2,10 +2,9 @@ package com.ssafy.hotstock.domain.schedule;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.ssafy.hotstock.domain.keywordnews.domain.KeywordNews;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
+import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.news.dto.MediaResponseDto;
@@ -29,7 +28,7 @@ public class ScheduleTask {
 
     private final NewsService newsService;
     private final MediaService mediaService;
-    private final KeywordSummaryService keywordSummaryService;
+    private final KeywordCountLogService keywordCountLogService;
     private final KeywordNewsService keywordNewsService;
     private final KeywordThemeService keywordThemeService;
     /**
@@ -69,7 +68,7 @@ public class ScheduleTask {
          * 가져온 기사들을 사용해 키워드 추출 및 저장
          * KeywordCheckPoint, KeywordCountLog 저장
          */
-        List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = keywordSummaryService.fetchKeywords(
+        List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList = keywordCountLogService.fetchKeywords(
             allNewsResponseDtoList);
 
         /**

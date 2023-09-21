@@ -49,6 +49,9 @@ dependencies {
     // 모니터링을 위한 actuator, proemtheus
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // cache 사용
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 }
 
 

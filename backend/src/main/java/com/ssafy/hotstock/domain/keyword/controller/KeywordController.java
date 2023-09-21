@@ -1,13 +1,20 @@
 package com.ssafy.hotstock.domain.keyword.controller;
 
 
+import com.ssafy.hotstock.domain.keyword.dto.KeywordDetailResponseDto;
 import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keywordnews.dto.NewsByKeywordIdResponseDto;
+import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +36,11 @@ public class KeywordController {
     @Autowired
     private KeywordService keywordService;
 
+    @Autowired
     private KeywordThemeService keywordThemeService;
+
+    @Autowired
+    private KeywordNewsService keywordNewsService;
 
     private static final Logger log = LoggerFactory.getLogger(KeywordController.class);
 
@@ -61,14 +72,24 @@ public class KeywordController {
 
 
 //    Todo: KeywordNews 이거 만들어야함
-//    @GetMapping("/{keyword_id}")
-//    public ResponseEntity<Keyword> getKeywordThemeNewsById(@PathVariable Long keyword_id) {
-//        List<KeywordTheme> keywordThemes= keywordThemeService.getKeywordThemeByKeywordId(keyword_id);
-////        List<KewordNews> keywordNews =
-////        키워드로 추출한 뉴스 가져오는 로직 필요
-//        ResponseEntity keyword = new ResponseEntity<>();
-//        return keyword;
-//    }
+    @GetMapping("/{keywordId}")
+    public ResponseEntity<?> getKeywordThemeNewsById(@PathVariable Long keywordId) {
+        String keywordContent = keywordService.getKeywordContent(keywordId);
+
+        List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordIdWithTheme(
+            keywordId);
+
+        List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordIdWithNews(
+            keywordId);
+
+        KeywordDetailResponseDto keywordDetailResponseDto= KeywordDetailResponseDto.builder()
+            .keywordContent(keywordContent)
+            .themeByKeywordIdResponseDtoList(themeList)
+            .newsByKeywordIdResponseDtoList(newsList)
+            .build();
+
+        return new ResponseEntity<>(keywordDetailResponseDto, HttpStatus.OK);
+    }
 
 
 

@@ -1,14 +1,21 @@
 package com.ssafy.hotstock.domain.theme.domain;
 
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
-import io.lettuce.core.dynamic.annotation.CommandNaming.Strategy;
-import jakarta.persistence.*;
-import lombok.*;
+import static jakarta.persistence.CascadeType.ALL;
 
+import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
-import static jakarta.persistence.CascadeType.ALL;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter

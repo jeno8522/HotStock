@@ -1,6 +1,6 @@
-import { Keyword, Theme, News, StockProp } from "@/types";
+import { Keyword, Theme, News, Stock } from "@/types";
 import { ArticleCard, StockBar } from "@/components";
-import { fetchKeywordDetail, fetchStockByTheme } from "@/utils";
+import { fetchKeywordDetail, fetchContentsByTheme } from "@/utils";
 import Link from "next/link";
 
 const KeywordDetailWithTheme = async ({
@@ -13,7 +13,9 @@ const KeywordDetailWithTheme = async ({
   const themeNumber = parseInt(params.themeId, 10);
 
   const keywordDetails = await fetchKeywordDetail(keyNumber);
-  const stockList = await fetchStockByTheme(themeNumber);
+  const themeResult = await fetchContentsByTheme(themeNumber);
+  const stockList = themeResult.stock;
+  console.log(stockList);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;
@@ -51,16 +53,20 @@ const KeywordDetailWithTheme = async ({
             )}
           </div>
           <div>
-            {/* {!stockIsEmpty ? (
+            {!stockIsEmpty ? (
               <div>
-                {stockList.stock.map((stock: StockProp, index: number) => (
+                {stockList.map((stock: Stock, index: number) => (
                   // <div key={index}>{stock.name}</div>
                   <StockBar key={index} stock={stock} />
                 ))}
+                {/* {stockDummy.map((stock: Stock, index: number) => (
+                  // <div key={index}>{stock.name}</div>
+                  <StockBar key={index} stock={stock} />
+                ))} */}
               </div>
             ) : (
               <div>이 테마에 해당하는 종목이 존재하지 않습니다.</div>
-            )} */}
+            )}
           </div>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
@@ -81,7 +87,7 @@ const KeywordDetailWithTheme = async ({
 
 export default KeywordDetailWithTheme;
 
-const stockList = [
+const stockDummy: Stock[] = [
   {
     stockName: "1번종목종목종목가나다라마밧가",
     code: "858757",
@@ -98,8 +104,8 @@ const stockList = [
         title: "이건기사제목이야",
         date: "2023-09-19",
         content: "이건기사내용이야",
-        company: 28,
-        url: "https://www.naver.com/",
+        mediaCompanyNum: 28,
+        link: "https://www.naver.com/",
       },
     ],
   },

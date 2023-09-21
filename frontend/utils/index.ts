@@ -18,8 +18,8 @@ export const fetchKeywordDetail = async (keyword_id: number) => {
   return data;
 };
 
-// 테마에 따른 종목 조회하기
-export const fetchStockByTheme = async (theme_id: number) => {
+// 테마에 따른 키워드와 종목 조회하기
+export const fetchContentsByTheme = async (theme_id: number) => {
   const res = await fetch(`http://localhost:8080/api/theme/${theme_id}`);
   const data = await res.json();
   return data;

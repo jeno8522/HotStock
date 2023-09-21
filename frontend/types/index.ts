@@ -3,14 +3,9 @@ export interface News {
   title: string;
   date: string;
   content: string;
-  company: number;
-  url: string;
+  mediaCompanyNum: number;
+  link: string;
 }
-export interface StockProp {
-  id: number;
-  name: string;
-}
-
 export interface Stock {
   stockName: string;
   code: string;

@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  promethues:
+    image: prom/promethues
+    container_name: promethues
+    volumes:
+      - ./prometheus.yml:/etc/prometheus-2.47.0.linux-amd64/prometheus.yml
+    ports:
+      - 8900:8900
+    networks:
+      - promnet
+    user: root
+  
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - promnet
+    user: root
+
+networks:
+  promnet:
+    driver: bridge
+    

@@ -8,34 +8,23 @@ interface getKeywordsProps {
   index: number;
 }
 
-const NanumBarunGothicLight = localfont({
-  src: [
-    {
-      path: "../../public/fonts/NanumBarunGothicLight.ttf",
-      weight: "normal",
-      style: "normal",
-    },
-  ],
-});
-
 const RankingCard = async ({ keyword, index }: getKeywordsProps) => {
   // const getKeywordDetail = await fetchKeywordDetail(keyword.id);
-  // const firstThemeIdOfKeyword = getKeywordDetail.theme[0].themeId;
+  // const firstThemeIdOfKeyword = getKeywordDetail.theme[0].theme_id;
+  // console.log(getKeywordDetail);
   const firstThemeIdOfKeyword = 12;
   const { text } = keyword;
   return (
-    <div className="mx-3 my-10">
+    <div className="mx-3 my-10 text-lg">
       {/* <Link href={`/keyword/${keyword.id}`} className="flex"> */}
       <Link
         href={`/keyword/${keyword.id}/${firstThemeIdOfKeyword}`}
         className="flex"
       >
-        <div className="text-black-500 font-bold text-center w-5 m-2">{index}</div>
-        <div
-          className="text-gray-700 m-2 truncate"
-        >
-          {text}
+        <div className="text-black-500 font-bold text-center w-5 m-2">
+          {index}
         </div>
+        <div className="text-gray-700 m-2 truncate">{text}</div>
       </Link>
     </div>
   );

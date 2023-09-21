@@ -15,7 +15,7 @@ const KeywordDetailWithTheme = async ({
   const keywordDetails = await fetchKeywordDetail(keyNumber);
   const themeResult = await fetchContentsByTheme(themeNumber);
   const stockList = themeResult.stock;
-  console.log(stockList);
+  // console.log(stockList);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;

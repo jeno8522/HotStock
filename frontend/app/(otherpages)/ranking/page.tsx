@@ -21,7 +21,7 @@ const Ranking = () => {
   let hours = today.getHours(); // 시
   let minutes = today.getMinutes(); // 분
 
-  console.log(year + "/" + month + "/" + date + "/" + day);
+  // console.log(year + "/" + month + "/" + date + "/" + day);
 
   return (
     <div

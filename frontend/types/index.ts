@@ -3,26 +3,25 @@ export interface News {
   title: string;
   date: string;
   content: string;
-  company: number;
-  url: string;
+  mediaCompanyNum: number;
+  link: string;
 }
-
 export interface Stock {
   stockName: string;
   code: string;
   openPrice: number;
   currPrice: number;
-  fluctuationRate : number;
-  diff : number;
-  tradingVolume : number;
+  fluctuationRate: number;
+  diff: number;
+  tradingVolume: number;
   highPrice: number;
-  lowPrice:number;
-  
+  lowPrice: number;
+
   newslist: News[];
 }
 
 export interface Theme {
-  id: number;
+  themeId: number;
   name: string;
 }
 

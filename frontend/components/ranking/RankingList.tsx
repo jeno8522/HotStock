@@ -4,7 +4,7 @@ import { fetchKeywords } from "@/utils";
 
 const RankingList = async () => {
   const allKeywords = await fetchKeywords();
-  console.log(allKeywords);
+  // console.log(allKeywords);
   const isEmpty =
     !Array.isArray(allKeywords) || allKeywords.length < 1 || !allKeywords;
 

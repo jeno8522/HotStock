@@ -6,23 +6,27 @@ export interface News {
   company: number;
   url: string;
 }
+export interface StockProp {
+  id: number;
+  name: string;
+}
 
 export interface Stock {
   stockName: string;
   code: string;
   openPrice: number;
   currPrice: number;
-  fluctuationRate : number;
-  diff : number;
-  tradingVolume : number;
+  fluctuationRate: number;
+  diff: number;
+  tradingVolume: number;
   highPrice: number;
-  lowPrice:number;
-  
+  lowPrice: number;
+
   newslist: News[];
 }
 
 export interface Theme {
-  id: number;
+  themeId: number;
   name: string;
 }
 

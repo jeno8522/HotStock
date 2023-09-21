@@ -12,7 +12,7 @@ const ArticleCard = ({ news }: ArticleProps) => {
   return (
     <div>
       <div className="rounded-md my-3 border-2 border-gray-300 p-4">
-        <a target="_blank" href={url} className="font-bold pr-2">
+        <a target="_blank" href={url} className="font-bold pr-2 truncate">
           {title}
         </a>
         <div className="text-xs">{companyName}</div>

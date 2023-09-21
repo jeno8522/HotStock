@@ -119,7 +119,7 @@ const KeywordDetailWithTheme = async ({
 
   // ----------------------------------------
   return (
-    <div className="max-w-screen-xl px-8 xl:px-10 mt-10 mx-auto">
+    <div className="max-w-screen-lg px-8 xl:px-10 mt-10 mx-auto">
       <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
         {/* 왼쪽 이름 탭 */}
         <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] xl:w-1/5 font-bold">
@@ -182,25 +182,34 @@ export default KeywordDetailWithTheme;
 
 const stockList = [
   {
-    stockName: "1번종목",
-    code: "090909",
+    stockName: "1번종목종목종목가나다라마밧가",
+    code: "858757",
     openPrice: 0,
-    currPrice: 0,
-    fluctuationRate: 0,
-    diff: 0,
-    tradingVolume: 0,
-    highPrice: 0,
-    lowPrice: 0,
-    newslist: [],
+    currPrice: 5700,
+    fluctuationRate: -0.71,
+    diff: 200,
+    tradingVolume: 14770506,
+    highPrice: 5830,
+    lowPrice: 5650,
+    newslist: [
+      {
+        id: 123,
+        title: "이건기사제목이야",
+        date: "2023-09-19",
+        content: "이건기사내용이야",
+        company: 28,
+        url: "https://www.naver.com/",
+      },
+    ],
   },
   {
     stockName: "2번종목",
     code: "808080",
     openPrice: 0,
-    currPrice: 0,
-    fluctuationRate: 0,
-    diff: 0,
-    tradingVolume: 0,
+    currPrice: 5700,
+    fluctuationRate: 0.71,
+    diff: 200,
+    tradingVolume: 14770506,
     highPrice: 0,
     lowPrice: 0,
     newslist: [],

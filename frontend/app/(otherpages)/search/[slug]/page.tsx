@@ -9,7 +9,7 @@ const SearchResult = async ({ params }: { params: { slug: string } }) => {
     !Array.isArray(searchResult) || searchResult.length < 1 || !searchResult;
 
   return (
-    <div className="max-w-screen-xl px-14 xl:px-24 mx-auto">
+    <div className="max-w-screen-lg px-14 xl:px-24 mx-auto">
       <div className="my-12">
         <div className="font-bold">{params.slug} 검색 결과</div>
         <div>

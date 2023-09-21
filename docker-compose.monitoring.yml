@@ -1,13 +1,16 @@
 version: '3.9'
 
 services:
-  promethues:
-    image: prom/promethues
-    container_name: promethues
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus-2.47.0.linux-amd64/prometheus.yml
     ports:
       - 8900:8900
+    command:
+      - '--web.listen-address=:8900'
+      - '--config.file=/etc/prometheus-2.47.0.linux-amd64/prometheus.yml'
     networks:
       - promnet
     user: root
@@ -16,13 +19,15 @@ services:
     image: grafana/grafana
     container_name: grafana
     volumes:
-      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana-volume:/var/lib/grafana
     restart: always
     ports:
       - 3000:3000
     networks:
       - promnet
     user: root
+    depends_on:
+      - prometheus
 
 networks:
   promnet:

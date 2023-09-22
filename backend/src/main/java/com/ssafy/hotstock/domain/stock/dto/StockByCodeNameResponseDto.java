@@ -7,6 +7,7 @@ import lombok.*;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class StockByCodeNameResponseDto {
     private String name;
     private String code;

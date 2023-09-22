@@ -12,6 +12,8 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 public class StockServiceImpl implements StockService {
 
     private final StockRepository stockRepository;
-
+    private final Logger logger = LoggerFactory.getLogger(StockServiceImpl.class);
     @Override
     public Stock insertStock(Stock stock) {
         return stockRepository.save(stock);
@@ -56,14 +58,19 @@ public class StockServiceImpl implements StockService {
 
         for (StockByCodeNameResponseDto stockByCodeNameResponseDto : initStockByCodeNameResponseDtos) {
             int code = Integer.parseInt(stockByCodeNameResponseDto.getCode());
+//            int code = 220;
             List<Stock> stockByCode = stockRepository.findByCode(code)
                     .orElseThrow(() -> new IllegalArgumentException("DB에 해당 코드의 종목이 존재하지 않습니다. 코드: " + code));
 
             StockByCodeNameResponseDto updatedDto = stockByCodeNameResponseDto.toBuilder()
                     .name(stockByCode.get(0).getName())
+                    .code(codeToSixString(code))
                     .build();
             stockByCodeNameResponseDtos.add(updatedDto);
         }
+//        for (StockByCodeNameResponseDto stockDetail : stockByCodeNameResponseDtos) {
+//            logger.info("파이썬 결과333 ================ " + stockDetail.toString()); // toString() 메서드는 StockByCodeNameResponseDto에 구현되어 있어야 합니다.
+//        }
 
 
         return stockByCodeNameResponseDtos;
@@ -74,9 +81,9 @@ public class StockServiceImpl implements StockService {
         String pythonURL = "http://hot-stock.shop:5000/stock/";
 
         for (Stock stock : stocks) {
-            stockCodes.add(String.valueOf(stock.getCode()));
+            stockCodes.add(codeToSixString(stock.getCode()));
         }
-
+//        stockCodes.add("000220");
         // RestTemplate 객체 생성
         RestTemplate restTemplate = new RestTemplate();
 
@@ -95,6 +102,12 @@ public class StockServiceImpl implements StockService {
                 new ParameterizedTypeReference<List<StockByCodeNameResponseDto>>() {}
         );
 
+
+//        List<StockByCodeNameResponseDto> result = response.getBody();
+//        // 로그 출력
+//        for (StockByCodeNameResponseDto stockDetail : result) {
+//            logger.info("파이썬 결과 ================ " + stockDetail.toString()); // toString() 메서드는 StockByCodeNameResponseDto에 구현되어 있어야 합니다.
+//        }
         // 응답 받기
         return response.getBody();
     }

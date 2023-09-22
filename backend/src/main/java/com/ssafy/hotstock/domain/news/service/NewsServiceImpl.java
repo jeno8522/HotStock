@@ -5,6 +5,7 @@ import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.repository.NewsRepository;
+import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsRepository;

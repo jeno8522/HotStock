@@ -18,4 +18,8 @@ public class StockThemeResponseDto {
 
     private List<String> stockNames;
 
+    private List<Integer> stockCodes;
+
+    private List<String> reasons;
+
 }

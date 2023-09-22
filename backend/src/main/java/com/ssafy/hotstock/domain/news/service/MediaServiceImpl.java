@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.news.service;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.repository.MediaRepository;
 import com.ssafy.hotstock.domain.news.dto.MediaResponseDto;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MediaServiceImpl implements MediaService {
 
     private final MediaRepository mediaRepository;

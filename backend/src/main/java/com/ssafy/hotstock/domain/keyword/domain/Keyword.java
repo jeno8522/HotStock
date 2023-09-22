@@ -19,6 +19,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
 
 @Entity
 @Getter
@@ -45,7 +48,11 @@ public class Keyword {
     @OneToMany(mappedBy = "keyword", cascade = ALL)
     private List<KeywordNews> keywordNews  = new ArrayList<>();
 
+    public Keyword(String content, int count) {
+        this.content = content;
+        this.count = count;
+    }
 
-//    @OneToOne(mappedBy = "keyword")
+    //    @OneToOne(mappedBy = "keyword")
 //    private KeywordSummary keywordSummary;
 }

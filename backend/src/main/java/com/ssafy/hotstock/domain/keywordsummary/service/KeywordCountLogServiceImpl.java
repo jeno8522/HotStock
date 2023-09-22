@@ -7,6 +7,7 @@ import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordCountLog;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.repository.KeywordCountLogRepository;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
+import jakarta.transaction.Transactional;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class KeywordCountLogServiceImpl implements KeywordCountLogService{
 
     private final KeywordCountLogRepository keywordCountLogRepository;

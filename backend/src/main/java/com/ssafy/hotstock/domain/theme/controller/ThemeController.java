@@ -3,20 +3,26 @@ package com.ssafy.hotstock.domain.theme.controller;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.dto.KeywordResponseIdTextDto;
-import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
+import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordByThemeIdResponseDto;
+import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
 import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stock.dto.StockResponseIdNameDto;
-import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.service.StockThemeService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
+import com.ssafy.hotstock.domain.theme.dto.ThemeDetailResponseDto;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,26 +33,18 @@ public class ThemeController {
     private final KeywordThemeService keywordThemeService;
 
     private final StockThemeService stockThemeService;
-    @GetMapping("/{theme_id}")
-    public Map<String, Object> getKeywordStockByThemeId(@PathVariable Long theme_id) {
-         List<KeywordTheme> keywordThemes = keywordThemeService.getKeywordThemeByThemeId(theme_id);
-         List<StockTheme> stockThemes = stockThemeService.findStockThemesByThemeId(theme_id);
+    @GetMapping("/{themeId}")
+    public ResponseEntity<?> getKeywordStockByThemeId(@PathVariable Long themeId) {
+        List<KeywordByThemeIdResponseDto> keywordList= keywordThemeService.getKeywordByThemeId(
+            themeId);
+        List<StockByThemeIdResponseDto> stockList = stockThemeService.getStockByThemeId(
+            themeId);
 
-         List<Keyword> keywords = keywordThemeService.getKeywordFromKeywordThemes(keywordThemes);
-         List<Stock> stocks = stockThemeService.getStockFromStockThemes(stockThemes);
+        ThemeDetailResponseDto themeDetailResponseDto=ThemeDetailResponseDto.builder()
+            .keywordByThemeIdResponseDtoList(keywordList)
+            .stockByThemeIdResponseDtoList(stockList)
+            .build();
 
-        List<KeywordResponseIdTextDto> keywordResponseIdTextDtos = keywords.stream()
-                .map(keyword -> new KeywordResponseIdTextDto(keyword.getId(), keyword.getContent()))
-                .toList();
-
-        List<StockResponseIdNameDto> stockResponseIdNameDtos = stocks.stream()
-                .map(stock -> new StockResponseIdNameDto(stock.getId(), stock.getName()))
-                .toList();
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("keyword", keywordResponseIdTextDtos);
-        response.put("stock", stockResponseIdNameDtos);
-
-        return response;
+        return new ResponseEntity<>(themeDetailResponseDto, HttpStatus.OK);
     }
 }

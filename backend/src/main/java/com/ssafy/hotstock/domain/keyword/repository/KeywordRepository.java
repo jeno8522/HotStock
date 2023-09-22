@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface KeywordRepository extends JpaRepository<Keyword, Long> {
     Optional<Keyword> findByContent(String content);
 
-    @Query(value = "SELECT k FROM Keyword k ORDER BY k.count DESC")
-    List<Keyword> findTopKeywordsByCount(Pageable pageable);
+    @Query(value = "SELECT k FROM Keyword k WHERE k.count > 0 ORDER BY k.count DESC")
+    List<Keyword> findKeywordsByCount(Pageable pageable);
 }

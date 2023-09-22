@@ -4,25 +4,22 @@ package com.ssafy.hotstock.domain.keyword.controller;
 import com.ssafy.hotstock.domain.keyword.dto.KeywordDetailResponseDto;
 import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keywordnews.dto.NewsByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,7 +40,6 @@ public class KeywordController {
     private KeywordNewsService keywordNewsService;
 
     private static final Logger log = LoggerFactory.getLogger(KeywordController.class);
-
 
     //  POST keyword  swagger 용 더미데이터
 //{
@@ -71,18 +67,18 @@ public class KeywordController {
 //}
 
 
-//    Todo: KeywordNews 이거 만들어야함
+    //    Todo: KeywordNews 이거 만들어야함
     @GetMapping("/{keywordId}")
     public ResponseEntity<?> getKeywordThemeNewsById(@PathVariable Long keywordId) {
         String keywordContent = keywordService.getKeywordContent(keywordId);
 
-        List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordIdWithTheme(
+        List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordId(
             keywordId);
 
-        List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordIdWithNews(
+        List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordId(
             keywordId);
 
-        KeywordDetailResponseDto keywordDetailResponseDto= KeywordDetailResponseDto.builder()
+        KeywordDetailResponseDto keywordDetailResponseDto = KeywordDetailResponseDto.builder()
             .keywordContent(keywordContent)
             .themeByKeywordIdResponseDtoList(themeList)
             .newsByKeywordIdResponseDtoList(newsList)
@@ -92,28 +88,9 @@ public class KeywordController {
     }
 
 
-
     @GetMapping
-    public List<TopKeywordsResponseDto> getTopKeywordsByCount() {
-        List<Keyword> keywords = keywordService.getTopKeywordsByCount();
-//        System.out.println("!!!!!!!!!!!!!!!!topkeywords = " + keywords.toString());
-
-        List<TopKeywordsResponseDto> response = keywords.stream()
-                .map(keyword -> TopKeywordsResponseDto.builder()
-                        .id(keyword.getId())
-                        .text(keyword.getContent())
-                        .value(keyword.getCount())
-                        .build())
-                .collect(Collectors.toList());
-
-//        log.info("top 키워드들이에요!!! : {}", response);
-//        TopKeywordsResponseDto dummy = TopKeywordsResponseDto.builder()
-//                .id(1L)
-//                .text("hihihi")
-//                .value(100L)
-//                .build();
-//        response.add(dummy);
-        return response;
+    public List<TopKeywordsResponseDto> getKeywordsByCount() {
+        return keywordService.getKeywordsByCount();
 
     }
 

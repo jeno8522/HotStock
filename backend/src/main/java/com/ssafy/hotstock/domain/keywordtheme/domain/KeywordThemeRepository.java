@@ -14,8 +14,7 @@ import java.util.Optional;
 public interface KeywordThemeRepository extends JpaRepository<KeywordTheme, Long> {
     List<KeywordTheme> findAllById(Long id);
 
-    List<KeywordTheme> findByKeywordId(Long keywordId);
-
+    @Query("SELECT kt FROM KeywordTheme kt JOIN FETCH kt.keyword WHERE kt.theme.id = :themeId")
     List<KeywordTheme> findByThemeId(Long themeId);
 
     @Query("SELECT kt FROM KeywordTheme kt JOIN FETCH kt.theme WHERE kt.keyword.id = :keywordId")

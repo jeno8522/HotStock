@@ -5,14 +5,14 @@ services:
     image: prom/prometheus
     container_name: prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus-2.47.0.linux-amd64/prometheus.yml
+      - ./prometheus/config/:/etc/prometheus/
+      - ./prometheus-volume:/prometheus
     ports:
       - 8900:8900
     command:
+      - '--web.enable-lifecycle'
       - '--web.listen-address=:8900'
-      - '--config.file=/etc/prometheus-2.47.0.linux-amd64/prometheus.yml'
-    networks:
-      - promnet
+      - '--config.file=/etc/prometheus/prometheus.yml'
     user: root
   
   grafana:
@@ -23,13 +23,12 @@ services:
     restart: always
     ports:
       - 3000:3000
-    networks:
-      - promnet
     user: root
     depends_on:
       - prometheus
 
 networks:
-  promnet:
+  default:
     driver: bridge
+    name: service-network
     

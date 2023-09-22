@@ -10,4 +10,4 @@ api_root = Api(app, version='0.1.0 alpha', title="Hot-Stock's API Server", descr
 
 
 # API 라우트 임포트
-from .api import keyword, theme
+from .api import keyword, theme, stock

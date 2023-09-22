@@ -16,13 +16,14 @@ class StockService:
         data: dict = json.loads(raw_data) #dict 구조로 변경
         
         resp = dict()
-        resp["market_sum"] = data["marketSum"]
-        resp["price_now"] = data["now"]
-        resp["price_rate"] = data["rate"]
-        resp["price_diff"] = data["diff"]
-        resp["price_high"] = data["high"]
-        resp["price_low"] = data["low"]
-        resp["amount"] = data["amount"]
+        resp["code"] = item_code
+        resp["market_sum"] = str(data["marketSum"])
+        resp["price_now"] = str(data["now"])
+        resp["price_rate"] = str(data["rate"])
+        resp["price_diff"] = str(data["diff"])
+        resp["price_high"] = str(data["high"])
+        resp["price_low"] = str(data["low"])
+        resp["amount"] = str(data["amount"])
 
         return resp
 

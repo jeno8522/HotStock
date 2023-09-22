@@ -21,18 +21,11 @@ import static jakarta.persistence.GenerationType.*;
 @NoArgsConstructor
 public class Stock {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "stock_id")
-    private Long id;
+    @Id @Column(name = "code")
+    private int code;
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "code")
-    private int code;
-
-    @Column(name = "reason", columnDefinition = "TEXT")
-    private String reason;
 
     @OneToMany(mappedBy = "stock", cascade = ALL)
     private List<StockTheme> stockThemes = new ArrayList<>();

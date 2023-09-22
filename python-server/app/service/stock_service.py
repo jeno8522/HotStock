@@ -20,6 +20,7 @@ class StockService:
         resp["market_sum"] = str(data["marketSum"])
         resp["price_now"] = str(data["now"])
         resp["price_rate"] = str(data["rate"])
+        resp["price_diff"] = str(data["diff"])
         resp["price_high"] = str(data["high"])
         resp["price_low"] = str(data["low"])
         resp["amount"] = str(data["amount"])

@@ -19,13 +19,7 @@ class Stocks(Resource):
         response = Response(
             to_json(response_data), content_type='application/json; charset=utf-8')
         return response
-    
-    # @ns.doc(description='get all stocks')
-    # def get(self):
-    #     response_data:list = stock_service.get_stock_infos()
-    #     response = Response(
-    #         to_json(response_data), content_type='application/json; charset=utf-8')
-    #     return response
+
     
 @ns.route('/<item_code>')
 class Stock(Resource):

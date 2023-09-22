@@ -9,7 +9,7 @@ interface themeListProps {
 const ThemeListForKeywords = ({ themelist, keywordId }: themeListProps) => {
   return (
     <div>
-      <div className="flex">
+      {/* <div className="flex">
         {themelist.map((themeItem, index) => (
           <div className="" key={index}>
             <Link href={`/keyword/${keywordId}/${themeItem.id}`}>
@@ -17,7 +17,7 @@ const ThemeListForKeywords = ({ themelist, keywordId }: themeListProps) => {
             </Link>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

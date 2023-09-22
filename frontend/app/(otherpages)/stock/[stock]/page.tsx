@@ -23,8 +23,8 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         title: "이건기사제목이야",
         date: "2023-09-19",
         content: "이건기사내용이야",
-        company: 28,
-        url: "https://www.naver.com/",
+        mediaCompanyNum: 28,
+        link: "https://www.naver.com/",
       },
     ],
   };

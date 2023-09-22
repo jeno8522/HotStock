@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.stock.domain;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import jakarta.persistence.*;
+import javax.print.attribute.standard.MediaSize.NA;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ public class Stock {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "code")
+    private int code;
+
+    @Column(name = "reason", columnDefinition = "TEXT")
+    private String reason;
 
     @OneToMany(mappedBy = "stock", cascade = ALL)
     private List<StockTheme> stockThemes = new ArrayList<>();

@@ -2,15 +2,14 @@ package com.ssafy.hotstock.domain.keyword.service;
 
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import com.ssafy.hotstock.domain.keyword.dto.KeywordDetailResponseDto;
-import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
+import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
-import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
-import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
-import com.ssafy.hotstock.domain.theme.domain.Theme;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +40,21 @@ public class KeywordServiceImpl implements KeywordService {
 
     }
 
-    // count 기준 상위 20 개 혹은 그 이하의 키워드 들을 DB에서 가져오는 메소드
+    // count가 0이상인 키워드만 가져온다.
     @Override
-    public List<Keyword> getTopKeywordsByCount() {
-        return keywordRepository.findTopKeywordsByCount(PageRequest.of(0, 20));
+    @Cacheable(value = "keywordCache", key = "#root.methodName")
+    public List<TopKeywordsResponseDto> getKeywordsByCount() {
+        List<Keyword> keywordList = keywordRepository.findKeywordsByCount(
+            PageRequest.of(0, 1000));
+        List<TopKeywordsResponseDto> topKeywordsResponseDtoList = keywordList.stream()
+            .map(keyword -> TopKeywordsResponseDto.builder()
+                .id(keyword.getId())
+                .text(keyword.getContent())
+                .value(keyword.getCount())
+                .build())
+            .collect(Collectors.toList());
+
+        return topKeywordsResponseDtoList;
     }
 
     @Override
@@ -56,4 +66,12 @@ public class KeywordServiceImpl implements KeywordService {
 
         return keywordContent;
     }
+
+    // 메뉴 캐시 비우기
+    @Override
+    @CacheEvict(value = "keywordCache", allEntries = true)
+    public void clearKeywordCache() {
+        // 캐시를 비우는 메서드입니다.
+    }
+
 }

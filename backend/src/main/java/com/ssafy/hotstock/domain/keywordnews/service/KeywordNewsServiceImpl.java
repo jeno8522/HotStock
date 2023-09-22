@@ -11,6 +11,7 @@ import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCheckPointService
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.service.NewsService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KeywordNewsServiceImpl implements KeywordNewsService{
 
     private final KeywordNewsRepository keywordNewsRepository;
@@ -110,7 +112,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
     }
 
     @Override
-    public List<NewsByKeywordIdResponseDto> getNewsByKeywordIdWithNews(Long keywordId) {
+    public List<NewsByKeywordIdResponseDto> getNewsByKeywordId(Long keywordId) {
 
         
         // 뉴스 가져오기

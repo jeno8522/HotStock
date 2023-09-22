@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.startup;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
@@ -33,6 +34,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final KeywordCountLogService keywordCountLogService;
     private final KeywordNewsService keywordNewsService;
     private final KeywordThemeService keywordThemeService;
+    private final KeywordService keywordService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -108,5 +110,7 @@ public class DatabaseInitializer implements CommandLineRunner {
              */
             keywordThemeService.insertKeywordTheme(keywordThemeResponseDtoList);
         }
+
+        keywordService.getKeywordsByCount();
     }
 }

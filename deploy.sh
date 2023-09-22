@@ -40,7 +40,7 @@ fi
 
 
 # 3
-sudo sed -i "s/${BEFORE_PORT}/${AFTER_PORT}/" /etc/nginx/conf.d/service-url.inc
+sed -i "s/${BEFORE_PORT}/${AFTER_PORT}/" /etc/nginx/conf.d/service-url.inc
 sudo nginx -s reload
 echo "Deploy Completed!!"
 

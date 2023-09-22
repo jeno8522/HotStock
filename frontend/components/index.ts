@@ -5,7 +5,7 @@ import StockBar from "./stock/StockBar";
 import RankingList from "./ranking/RankingList";
 import RankingCard from "./ranking/RankingCard";
 import Top from "./aboutus/Top";
-import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
+// import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
 // import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
 
 export {
@@ -16,6 +16,6 @@ export {
   RankingList,
   RankingCard,
   Top,
-  ThemeListForKeywords,
+  // ThemeListForKeywords,
   // ScrollAnimationWrapper,
 };

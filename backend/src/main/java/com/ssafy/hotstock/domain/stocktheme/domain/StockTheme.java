@@ -21,10 +21,13 @@ public class StockTheme {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "stock_id")
+    @JoinColumn(name = "code")
     private Stock stock;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "theme_id")
     private Theme theme;
+
+    @Column(name = "reason", columnDefinition = "TEXT")
+    private String reason;
 }

@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockByThemeIdResponseDto {
-    private Long stockId;
-    private String name;
     private int code;
+    private String name;
     private String reason;
 }

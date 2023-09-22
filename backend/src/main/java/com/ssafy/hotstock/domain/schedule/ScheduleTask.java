@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.schedule;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordsummary.dto.KeywordSubCountResponseDto;
 import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
@@ -31,11 +32,14 @@ public class ScheduleTask {
     private final KeywordCountLogService keywordCountLogService;
     private final KeywordNewsService keywordNewsService;
     private final KeywordThemeService keywordThemeService;
+    private final KeywordService keywordService;
     /**
      * 매 10분마다 반복 (cron = "0 0/10 * * * ?")
      */
     @Scheduled(cron = "0 0/10 * * * ?")
     public void updateNews() throws JsonProcessingException {
+
+        keywordService.clearKeywordCache();
 
         /**
          * 현재 시간 가져오기
@@ -85,5 +89,7 @@ public class ScheduleTask {
          * 새로 발생한 키워드를 테마와 묶어서 저장
          */
         keywordThemeService.insertKeywordTheme(keywordThemeResponseDtoList);
+
+        keywordService.getKeywordsByCount();
     }
 }

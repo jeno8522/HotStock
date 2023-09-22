@@ -3,8 +3,11 @@ package com.ssafy.hotstock;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.Transactional;
 
+
+@EnableCaching // spring에서 제공해주는 cache를 사용하겠다
 @SpringBootApplication
 public class HotstockApplication implements CommandLineRunner {
 

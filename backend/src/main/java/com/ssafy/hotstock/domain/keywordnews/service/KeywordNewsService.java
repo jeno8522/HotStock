@@ -12,5 +12,5 @@ public interface KeywordNewsService {
 
     List<KeywordNews> insertKeywordNewsList(List<KeywordNews> keywordNewsList);
 
-    List<NewsByKeywordIdResponseDto> getNewsByKeywordIdWithNews(Long keywordId);
+    List<NewsByKeywordIdResponseDto> getNewsByKeywordId(Long keywordId);
 }

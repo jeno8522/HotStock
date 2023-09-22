@@ -6,14 +6,17 @@ import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordThemeRepository;
+import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KeywordThemeServiceImpl implements KeywordThemeService {
 
     private final KeywordThemeRepository keywordThemeRepository;
@@ -42,41 +46,20 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     }
 
     @Override
-    public Optional<KeywordTheme> getKeywordThemeById(Long id) {
-        return keywordThemeRepository.findById(id);
-    }
+    public List<KeywordByThemeIdResponseDto> getKeywordByThemeId(Long themeId) {
+        List<KeywordTheme> keywordThemeList = keywordThemeRepository.findByThemeId(themeId);
 
-    @Override
-    public List<KeywordTheme> getKeywordThemeByKeywordId(Long keywordId) {
-
-        return keywordThemeRepository.findByKeywordId(keywordId);
-    }
-
-    @Override
-    public List<KeywordTheme> getKeywordThemeByThemeId(Long themeId) {
-        return keywordThemeRepository.findByThemeId(themeId);
-    }
-
-    @Override
-    public List<KeywordTheme> getAllKeywordThemes() {
-        return keywordThemeRepository.findAll();
-    }
-
-    @Override
-    public KeywordTheme updateKeywordTheme(KeywordTheme keywordTheme) {
-        // update 로직 작성 (id를 기반으로 데이터를 찾고 해당 데이터를 업데이트)
-        if (keywordTheme.getId() == null || !keywordThemeRepository.existsById(
-            keywordTheme.getId())) {
-            throw new IllegalArgumentException("KeywordTheme ID is invalid.");
+        List<KeywordByThemeIdResponseDto> keywordByThemeIdResponseDtoList = new ArrayList<>();
+        for (KeywordTheme keywordTheme : keywordThemeList) {
+            Keyword keyword=keywordTheme.getKeyword();
+            KeywordByThemeIdResponseDto keywordByThemeIdResponseDto= KeywordByThemeIdResponseDto.builder()
+                .keywordId(keyword.getId())
+                .content(keyword.getContent())
+                .build();
+            keywordByThemeIdResponseDtoList.add(keywordByThemeIdResponseDto);
         }
-        return keywordThemeRepository.save(keywordTheme);
+        return keywordByThemeIdResponseDtoList;
     }
-
-    @Override
-    public void deleteKeywordTheme(Long id) {
-        keywordThemeRepository.deleteById(id);
-    }
-
 
     // 파이썬 서버에 keyword list request -> response로 List<KeywordThemeResponseDto> 받아옴
     // KeywordThemeResponseDto -> list <keyword : list<theme>>
@@ -138,7 +121,7 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     }
 
     @Override
-    public List<ThemeByKeywordIdResponseDto> getThemeByKeywordIdWithTheme(Long keywordId) {
+    public List<ThemeByKeywordIdResponseDto> getThemeByKeywordId(Long keywordId) {
 
         List<KeywordTheme> keywordThemeList = keywordThemeRepository.findByKeywordIdWithTheme(keywordId);
 
@@ -158,6 +141,7 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
 
         return themeByKeywordIdResponseDtoList;
     }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.theme.service;
 
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.repository.ThemeRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ThemeServiceImpl implements ThemeService{
     private final ThemeRepository themeRepository;
 

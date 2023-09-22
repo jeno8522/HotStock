@@ -2,10 +2,8 @@ package com.ssafy.hotstock.domain.keyword.service;
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 
-import com.ssafy.hotstock.domain.keyword.dto.KeywordDetailResponseDto;
-import java.security.Key;
+import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import java.util.List;
-import java.util.Optional;
 
 public interface KeywordService {
 
@@ -14,9 +12,9 @@ public interface KeywordService {
 
     Keyword findKeywordByContent(String content);
 
-    List<Keyword> getTopKeywordsByCount();
+    List<TopKeywordsResponseDto> getKeywordsByCount();
 
     String getKeywordContent(Long keywordId);
 
-
+    void clearKeywordCache();
 }

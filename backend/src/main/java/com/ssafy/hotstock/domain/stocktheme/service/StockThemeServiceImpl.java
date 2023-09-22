@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.stocktheme.service;
 import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stock.service.StockService;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
@@ -37,9 +38,16 @@ public class StockThemeServiceImpl implements StockThemeService {
             ArrayList<Stock> stockList = new ArrayList<>();
 
             ArrayList<StockTheme> stockThemeList = new ArrayList<>();
-            for (String stockName : stockThemeResponseDto.getStockNames()) {
+            int size=stockThemeResponseDto.getStockNames().size();
+            for (int i = 0; i < size; i++) {
+                String stockName = stockThemeResponseDto.getStockNames().get(i);
+                int stockCode = stockThemeResponseDto.getStockCodes().get(i);
+                String stockReason = stockThemeResponseDto.getReasons().get(i);
+
                 Stock stock=Stock.builder()
                     .name(stockName)
+                    .code(stockCode)
+                    .reason(stockReason)
                     .build();
                 stockList.add(stock);
 
@@ -72,20 +80,25 @@ public class StockThemeServiceImpl implements StockThemeService {
     }
 
     @Override
-    public List<StockTheme> findStockThemesByThemeId(Long themeId) {
-        Optional <Theme> themeOptional = themeService.findById(themeId);
+    public List<StockByThemeIdResponseDto> getStockByThemeId(Long themeId) {
 
-        if(themeOptional.isPresent()) {
-            Theme theme = themeOptional.get();
-            return stockThemeRepository.findStockThemesByTheme(theme);
-        } else {
-            // 빈 목록 반환
-            return new ArrayList<>();
+        List<StockTheme> stockThemeList = stockThemeRepository.findStockThemesByTheme(themeId);
 
-            // 또는
-            // throw new RuntimeException("Theme not found with id " + themeId);
+        List<StockByThemeIdResponseDto> stockByThemeIdResponseDtoList=new ArrayList<>();
+
+        for (StockTheme stockTheme : stockThemeList) {
+            Stock stock = stockTheme.getStock();
+
+            StockByThemeIdResponseDto stockByThemeIdResponseDto=StockByThemeIdResponseDto.builder()
+                .stockId(stock.getId())
+                .name(stock.getName())
+                .code(stock.getCode())
+                .reason(stock.getReason())
+                .build();
+            stockByThemeIdResponseDtoList.add(stockByThemeIdResponseDto);
         }
 
+        return stockByThemeIdResponseDtoList;
     }
 
     @Override

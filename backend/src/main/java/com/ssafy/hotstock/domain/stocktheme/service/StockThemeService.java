@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.stocktheme.service;
 
 import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface StockThemeService {
     List<StockTheme> findAll();
     void delete(StockTheme stockTheme);
 
-    List<StockTheme> findStockThemesByThemeId(Long themeId);
+    List<StockByThemeIdResponseDto> getStockByThemeId(Long themeId);
     List<Stock> getStockFromStockThemes(List<StockTheme> stockThemes);
 }

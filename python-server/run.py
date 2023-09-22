@@ -8,5 +8,5 @@ if not os.path.exists('vectordb_model/ko.bin'):
 from app import app
 
 
-# if __name__ == '__main__':
-#     app.run(debug=True, threaded=True)
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)

@@ -8,9 +8,11 @@ import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,36 +27,37 @@ public class StockThemeServiceImpl implements StockThemeService {
     private final ThemeService themeService;
 
     private final StockService stockService;
+
     @Override
     public void insertStockTheme(List<StockThemeResponseDto> stockThemeResponseDtoList) {
 
         for (StockThemeResponseDto stockThemeResponseDto : stockThemeResponseDtoList) {
             String themeName = stockThemeResponseDto.getThemeName();
-            Theme theme= Theme.builder()
-                .name(themeName)
-                .build();
+            Theme theme = Theme.builder()
+                    .name(themeName)
+                    .build();
             themeService.insertTheme(theme);
 
             ArrayList<Stock> stockList = new ArrayList<>();
 
             ArrayList<StockTheme> stockThemeList = new ArrayList<>();
-            int size=stockThemeResponseDto.getStockNames().size();
+            int size = stockThemeResponseDto.getStockNames().size();
             for (int i = 0; i < size; i++) {
                 String stockName = stockThemeResponseDto.getStockNames().get(i);
                 int stockCode = stockThemeResponseDto.getStockCodes().get(i);
                 String stockReason = stockThemeResponseDto.getReasons().get(i);
 
-                Stock stock=Stock.builder()
-                    .name(stockName)
-                    .code(stockCode)
-                    .reason(stockReason)
-                    .build();
+                Stock stock = Stock.builder()
+                        .name(stockName)
+                        .code(stockCode)
+                        .build();
                 stockList.add(stock);
 
-                StockTheme stockTheme= StockTheme.builder()
-                    .stock(stock)
-                    .theme(theme)
-                    .build();
+                StockTheme stockTheme = StockTheme.builder()
+                        .stock(stock)
+                        .theme(theme)
+                        .reason(stockReason)
+                        .build();
                 stockThemeList.add(stockTheme);
             }
 
@@ -84,17 +87,16 @@ public class StockThemeServiceImpl implements StockThemeService {
 
         List<StockTheme> stockThemeList = stockThemeRepository.findStockThemesByTheme(themeId);
 
-        List<StockByThemeIdResponseDto> stockByThemeIdResponseDtoList=new ArrayList<>();
+        List<StockByThemeIdResponseDto> stockByThemeIdResponseDtoList = new ArrayList<>();
 
         for (StockTheme stockTheme : stockThemeList) {
             Stock stock = stockTheme.getStock();
 
-            StockByThemeIdResponseDto stockByThemeIdResponseDto=StockByThemeIdResponseDto.builder()
-                .stockId(stock.getId())
-                .name(stock.getName())
-                .code(stock.getCode())
-                .reason(stock.getReason())
-                .build();
+            StockByThemeIdResponseDto stockByThemeIdResponseDto = StockByThemeIdResponseDto.builder()
+                    .name(stock.getName())
+                    .code(stock.getCode())
+                    .reason(stockTheme.getReason())
+                    .build();
             stockByThemeIdResponseDtoList.add(stockByThemeIdResponseDto);
         }
 

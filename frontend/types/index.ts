@@ -6,6 +6,12 @@ export interface News {
   mediaCompanyNum: number;
   link: string;
 }
+export interface StockPPP {
+  stockId: number;
+  name: string;
+  code: number;
+}
+
 export interface Stock {
   stockName: string;
   code: string;

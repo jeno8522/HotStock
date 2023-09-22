@@ -18,11 +18,9 @@ export default function Navbar() {
   const onSearchToggle = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!searchInputRef.current) return;
 
-    // console.log("열어");
     e.preventDefault();
     setShowInput(true);
     setSearchInput("");
-    // console.log(showInput);
     // searchInputRef.current.focus();
   };
 

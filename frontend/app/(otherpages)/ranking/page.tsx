@@ -21,8 +21,6 @@ const Ranking = () => {
   let hours = today.getHours(); // 시
   let minutes = today.getMinutes(); // 분
 
-  // console.log(year + "/" + month + "/" + date + "/" + day);
-
   return (
     <div
       className={`flex flex-col justify-between h-screen max-w-screen-2xl lg:flex-row mx-auto ${NanumBarunGothicLight.className}`}

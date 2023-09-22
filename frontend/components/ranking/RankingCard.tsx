@@ -19,7 +19,6 @@ const RankingCard = async ({ keyword, index }: getKeywordsProps) => {
   const { text } = keyword;
   return (
     <div className="mx-3 my-10 text-lg">
-      {/* <Link href={`/keyword/${keyword.id}`} className="flex"> */}
       <Link href={`/keyword/${keyword.id}/${firstThemeId}`} className="flex">
         <div className="text-black-500 font-bold text-center w-5 m-2">
           {index}

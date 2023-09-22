@@ -17,4 +17,6 @@ EXPOSE 5000
 
 
 # 애플리케이션 실행
-CMD ["gunicorn", "--timeout", "600", "-b", "0.0.0.0:5000", "run:app"]
+# 1프로세스 2스레드
+CMD ["gunicorn", "--timeout", "600", "-w", "1", "--threads", "2", "-b", "0.0.0.0:5000", "run:app"]
+

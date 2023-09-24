@@ -47,7 +47,7 @@ export default function Navbar() {
 
   return (
     <header>
-      <nav className="mx-auto flex justify-between items-center sm:px-10 px-6 py-2 bg-[#2A509D]">
+      <nav className="mx-auto flex justify-between items-center sm:px-10 px-6 py-2 bg-[#1d376b]">
         <div className="flex items-center justify-evenly gap-5 xs:gap-2">
           <Link href="/">
             <Image

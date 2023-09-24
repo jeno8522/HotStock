@@ -1,6 +1,5 @@
 import { fetchKeywords } from "@/utils";
 import TextSphere from "./Sphere";
-import { KeywordProps } from "@/types";
 
 const GetSphere = async () => {
   const allKeywords = await fetchKeywords();

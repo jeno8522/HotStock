@@ -18,7 +18,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
   useEffect(() => {
     const texts: Array<string> = data;
     const options: TagCloudOptions = {
-      radius: 300,
+      radius: 380,
       maxSpeed: "fast",
       initSpeed: "fast",
       // direction: 135,
@@ -61,7 +61,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
   };
 
   return (
-    <div className="text-shpere">
+    <div className="flex w-full h-screen justify-center items-center">
       <span className="tagcloud" ref={containerRef} onClick={clickevent}></span>
     </div>
   );

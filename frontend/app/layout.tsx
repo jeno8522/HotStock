@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${NanumBarunGothicLight.className}`}>
         <Providers>
           <Navbar />
-          <div className="min-h-[90vh]">{children}</div>
+          <div className="">{children}</div>
           <Footer />
         </Providers>
       </body>

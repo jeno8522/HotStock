@@ -1,5 +1,12 @@
+import TextSphere from "@/components/Sphere";
+import GetSphere from "@/components/GetSphere";
+
 const Home = () => {
-  return <div>워드클라우드주세요</div>;
+  return (
+    <div>
+      <GetSphere />
+    </div>
+  );
 };
 
 export default Home;

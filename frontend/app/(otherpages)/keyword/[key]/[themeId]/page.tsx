@@ -16,6 +16,8 @@ const KeywordDetailWithTheme = async ({
   const themeResult = await fetchContentsByTheme(themeNumber);
   const stockList = themeResult.stockByThemeIdResponseDtoList;
 
+  console.log(themeResult);
+
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;
 
@@ -54,7 +56,7 @@ const KeywordDetailWithTheme = async ({
           <div>
             {!stockIsEmpty ? (
               <div>
-                {stockList.map((stock: StockPPP, index: number) => (
+                {stockList.map((stock: Stock, index: number) => (
                   // <div key={index}>{stock.name}</div>
                   <StockBar key={index} stock={stock} />
                 ))}
@@ -86,74 +88,74 @@ const KeywordDetailWithTheme = async ({
 
 export default KeywordDetailWithTheme;
 
-const stockDummy: Stock[] = [
-  {
-    stockName: "1번종목종목종목가나다라마밧가",
-    code: "858757",
-    openPrice: 0,
-    currPrice: 5700,
-    fluctuationRate: -0.71,
-    diff: 200,
-    tradingVolume: 14770506,
-    highPrice: 5830,
-    lowPrice: 5650,
-    newslist: [
-      {
-        id: 123,
-        title: "이건기사제목이야",
-        date: "2023-09-19",
-        content: "이건기사내용이야",
-        mediaCompanyNum: 28,
-        link: "https://www.naver.com/",
-      },
-    ],
-  },
-  {
-    stockName: "2번종목",
-    code: "808080",
-    openPrice: 0,
-    currPrice: 5700,
-    fluctuationRate: 0.71,
-    diff: 200,
-    tradingVolume: 14770506,
-    highPrice: 0,
-    lowPrice: 0,
-    newslist: [],
-  },
-  {
-    stockName: "3번종목",
-    code: "989898",
-    openPrice: 0,
-    currPrice: 0,
-    fluctuationRate: 0,
-    diff: 0,
-    tradingVolume: 0,
-    highPrice: 0,
-    lowPrice: 0,
-    newslist: [],
-  },
-  {
-    stockName: "4번종목",
-    code: "579598",
-    openPrice: 0,
-    currPrice: 0,
-    fluctuationRate: 0,
-    diff: 0,
-    tradingVolume: 0,
-    highPrice: 0,
-    lowPrice: 0,
-    newslist: [],
-  },
-  {
-    stockName: "5번종목",
-    code: "367536",
-    openPrice: 0,
-    currPrice: 0,
-    fluctuationRate: 0,
-    diff: 0,
-    tradingVolume: 0,
-    highPrice: 0,
-    lowPrice: 0,
-    newslist: [],
-  },
-];
+// const stockDummy: Stock[] = [
+//   {
+//     stockName: "1번종목종목종목가나다라마밧가",
+//     code: "858757",
+//     openPrice: 0,
+//     currPrice: 5700,
+//     fluctuationRate: -0.71,
+//     diff: 200,
+//     tradingVolume: 14770506,
+//     highPrice: 5830,
+//     lowPrice: 5650,
+//     newslist: [
+//       {
+//         id: 123,
+//         title: "이건기사제목이야",
+//         date: "2023-09-19",
+//         content: "이건기사내용이야",
+//         mediaCompanyNum: 28,
+//         link: "https://www.naver.com/",
+//       },
+//     ],
+//   },
+//   {
+//     stockName: "2번종목",
+//     code: "808080",
+//     openPrice: 0,
+//     currPrice: 5700,
+//     fluctuationRate: 0.71,
+//     diff: 200,
+//     tradingVolume: 14770506,
+//     highPrice: 0,
+//     lowPrice: 0,
+//     newslist: [],
+//   },
+//   {
+//     stockName: "3번종목",
+//     code: "989898",
+//     openPrice: 0,
+//     currPrice: 0,
+//     fluctuationRate: 0,
+//     diff: 0,
+//     tradingVolume: 0,
+//     highPrice: 0,
+//     lowPrice: 0,
+//     newslist: [],
+//   },
+//   {
+//     stockName: "4번종목",
+//     code: "579598",
+//     openPrice: 0,
+//     currPrice: 0,
+//     fluctuationRate: 0,
+//     diff: 0,
+//     tradingVolume: 0,
+//     highPrice: 0,
+//     lowPrice: 0,
+//     newslist: [],
+//   },
+//   {
+//     stockName: "5번종목",
+//     code: "367536",
+//     openPrice: 0,
+//     currPrice: 0,
+//     fluctuationRate: 0,
+//     diff: 0,
+//     tradingVolume: 0,
+//     highPrice: 0,
+//     lowPrice: 0,
+//     newslist: [],
+//   },
+// ];

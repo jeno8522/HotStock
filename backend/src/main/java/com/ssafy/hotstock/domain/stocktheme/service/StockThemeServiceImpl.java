@@ -8,14 +8,12 @@ import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -94,7 +92,7 @@ public class StockThemeServiceImpl implements StockThemeService {
 
             StockByThemeIdResponseDto stockByThemeIdResponseDto = StockByThemeIdResponseDto.builder()
                     .name(stock.getName())
-                    .code(stock.getCode())
+                    .code(String.format("%06d", stock.getCode()))
                     .reason(stockTheme.getReason())
                     .build();
             stockByThemeIdResponseDtoList.add(stockByThemeIdResponseDto);

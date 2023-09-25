@@ -94,7 +94,7 @@ public class StockThemeServiceImpl implements StockThemeService {
 
             StockByThemeIdResponseDto stockByThemeIdResponseDto = StockByThemeIdResponseDto.builder()
                     .name(stock.getName())
-                    .code(stock.getCode())
+                    .code(String.format("%06d", stock.getCode()))
                     .reason(stockTheme.getReason())
                     .build();
             stockByThemeIdResponseDtoList.add(stockByThemeIdResponseDto);

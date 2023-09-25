@@ -1,6 +1,7 @@
 package com.ssafy.hotstock.domain.news.service;
 
 import com.ssafy.hotstock.domain.news.domain.News;
+import com.ssafy.hotstock.domain.news.dto.NaverApiItemsResponseDto;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +27,8 @@ public interface NewsService {
     News updateNews(News news);
 
     void deleteNews(Long id);
+
+    List<NaverApiItemsResponseDto> naverApi(String search, int display);
 
 
 }

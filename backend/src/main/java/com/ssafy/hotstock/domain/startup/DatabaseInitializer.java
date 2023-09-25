@@ -43,7 +43,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         if (stockTheme == null) {
             // JSON 파일 경로
-            String jsonFilePath = "src/main/resources/stocks.json";
+//            String jsonFilePath = "src/main/resources/stocks.json";
+            String currentDirectory = System.getProperty("user.dir");
+            String jsonFilePath = currentDirectory + "\\src\\main\\resources\\stocks.json";
 
             // ObjectMapper 초기화
             ObjectMapper objectMapper = new ObjectMapper();

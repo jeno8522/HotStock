@@ -1,6 +1,10 @@
 import { Keyword, Theme, News, Stock, StockPPP } from "@/types";
 import { ArticleCard, StockBar } from "@/components";
-import { fetchKeywordDetail, fetchContentsByTheme } from "@/utils";
+import {
+  fetchKeywordDetail,
+  fetchContentsByTheme,
+  getNewsByStock,
+} from "@/utils";
 import Link from "next/link";
 
 const KeywordDetailWithTheme = async ({
@@ -14,9 +18,10 @@ const KeywordDetailWithTheme = async ({
 
   const keywordDetails = await fetchKeywordDetail(keyNumber);
   const themeResult = await fetchContentsByTheme(themeNumber);
+
   const stockList = themeResult.stockByThemeIdResponseDtoList;
 
-  console.log(themeResult);
+  // console.log(themeResult);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;

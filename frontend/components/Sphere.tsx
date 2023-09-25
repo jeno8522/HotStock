@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import TagCloud, { TagCloudOptions } from "TagCloud"; // TagCloud 라이브러리 사용.
 import { KeywordProps } from "@/types";
-import { fetchKeywordDetail } from "@/utils";
+import { fetchKeywordDetailForCloud, fetchKeywordDetail } from "@/utils";
 import "../styles/Sphere.css";
 
 interface keywordTypes {
@@ -49,7 +49,8 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
       console.log(target.innerText);
       const keywordId = findKeywordId(target.innerText);
       const id = keywordId !== undefined ? keywordId : 0;
-      const getKeywordDetail = await fetchKeywordDetail(id);
+      const getKeywordDetail = await fetchKeywordDetailForCloud(id);
+      // const getKeywordDetail = await fetchKeywordDetail(id);
 
       const firstThemeIdOfKeyword =
         getKeywordDetail.themeByKeywordIdResponseDtoList.length > 0

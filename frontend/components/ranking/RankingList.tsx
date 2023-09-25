@@ -9,7 +9,7 @@ const RankingList = async () => {
     !Array.isArray(allKeywords) || allKeywords.length < 1 || !allKeywords;
 
   const eachKeywords: KeywordProps[][] = [];
-  for (let i = 0; i < allKeywords.length; i += 5) {
+  for (let i = 0; i < 25; i += 5) {
     eachKeywords.push(allKeywords.slice(i, i + 5));
   }
   // console.log(eachKeywords);
@@ -30,7 +30,7 @@ const RankingList = async () => {
           ))}
         </div>
       ) : (
-        <div>없어안돼돌아가</div>
+        <div>현재 핫한 키워드가 존재하지 않아요</div>
       )}
     </div>
   );

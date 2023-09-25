@@ -1,4 +1,4 @@
-import { Keyword, Theme, News, Stock } from "@/types";
+import { Keyword, Theme, News, Stock, StockPPP } from "@/types";
 import { ArticleCard, StockBar } from "@/components";
 import { fetchKeywordDetail, fetchContentsByTheme } from "@/utils";
 import Link from "next/link";
@@ -14,8 +14,7 @@ const KeywordDetailWithTheme = async ({
 
   const keywordDetails = await fetchKeywordDetail(keyNumber);
   const themeResult = await fetchContentsByTheme(themeNumber);
-  const stockList = themeResult.stock;
-  // console.log(stockList);
+  const stockList = themeResult.stockByThemeIdResponseDtoList;
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;
@@ -55,7 +54,7 @@ const KeywordDetailWithTheme = async ({
           <div>
             {!stockIsEmpty ? (
               <div>
-                {stockList.map((stock: Stock, index: number) => (
+                {stockList.map((stock: StockPPP, index: number) => (
                   // <div key={index}>{stock.name}</div>
                   <StockBar key={index} stock={stock} />
                 ))}

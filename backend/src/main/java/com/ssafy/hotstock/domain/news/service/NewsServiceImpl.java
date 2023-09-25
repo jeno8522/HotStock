@@ -1,17 +1,23 @@
 package com.ssafy.hotstock.domain.news.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.news.domain.Media;
 import com.ssafy.hotstock.domain.news.domain.News;
+import com.ssafy.hotstock.domain.news.dto.NaverApiItemsResponseDto;
+import com.ssafy.hotstock.domain.news.dto.NaverApiResponseDto;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.repository.NewsRepository;
 import jakarta.transaction.Transactional;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +29,11 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 @Slf4j
@@ -298,6 +308,54 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
+    @Override
+    public List<NaverApiItemsResponseDto> naverApi(String search, int display) {
+
+        String encode = Base64.getEncoder().encodeToString(search.getBytes(StandardCharsets.UTF_8));
+
+        URI uri = UriComponentsBuilder.fromUriString("https://openapi.naver.com/")
+            .path("v1/search/news.json")
+            .queryParam("query", search)
+            .queryParam("display", display)
+            .queryParam("start", 1)
+            .queryParam("sort", "date")
+            .encode()
+            .build()
+            .toUri();
+
+        log.info("uri : {}", uri);
+        RestTemplate restTemplate = new RestTemplate();
+
+        RequestEntity<Void> req = RequestEntity
+            .get(uri)
+            .header("X-Naver-Client-Id", "RVfg2ZH_Dwp1ldyiWDCk")
+            .header("X-Naver-Client-Secret", "RIMVMjwQUn")
+            .build();
+
+        ResponseEntity<String> response = restTemplate.exchange(req, String.class);
+
+        System.out.println("response.getBody() = " + response.getBody());
+
+        List<NaverApiItemsResponseDto> naverApiResponseDtoList = new ArrayList<>();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            NaverApiResponseDto naverApiResponseDto = objectMapper.readValue(response.getBody(),
+                NaverApiResponseDto.class);
+
+            for (NaverApiItemsResponseDto naverApiItemsResponseDto : naverApiResponseDto.getItems()) {
+                naverApiResponseDtoList.add(naverApiItemsResponseDto);
+            }
+        } catch (Exception e) {
+            log.error("매핑에 실패했습니다.");
+        }
+
+
+
+
+        return naverApiResponseDtoList;
+    }
 
 
 }

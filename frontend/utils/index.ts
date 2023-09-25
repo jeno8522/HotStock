@@ -30,7 +30,7 @@ export const fetchContentsByTheme = async (theme_id: number) => {
 
 // 종목 상세 조회하기 :: 종목코드로 GET
 export const fetchStockDetail = async (code: string) => {
-  const res = await fetch("url", {
+  const res = await fetch(`http://localhost:8080/api/stock/${code}`, {
     cache: "no-store",
   });
   const data = await res.json();

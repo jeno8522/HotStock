@@ -13,17 +13,17 @@ export interface StockPPP {
 }
 
 export interface Stock {
-  stockName: string;
+  name: string;
   code: string;
-  openPrice: number;
-  currPrice: number;
-  fluctuationRate: number;
-  diff: number;
-  tradingVolume: number;
-  highPrice: number;
-  lowPrice: number;
+  // openPrice: string;
+  market_sum: string;
+  price_now: string;
+  price_rate: string;
+  amount: string;
+  price_high: string;
+  price_low: string;
 
-  newslist: News[];
+  // newslist: News[];
 }
 
 export interface Theme {

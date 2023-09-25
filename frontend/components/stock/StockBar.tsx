@@ -9,12 +9,12 @@ import DownIcon from "@/public/images/icons/down.png";
 // }
 
 interface StockProps {
-  stock: StockPPP;
+  stock: Stock;
 }
 
 const StockBar = ({ stock }: StockProps) => {
   // const { stockName, currPrice, code, fluctuationRate, diff } = stock;
-  const { stockId, name, code } = stock;
+  const { name, code } = stock;
 
   return (
     <div>
@@ -28,7 +28,7 @@ const StockBar = ({ stock }: StockProps) => {
           </div>
         </div>
         <div className="flex text-right">
-          <div className="font-bold">{stockId}</div>
+          {/* <div className="font-bold">{stockId}</div> */}
           <div className="w-32">
             {/* {fluctuationRate > 0 ? (
               <div className="flex justify-end">

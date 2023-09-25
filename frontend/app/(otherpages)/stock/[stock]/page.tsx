@@ -4,30 +4,33 @@ import { ArticleCard } from "@/components";
 import StockInfo from "@/components/stock/StockInfo";
 
 const StockDetail = async ({ params }: { params: { stock: string } }) => {
-  // const stockInfo = await fetchStockDetail(`${params.stock}`);
+  const stockInfo = await fetchStockDetail(`${params.stock}`);
+  const curStock = stockInfo[0];
 
+  // const { code } = curStock;
+  console.log(stockInfo[0]);
   // 더미데이터 --------------------------
-  const stockInfo: Stock = {
-    stockName: "1번종목",
-    code: `${params.stock}`,
-    openPrice: 0,
-    currPrice: 5700,
-    fluctuationRate: -0.71,
-    diff: 200,
-    tradingVolume: 14770506,
-    highPrice: 5830,
-    lowPrice: 5650,
-    newslist: [
-      {
-        id: 123,
-        title: "이건기사제목이야",
-        date: "2023-09-19",
-        content: "이건기사내용이야",
-        mediaCompanyNum: 28,
-        link: "https://www.naver.com/",
-      },
-    ],
-  };
+  // const stockInfo: Stock = {
+  //   stockName: "1번종목",
+  //   code: `${params.stock}`,
+  //   openPrice: 0,
+  //   currPrice: 5700,
+  //   fluctuationRate: -0.71,
+  //   diff: 200,
+  //   tradingVolume: 14770506,
+  //   highPrice: 5830,
+  //   lowPrice: 5650,
+  //   newslist: [
+  //     {
+  //       id: 123,
+  //       title: "이건기사제목이야",
+  //       date: "2023-09-19",
+  //       content: "이건기사내용이야",
+  //       mediaCompanyNum: 28,
+  //       link: "https://www.naver.com/",
+  //     },
+  //   ],
+  // };
   // ------------------------------------
 
   const newsIsEmpty =
@@ -42,13 +45,13 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         <div className="xl:w-1/5">
           <a
             target="_blank"
-            href={`https://finance.daum.net/quotes/A${stockInfo.code}#home`}
+            href={`https://finance.daum.net/quotes/A${curStock.code}#home`}
           >
             <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] font-bold">
-              {stockInfo.stockName}
+              {curStock.name}
             </div>
           </a>
-          <StockInfo stock={stockInfo} />
+          <StockInfo stock={curStock} />
         </div>
         {/* 오른쪽 정보 탭  */}
         <div className="items-center xl:w-4/5">
@@ -57,7 +60,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>
-            {!newsIsEmpty ? (
+            {/* {!newsIsEmpty ? (
               stockInfo.newslist.map((news, index) => (
                 <div key={index}>
                   <ArticleCard news={news} />
@@ -65,7 +68,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
               ))
             ) : (
               <div> 해당하는 기사가 없습니다</div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

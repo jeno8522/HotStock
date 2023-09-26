@@ -17,6 +17,10 @@ const KeywordDetailWithTheme = async ({
   const stockList = themeResult.stockByThemeIdResponseDtoList;
 
   // console.log(themeResult);
+  const currentUrl = window.location.href;
+
+  const curId = currentUrl.split("/")[currentUrl.split("/").length - 1];
+  console.log(curId);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;

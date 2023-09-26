@@ -32,6 +32,10 @@ public class News {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "summaryContent", columnDefinition = "TEXT")
+    private String summaryContent;
+
+
     @Column(name = "link")
     private String link;
 

@@ -35,6 +35,7 @@ public class ThemeController {
     private final StockThemeService stockThemeService;
     @GetMapping("/{themeId}")
     public ResponseEntity<?> getKeywordStockByThemeId(@PathVariable Long themeId) {
+        System.out.println("themeId = " + themeId);
         List<KeywordByThemeIdResponseDto> keywordList= keywordThemeService.getKeywordByThemeId(
             themeId);
         List<StockByThemeIdResponseDto> stockList = stockThemeService.getStockByThemeId(

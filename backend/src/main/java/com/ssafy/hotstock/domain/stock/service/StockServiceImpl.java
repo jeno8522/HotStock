@@ -76,6 +76,36 @@ public class StockServiceImpl implements StockService {
         return stockByCodeNameResponseDtos;
     }
 
+    @Override
+    public List<StockByCodeNameResponseDto> getStockDetailsFromPython(int code) {
+        List<String> stockCode = new ArrayList<>();
+        stockCode.add(codeToSixString(code));
+        String pythonURL = "http://hot-stock.shop:5000/stock/";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // HTTP 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);  // JSON 형식으로 전송
+
+        // 요청 본문과 헤더 설정
+        HttpEntity<List<String>> requestEntity = new HttpEntity<>(stockCode, headers);
+
+        System.out.println("여기");
+        // POST 요청 보내기
+        ResponseEntity<List<StockByCodeNameResponseDto>> response = restTemplate.exchange(
+            pythonURL,
+            HttpMethod.POST,
+            requestEntity,
+            new ParameterizedTypeReference<List<StockByCodeNameResponseDto>>() {}
+        );
+
+        System.out.println("response = " + response.getBody());
+
+        return response.getBody();
+    }
+
+
     private List<StockByCodeNameResponseDto> getStockDetailsFromPython(List<Stock> stocks) {
         List<String> stockCodes = new ArrayList<>();
         String pythonURL = "http://hot-stock.shop:5000/stock/";

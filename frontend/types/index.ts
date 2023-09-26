@@ -6,6 +6,14 @@ export interface News {
   mediaCompanyNum: number;
   link: string;
 }
+
+export interface StockNews {
+  title: string;
+  originallink: string;
+  link: string;
+  description: string;
+  pubDate: string;
+}
 export interface StockPPP {
   stockId: number;
   name: string;
@@ -48,4 +56,9 @@ export interface Keyword {
   name: string;
   themes: Theme[];
   newslist: News[];
+}
+
+export interface reqBody {
+  search: string;
+  display: number;
 }

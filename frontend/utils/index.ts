@@ -55,9 +55,13 @@ export const fetchStockDetail = async (code: string) => {
   return data;
 };
 
-// 종목 검색하기 :: 종목 명 혹은 종목 코드 상관없이 string으로 전송
-export const searchStocks = async (searchInput: string) => {
-  const res = await fetch("url");
+export const getNewsByStock = async (search: string, display: number) => {
+  const res = await fetch(
+    `http://j9a206.p.ssafy.io/api/news/naver?search=${search}&display=${display}`
+  );
+  // const res = await fetch(
+  //   `http://localhost:8080/api/news/naver?search=${search}&display=${display}`
+  // );
   const data = await res.json();
   return data;
 };

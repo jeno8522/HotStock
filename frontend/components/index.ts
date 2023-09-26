@@ -4,6 +4,7 @@ import ArticleCard from "./ArticleCard";
 import StockBar from "./stock/StockBar";
 import RankingList from "./ranking/RankingList";
 import RankingCard from "./ranking/RankingCard";
+import NewsCardForStocks from "./NewsCardForStocks";
 import Top from "./aboutus/Top";
 // import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
 // import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
@@ -16,6 +17,7 @@ export {
   RankingList,
   RankingCard,
   Top,
+  NewsCardForStocks,
   // ThemeListForKeywords,
   // ScrollAnimationWrapper,
 };

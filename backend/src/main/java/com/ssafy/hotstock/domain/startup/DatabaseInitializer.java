@@ -39,11 +39,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
-        // 로컬에서
-//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
-        // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_linux.exe");
+        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
 
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 

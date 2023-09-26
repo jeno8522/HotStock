@@ -13,4 +13,6 @@ public interface StockService {
 
     List<StockByCodeNameResponseDto> findStocksByCodeName(String codeName);
 
+    List<StockByCodeNameResponseDto> getStockDetailsFromPython(int code);
+
 }

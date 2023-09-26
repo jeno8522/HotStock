@@ -2,6 +2,7 @@ import { fetchStockDetail } from "@/utils";
 import { Stock } from "@/types";
 import { ArticleCard } from "@/components";
 import StockInfo from "@/components/stock/StockInfo";
+import Mindmap from "@/components/Mindmap";
 
 const StockDetail = async ({ params }: { params: { stock: string } }) => {
   const stockInfo = await fetchStockDetail(`${params.stock}`);
@@ -56,7 +57,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         {/* 오른쪽 정보 탭  */}
         <div className="items-center xl:w-4/5">
           {/* 테마 탭 */}
-          <div>그래프</div>
+          <Mindmap stock={curStock}/>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>

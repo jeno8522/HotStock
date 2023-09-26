@@ -1,6 +1,6 @@
-import { fetchStockDetail } from "@/utils";
+import { fetchStockDetail, getNewsByStock } from "@/utils";
 import { Stock } from "@/types";
-import { ArticleCard } from "@/components";
+import { NewsCardForStocks } from "@/components";
 import StockInfo from "@/components/stock/StockInfo";
 
 const StockDetail = async ({ params }: { params: { stock: string } }) => {
@@ -8,7 +8,10 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
   const curStock = stockInfo[0];
 
   // const { code } = curStock;
-  console.log(stockInfo[0]);
+  // console.log(stockInfo[0]);
+  const newsData = await getNewsByStock(`${stockInfo[0].name}`, 5);
+  // console.log(newData);
+
   // 더미데이터 --------------------------
   // const stockInfo: Stock = {
   //   stockName: "1번종목",
@@ -34,9 +37,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
   // ------------------------------------
 
   const newsIsEmpty =
-    !Array.isArray(stockInfo.newslist) ||
-    stockInfo.newslist.length < 1 ||
-    !stockInfo.newslist;
+    !Array.isArray(newsData) || newsData.length < 1 || !newsData;
 
   return (
     <div className="max-w-screen-lg px-8 xl:px-10 mt-10 mx-auto">
@@ -60,15 +61,15 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>
-            {/* {!newsIsEmpty ? (
-              stockInfo.newslist.map((news, index) => (
+            {!newsIsEmpty ? (
+              newsData.map((news, index) => (
                 <div key={index}>
-                  <ArticleCard news={news} />
+                  <NewsCardForStocks news={news} />
                 </div>
               ))
             ) : (
               <div> 해당하는 기사가 없습니다</div>
-            )} */}
+            )}
           </div>
         </div>
       </div>

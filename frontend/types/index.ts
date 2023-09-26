@@ -30,7 +30,6 @@ export interface Stock {
   amount: string;
   price_high: string;
   price_low: string;
-  price_diff: string;
 
   // newslist: News[];
 }

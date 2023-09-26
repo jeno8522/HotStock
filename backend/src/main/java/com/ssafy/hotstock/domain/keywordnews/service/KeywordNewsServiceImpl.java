@@ -130,7 +130,6 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                 .newsId(news.getId())
                 .title(news.getTitle())
                 .content(news.getContent())
-                .summaryContent(news.getSummaryContent())
                 .link(news.getLink())
                 .date(news.getDate())
                 .mediaCompanyNum(news.getMediaCompanyNum())

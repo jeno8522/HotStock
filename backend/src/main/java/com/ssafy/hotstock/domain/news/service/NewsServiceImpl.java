@@ -14,7 +14,6 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,14 +29,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -53,6 +44,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsRepository;
     private final MediaService mediaService;
+
 
 
     /**
@@ -103,49 +95,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException {
 
-        // Chrome 웹 드라이버 초기화
-        WebDriver driver = new ChromeDriver();
-
         News news = new News();
         try {
             String link =
                 "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
                     + "/" + String.format("%010d", articleNum);
-
-            driver.get(link);
-
-            String summaryContent="";
-
-            while (true) {
-                try {
-                    // 요약 봇 버튼을 찾아 클릭
-                    WebElement summaryButton = driver.findElement(
-                        By.cssSelector("a.media_end_head_autosummary_button"));
-                    summaryButton.click();
-
-                    try {
-                        // 요약된 내용을 가져오기 (선택자를 요약 봇 레이어의 클래스 이름으로 지정)
-                        // 요약 내용이 로딩될 때까지 대기
-                        // WebDriverWait를 사용하여 요약 봇 레이어가 나타날 때까지 대기
-                        Duration timeout = Duration.ofSeconds(3);
-                        WebDriverWait wait = new WebDriverWait(driver, timeout);
-                        WebElement summaryContentElement = wait.until(
-                            ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
-                                "div.media_end_head_autosummary_layer_body ._contents_body._SUMMARY_CONTENT_BODY")));
-                        summaryContent = summaryContentElement.getText();
-
-                        break;
-                    } catch (TimeoutException e) {
-                        // TimeoutException 발생 시 알림 또는 로깅
-                        log.error("TimeoutException 발생: 버튼 또는 요소가 나타나지 않음.");
-                    }
-
-                } catch (NoSuchElementException e) {
-                    log.error("요약 봇 버튼을 찾을 수 없습니다.");
-                    break;
-                }
-            }
-            driver.close();
 
             Connection conn = Jsoup.connect(link)
                 .userAgent(
@@ -220,18 +174,19 @@ public class NewsServiceImpl implements NewsService {
                 }
             }
 
+
             news.setTitle(title);
             news.setContent(content);
             news.setLink(link);
             news.setDate(date);
             news.setMediaCompanyNum(mediaCompanyNum);
             news.setArticleNum(articleNum);
-            news.setSummaryContent(summaryContent);
 
 
         } catch (IOException e) {
             throw e;
         }
+
 
         return news;
 
@@ -241,8 +196,7 @@ public class NewsServiceImpl implements NewsService {
      * 뉴스기사들 리스트로 가져오기
      */
     @Override
-    public List<NewsResponseDto> crawlingNewsList(int mediaCompanyNum, int articleNum,
-        String currentTime) {
+    public List<NewsResponseDto> crawlingNewsList(int mediaCompanyNum, int articleNum, String currentTime) {
 
         /**
          * 뉴스 가져온 후 저장
@@ -312,8 +266,7 @@ public class NewsServiceImpl implements NewsService {
     public String formatDateTime(String dataTime) {
         try {
             // 주어진 날짜와 시간 형식을 해석
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy.MM.dd. a hh:mm",
-                Locale.KOREA);
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy.MM.dd. a hh:mm", Locale.KOREA);
             Date date = inputFormat.parse(dataTime);
 
             // 원하는 형식으로 출력 형식 지정
@@ -397,6 +350,9 @@ public class NewsServiceImpl implements NewsService {
         } catch (Exception e) {
             log.error("매핑에 실패했습니다.");
         }
+
+
+
 
         return naverApiResponseDtoList;
     }

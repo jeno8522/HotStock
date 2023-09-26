@@ -15,9 +15,10 @@ const StockInfo = ({ stock }: StockProps) => {
     price_high,
     price_low,
     price_rate,
+    price_diff,
     amount,
   } = stock;
-  const fluctuationRate = parseInt(price_rate);
+  const fluctuationRate = parseFloat(price_diff);
   return (
     <div>
       <div className="font-bold text-gray-600 mb-3">{code}</div>

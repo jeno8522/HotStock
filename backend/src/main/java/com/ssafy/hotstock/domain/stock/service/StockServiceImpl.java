@@ -91,7 +91,6 @@ public class StockServiceImpl implements StockService {
         // 요청 본문과 헤더 설정
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stockCode, headers);
 
-        System.out.println("여기");
         // POST 요청 보내기
         ResponseEntity<List<StockByCodeNameResponseDto>> response = restTemplate.exchange(
             pythonURL,
@@ -99,8 +98,6 @@ public class StockServiceImpl implements StockService {
             requestEntity,
             new ParameterizedTypeReference<List<StockByCodeNameResponseDto>>() {}
         );
-
-        System.out.println("response = " + response.getBody());
 
         return response.getBody();
     }

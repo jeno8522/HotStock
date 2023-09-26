@@ -103,6 +103,7 @@ public class StockThemeServiceImpl implements StockThemeService {
                 .price_high(stockDetailsFromPython.get(0).getPrice_high())
                 .price_low(stockDetailsFromPython.get(0).getPrice_low())
                 .amount(stockDetailsFromPython.get(0).getAmount())
+                .price_diff(stockDetailsFromPython.get(0).getPrice_diff())
                 .build();
             stockByThemeIdResponseDtoList.add(stockByThemeIdResponseDto);
         }

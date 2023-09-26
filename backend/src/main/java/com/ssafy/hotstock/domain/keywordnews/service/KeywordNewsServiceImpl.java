@@ -45,7 +45,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
         Long checkPointId = keywordCheckPointService.getLastCheckPointId();
 
         // 24시간이 지났으므로 24시간 10분전 키워드의 카운트 줄이기
-        if (checkPointId - 144L >= 0L) {
+        if (checkPointId - 144L >= 1L) {
             List<KeywordCountLog> keywordCountLogList = keywordCountLogService.getKeywordCountLogByCheckPointId(
                 checkPointId - 144L);
 

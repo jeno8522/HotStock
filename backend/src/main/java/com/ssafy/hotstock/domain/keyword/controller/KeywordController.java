@@ -66,8 +66,6 @@ public class KeywordController {
 //    "keywordTheme": {}
 //}
 
-
-    //    Todo: KeywordNews 이거 만들어야함
     @GetMapping("/{keywordId}")
     public ResponseEntity<?> getKeywordThemeNewsById(@PathVariable Long keywordId) {
         String keywordContent = keywordService.getKeywordContent(keywordId);

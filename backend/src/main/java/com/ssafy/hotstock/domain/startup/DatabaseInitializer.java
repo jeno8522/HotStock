@@ -39,6 +39,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
+
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 
         if (stockTheme == null) {
@@ -65,7 +67,8 @@ public class DatabaseInitializer implements CommandLineRunner {
             /**
              * 조선, 중앙, 동아, 경향, 한겨레, 한국경제, 매일경제 순
              * */
-            int[] mediaCompanyNum = {23, 25, 20, 32, 28, 15, 9};
+//            int[] mediaCompanyNum = {23, 25, 20, 32, 28, 15, 9};
+            int[] mediaCompanyNum = {23};
 //        int[] articleNum = {3787327, 3306318, 3518829, 3247930, 2656210, 4890738, 5185375,};
 
             /**

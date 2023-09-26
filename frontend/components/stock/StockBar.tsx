@@ -13,8 +13,10 @@ interface StockProps {
 }
 
 const StockBar = ({ stock }: StockProps) => {
-  // const { stockName, currPrice, code, fluctuationRate, diff } = stock;
-  const { name, code } = stock;
+  const { name, price_now, code, price_rate, price_diff } = stock;
+  // const { name, code } = stock;
+  const fluctuationRate = parseFloat(price_diff);
+  // console.log(stock);
 
   return (
     <div>
@@ -28,21 +30,21 @@ const StockBar = ({ stock }: StockProps) => {
           </div>
         </div>
         <div className="flex text-right">
-          {/* <div className="font-bold">{stockId}</div> */}
+          <div className="font-bold">{price_now}</div>
           <div className="w-32">
-            {/* {fluctuationRate > 0 ? (
+            {fluctuationRate > 0 ? (
               <div className="flex justify-end">
                 <Image src={UpIcon} alt="up" width={10} className="m-2" />
-                <div className="text-red-400 font-bold">{stock.diff}</div>
+                <div className="text-red-400 font-bold">{price_diff}</div>
               </div>
             ) : fluctuationRate < 0 ? (
               <div className="flex justify-end">
                 <Image src={DownIcon} alt="down" width={10} className="m-2" />
-                <div className="text-blue-400 font-bold">{stock.diff}</div>
+                <div className="text-blue-400 font-bold">{price_diff}</div>
               </div>
             ) : (
               <div className="font-bold text-gray-500">-</div>
-            )} */}
+            )}
           </div>
         </div>
       </div>

@@ -6,6 +6,10 @@ services:
     image: mydowson/a206:back
     ports:
       - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/hotstock
+      SPRING_DATASOURCE_USERNAME: A206
+      SPRING_DATASOURCE_PASSWORD: ssafyA206
 
 networks:
   default:

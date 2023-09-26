@@ -6,6 +6,8 @@ import com.ssafy.hotstock.domain.news.domain.News;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static jakarta.persistence.GenerationType.*;
+
 @Entity
 @Getter
 @Setter
@@ -14,7 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 public class KeywordNews {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "keyword_news_id")
     private Long id;
 

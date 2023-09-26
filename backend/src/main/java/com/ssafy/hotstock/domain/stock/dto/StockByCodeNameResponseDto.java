@@ -17,4 +17,5 @@ public class StockByCodeNameResponseDto {
     private String price_high;
     private String price_low;
     private String amount;
+    private String price_diff;
 }

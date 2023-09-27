@@ -116,7 +116,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService {
         List<KeywordNews> newsByKeywordId = keywordNewsRepository.findByKeywordIdWithNews(
             keywordId);
         if (newsByKeywordId.size() == 0) {
-            return null;
+            return new ArrayList<>();
         }
 
         List<NewsByKeywordIdResponseDto> newsByKeywordIdResponseDtoList = new ArrayList<>();

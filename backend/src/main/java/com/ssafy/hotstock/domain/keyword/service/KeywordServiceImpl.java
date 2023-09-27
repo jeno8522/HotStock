@@ -5,6 +5,7 @@ import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class KeywordServiceImpl implements KeywordService {
         List<Keyword> keywordList = keywordRepository.findKeywordsByCount(
             PageRequest.of(0, 1000));
         if (keywordList.size() == 0) {
-            return null;
+            return new ArrayList<>();
         }
 
         List<TopKeywordsResponseDto> topKeywordsResponseDtoList = keywordList.stream()

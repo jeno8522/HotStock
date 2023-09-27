@@ -125,7 +125,7 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
             keywordId);
 
         if (keywordThemeList.size() == 0) {
-            return null;
+            return new ArrayList<>();
         }
 
         List<ThemeByKeywordIdResponseDto> themeByKeywordIdResponseDtoList = new ArrayList<>();

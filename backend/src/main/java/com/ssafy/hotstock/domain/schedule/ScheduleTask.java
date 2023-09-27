@@ -12,6 +12,7 @@ import com.ssafy.hotstock.domain.news.dto.MediaResponseDto;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.MediaService;
 import com.ssafy.hotstock.domain.news.service.NewsService;
+import java.io.File;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,7 +45,13 @@ public class ScheduleTask {
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "chromedriver_linux");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver_linux");
+
+        File dirFile = new File("src/main/resources/chromedriver_linux");
+        File[] fileList = dirFile.listFiles();
+        for(File file: fileList) {
+            System.out.println(file.getName());
+        }
 
         /**
          * 현재 시간 가져오기

@@ -1,4 +1,8 @@
 const server_url = "https://hot-stock.shop";
+<<<<<<< frontend/utils/index.ts
+// const server_url_local = "http://localhost:8080";
+=======
+>>>>>>> frontend/utils/index.ts
 const newsCompanyDict: Record<number, string> = {
   23: "조선일보",
   25: "중앙일보",
@@ -69,4 +73,22 @@ export const getNewsByStock = async (search: string, display: number) => {
 
 export const findNewsCompany = (key: number): string => {
   return newsCompanyDict[key];
+};
+
+// 테마 다 가져오기
+export const fetchThemes = async () => {
+  const res = await fetch(server_url + "/api/theme", {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  return data;
+};
+
+//테마 상세보기
+export const fetchThemeDetail = async (theme_id: number) => {
+  const res = await fetch(server_url + `/api/stocktheme/${theme_id}`, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  return data;
 };

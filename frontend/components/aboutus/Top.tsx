@@ -41,11 +41,11 @@ const Top = () => {
               <span className={`text-orange-500`}>HOT</span> 하지?
             </h1>
             <h1 className="text-2xl-black mt-4 mb-4">
-              키워드와 관련된 업종, 주식 종목을 확인하세요
+              키워드와 관련된 테마, 주식 종목을 확인하세요
             </h1>
             <Link href="/theme">
               <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out mb-12">
-                업종 바로가기
+                테마 바로가기
               </button>
             </Link>
           </div>

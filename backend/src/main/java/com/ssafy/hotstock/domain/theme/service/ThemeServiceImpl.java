@@ -1,11 +1,13 @@
 package com.ssafy.hotstock.domain.theme.service;
 
 import com.ssafy.hotstock.domain.theme.domain.Theme;
+import com.ssafy.hotstock.domain.theme.dto.ThemeResponseDto;
 import com.ssafy.hotstock.domain.theme.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +29,18 @@ public class ThemeServiceImpl implements ThemeService{
     }
 
     @Override
-    public List<Theme> findAll() {
-        return themeRepository.findAll();
+    public List<ThemeResponseDto> getAllThemes() {
+        List<Theme> themes =  themeRepository.findAll();
+        List<ThemeResponseDto> themeResponseDtos = new ArrayList<>();
+        for (Theme theme: themes
+             ) {
+            ThemeResponseDto themeResponseDto = ThemeResponseDto.builder()
+                    .themeId(theme.getId())
+                    .name(theme.getName())
+                    .build();
+            themeResponseDtos.add(themeResponseDto);
+        }
+        return themeResponseDtos;
     }
 
     @Override

@@ -82,7 +82,7 @@ export const fetchThemes = async () => {
 
 //테마 상세보기
 export const fetchThemeDetail = async (theme_id: number) => {
-  const res = await fetch(server_url + `/api/stocktheme/${theme_id}`, {
+  const res = await fetch(server_url + `/api/stocktheme/theme/${theme_id}`, {
     cache: "no-store",
   });
   const data = await res.json();

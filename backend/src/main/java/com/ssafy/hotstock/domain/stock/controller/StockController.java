@@ -2,6 +2,7 @@ package com.ssafy.hotstock.domain.stock.controller;
 
 
 import com.ssafy.hotstock.domain.stock.dto.StockByCodeNameResponseDto;
+import com.ssafy.hotstock.domain.stock.dto.StockResponseDto;
 import com.ssafy.hotstock.domain.stock.service.StockService;
 import com.ssafy.hotstock.global.advice.exception.StockFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +29,14 @@ public class StockController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);  // 404 Not Found, Stock 검색 결과 없음
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllStock(){
+        try{
+            List<StockResponseDto> stockResponseDtos = stockService.getAllStocks();
+            return new ResponseEntity<>(stockResponseDtos, HttpStatus.OK);
+        } catch (StockFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

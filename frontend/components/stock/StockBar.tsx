@@ -1,4 +1,4 @@
-import { Stock, StockPPP } from "@/types";
+import {Stock, StockPPP} from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import UpIcon from "@/public/images/icons/up.png";
@@ -12,8 +12,8 @@ interface StockProps {
   stock: Stock;
 }
 
-const StockBar = ({ stock }: StockProps) => {
-  const { name, price_now, code, price_rate, price_diff } = stock;
+const StockBar = ({stock}: StockProps) => {
+  const {name, price_now, code, price_rate, price_diff} = stock;
   // const { name, code } = stock;
   const fluctuationRate = parseFloat(price_diff);
   // console.log(stock);

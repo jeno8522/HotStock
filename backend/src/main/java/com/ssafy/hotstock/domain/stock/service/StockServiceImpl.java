@@ -3,6 +3,7 @@ package com.ssafy.hotstock.domain.stock.service;
 
 import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stock.dto.StockByCodeNameResponseDto;
+import com.ssafy.hotstock.domain.stock.dto.StockResponseDto;
 import com.ssafy.hotstock.domain.stock.repository.StockRepository;
 import com.ssafy.hotstock.global.advice.exception.StockFoundException;
 import jakarta.transaction.Transactional;
@@ -100,6 +101,23 @@ public class StockServiceImpl implements StockService {
         );
 
         return response.getBody();
+    }
+
+    @Override
+    public List<StockResponseDto> getAllStocks() {
+        List<Stock> stocks = stockRepository.findAll();
+        List<StockResponseDto> stockResponseDtos = new ArrayList<>();
+        for (Stock stock: stocks
+             ) {
+            StockResponseDto stockResponseDto = StockResponseDto.builder()
+                    .code(codeToSixString(stock.getCode()))
+                    .name(stock.getName())
+                    .build();
+            stockResponseDtos.add(stockResponseDto);
+
+        }
+        return stockResponseDtos;
+
     }
 
 

@@ -38,3 +38,14 @@ management:
   endpoint:
     prometheus:
       enabled: true
+
+notification:
+  mattermost:
+    enabled: true
+    webhook-url: https://meeting.ssafy.com/hooks/t9sxc9cpsjyfuqumuydk3hmp8w
+#    channel:
+#    pretext:
+#    color:
+#    author-name:
+#    author-icon:
+#    footer:

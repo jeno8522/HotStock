@@ -10,14 +10,16 @@ import com.ssafy.hotstock.domain.stock.domain.Stock;
 import com.ssafy.hotstock.domain.stock.dto.StockResponseIdNameDto;
 import com.ssafy.hotstock.domain.stocktheme.dto.StockByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.service.StockThemeService;
+import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.dto.ThemeDetailResponseDto;
+import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.ssafy.hotstock.domain.theme.dto.ThemeResponseDto;
-import com.ssafy.hotstock.domain.theme.service.ThemeService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +35,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/theme")
 public class ThemeController {
 
+    private final ThemeService themeService;
+
     private final KeywordThemeService keywordThemeService;
 
     private final StockThemeService stockThemeService;
 
-    private final ThemeService themeService;
     @GetMapping("/{themeId}")
     public ResponseEntity<?> getKeywordStockByThemeId(@PathVariable Long themeId) {
+
+        Theme theme = themeService.findById(themeId).orElse(null);
+
         List<KeywordByThemeIdResponseDto> keywordList= keywordThemeService.getKeywordByThemeId(
             themeId);
         List<StockByThemeIdResponseDto> stockList = stockThemeService.getStockByThemeId(
             themeId);
 
         ThemeDetailResponseDto themeDetailResponseDto=ThemeDetailResponseDto.builder()
+            .name(theme.getName())
             .keywordByThemeIdResponseDtoList(keywordList)
             .stockByThemeIdResponseDtoList(stockList)
             .build();

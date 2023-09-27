@@ -12,19 +12,18 @@ import com.ssafy.hotstock.domain.keywordsummary.service.KeywordCountLogService;
 import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.service.NewsService;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class KeywordNewsServiceImpl implements KeywordNewsService{
+public class KeywordNewsServiceImpl implements KeywordNewsService {
 
     private final KeywordNewsRepository keywordNewsRepository;
     private final KeywordService keywordService;
@@ -34,13 +33,12 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
 
 
     /**
-     * @param keywordSubCountResponseDtoList
-     * newsId : 저장 된 뉴스 id
-     * keywordContent : 키워드
-     * subCount : 키워드 개수
+     * @param keywordSubCountResponseDtoList newsId : 저장 된 뉴스 id keywordContent : 키워드 subCount : 키워드
+     *                                       개수
      */
     @Override
-    public List<String> insertKeywordNews(List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList) {
+    public List<String> insertKeywordNews(
+        List<KeywordSubCountResponseDto> keywordSubCountResponseDtoList) {
         List<String> keywordList = new ArrayList<>();
         Long checkPointId = keywordCheckPointService.getLastCheckPointId();
 
@@ -56,7 +54,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                 Keyword keyword = keywordService.findKeywordByContent(
                     keywordContent);
 
-                if (keyword!=null) {
+                if (keyword != null) {
                     keyword.setCount(keyword.getCount() - subCount);
                     keywordService.insertKeyword(keyword);
                 } else {
@@ -74,25 +72,25 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
             Keyword keyword = keywordService.findKeywordByContent(
                 keywordContent);
 
-            if (keyword!=null) {
+            if (keyword != null) {
                 keyword.setCount(keyword.getCount() + subCount);
                 keywordService.insertKeyword(keyword);
             } else {
 
                 keyword = Keyword.builder()
-                .content(keywordContent)
-                .count(subCount)
-                .build();
+                    .content(keywordContent)
+                    .count(subCount)
+                    .build();
                 keywordService.insertKeyword(keyword);
 
                 List<KeywordNews> keywordNewsList = new ArrayList<>();
                 for (Long newsId : keywordSubCountResponseDto.getNewsIds()) {
                     News news = newsService.findNewsById(newsId);
-                    if (news ==null) {
+                    if (news == null) {
                         log.debug("해당 newsId 값과 일치하는 뉴스가 존재하지 않습니다.");
                     }
 
-                    KeywordNews keywordNews= KeywordNews.builder()
+                    KeywordNews keywordNews = KeywordNews.builder()
                         .news(news)
                         .keyword(keyword)
                         .build();
@@ -114,11 +112,10 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
     @Override
     public List<NewsByKeywordIdResponseDto> getNewsByKeywordId(Long keywordId) {
 
-        
         // 뉴스 가져오기
         List<KeywordNews> newsByKeywordId = keywordNewsRepository.findByKeywordIdWithNews(
             keywordId);
-        if (newsByKeywordId == null) {
+        if (newsByKeywordId.size() == 0) {
             return null;
         }
 
@@ -130,6 +127,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                 .newsId(news.getId())
                 .title(news.getTitle())
                 .content(news.getContent())
+                .summaryContent(news.getSummaryContent())
                 .link(news.getLink())
                 .date(news.getDate())
                 .mediaCompanyNum(news.getMediaCompanyNum())

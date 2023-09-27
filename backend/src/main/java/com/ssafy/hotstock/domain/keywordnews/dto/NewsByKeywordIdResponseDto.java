@@ -17,6 +17,8 @@ public class NewsByKeywordIdResponseDto {
 
     private String content;
 
+    private String summaryContent;
+
     private String link;
 
     private String date;

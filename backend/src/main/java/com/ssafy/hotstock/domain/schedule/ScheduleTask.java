@@ -39,7 +39,10 @@ public class ScheduleTask {
     @Scheduled(cron = "0 0/10 * * * ?")
     public void updateNews() throws JsonProcessingException {
 
-        keywordService.clearKeywordCache();
+        // 로컬에서
+//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
+        // 서버에 올릴 때
+        System.setProperty("webdriver.chrome.driver", "/src/main/resources/chromedriver_linux");
 
         /**
          * 현재 시간 가져오기
@@ -89,6 +92,8 @@ public class ScheduleTask {
          * 새로 발생한 키워드를 테마와 묶어서 저장
          */
         keywordThemeService.insertKeywordTheme(keywordThemeResponseDtoList);
+
+        keywordService.clearKeywordCache();
 
         keywordService.getKeywordsByCount();
     }

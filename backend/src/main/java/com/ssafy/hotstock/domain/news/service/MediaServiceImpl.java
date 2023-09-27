@@ -49,6 +49,10 @@ public class MediaServiceImpl implements MediaService {
     public List<MediaResponseDto> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
 
+        if (mediaList.size() == 0) {
+            return new ArrayList<>();
+        }
+
         List<MediaResponseDto> mediaResponseDtoList = new ArrayList<>();
         for (Media media : mediaList) {
             MediaResponseDto mediaResponseDto = MediaResponseDto.from(media);

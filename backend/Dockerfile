@@ -11,6 +11,7 @@ RUN apt-get update \
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 COPY ./src/main/resources/stocks.json /src/main/resources/stocks.json
+COPY ./src/main/resources/chromedriver_linux /src/main/resources/chromedriver_linux
 
 #Set the entrypoint
 ENTRYPOINT ["java", "-jar", "/app.jar"]

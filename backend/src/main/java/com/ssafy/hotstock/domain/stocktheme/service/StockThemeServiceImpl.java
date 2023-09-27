@@ -5,21 +5,26 @@ import com.ssafy.hotstock.domain.stock.dto.StockByCodeNameResponseDto;
 import com.ssafy.hotstock.domain.stock.service.StockService;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
 import com.ssafy.hotstock.domain.stocktheme.dto.StockByThemeIdResponseDto;
-import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeRequestDto;
+import com.ssafy.hotstock.domain.stocktheme.dto.ThemeByStockCodeResponseDto;
 import com.ssafy.hotstock.domain.stocktheme.repository.StockThemeRepository;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
 
+import com.ssafy.hotstock.global.advice.exception.StockFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class StockThemeServiceImpl implements StockThemeService {
 
     private final StockThemeRepository stockThemeRepository;
@@ -29,10 +34,10 @@ public class StockThemeServiceImpl implements StockThemeService {
     private final StockService stockService;
 
     @Override
-    public void insertStockTheme(List<StockThemeResponseDto> stockThemeResponseDtoList) {
+    public void insertStockTheme(List<StockThemeRequestDto> stockThemeRequestDtoList) {
 
-        for (StockThemeResponseDto stockThemeResponseDto : stockThemeResponseDtoList) {
-            String themeName = stockThemeResponseDto.getThemeName();
+        for (StockThemeRequestDto stockThemeRequestDto : stockThemeRequestDtoList) {
+            String themeName = stockThemeRequestDto.getThemeName();
             Theme theme = Theme.builder()
                     .name(themeName)
                     .build();
@@ -41,11 +46,11 @@ public class StockThemeServiceImpl implements StockThemeService {
             ArrayList<Stock> stockList = new ArrayList<>();
 
             ArrayList<StockTheme> stockThemeList = new ArrayList<>();
-            int size = stockThemeResponseDto.getStockNames().size();
+            int size = stockThemeRequestDto.getStockNames().size();
             for (int i = 0; i < size; i++) {
-                String stockName = stockThemeResponseDto.getStockNames().get(i);
-                int stockCode = stockThemeResponseDto.getStockCodes().get(i);
-                String stockReason = stockThemeResponseDto.getReasons().get(i);
+                String stockName = stockThemeRequestDto.getStockNames().get(i);
+                int stockCode = stockThemeRequestDto.getStockCodes().get(i);
+                String stockReason = stockThemeRequestDto.getReasons().get(i);
 
                 Stock stock = Stock.builder()
                         .name(stockName)
@@ -111,6 +116,26 @@ public class StockThemeServiceImpl implements StockThemeService {
         }
 
         return stockByThemeIdResponseDtoList;
+    }
+
+    @Override
+    public List<ThemeByStockCodeResponseDto> getThemeByStockCode(int code) {
+
+        List<ThemeByStockCodeResponseDto> themeByStockCodeResponseDtoList = new ArrayList<>();
+        try {
+            List<StockTheme> stockThemeList = stockThemeRepository.findStockThemesByStock(code);
+
+            for (StockTheme stockTheme : stockThemeList) {
+                ThemeByStockCodeResponseDto theme= ThemeByStockCodeResponseDto.builder()
+                    .name(stockTheme.getTheme().getName())
+                    .build();
+                themeByStockCodeResponseDtoList.add(theme);
+            }
+        } catch (NotFoundException e) {
+            log.error("입력한 종목 코드에 대한 검색 과정에서 에러 발생, 입력값 : " + code);
+        }
+
+        return themeByStockCodeResponseDtoList;
     }
 
     @Override

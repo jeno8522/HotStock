@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ThemeDetailResponseDto {
+    private String name;
 
     private List<KeywordByThemeIdResponseDto> keywordByThemeIdResponseDtoList;
     private List<StockByThemeIdResponseDto> stockByThemeIdResponseDtoList;

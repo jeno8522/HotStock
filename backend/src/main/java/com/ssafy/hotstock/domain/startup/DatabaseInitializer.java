@@ -12,7 +12,7 @@ import com.ssafy.hotstock.domain.news.domain.News;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.NewsService;
 import com.ssafy.hotstock.domain.stocktheme.domain.StockTheme;
-import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeResponseDto;
+import com.ssafy.hotstock.domain.stocktheme.dto.StockThemeRequestDto;
 import com.ssafy.hotstock.domain.stocktheme.service.StockThemeService;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +39,12 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
+        // 로컬에서
+        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
+        // 서버에 올릴 때
+//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_linux");
+
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 
         if (stockTheme == null) {
@@ -50,9 +56,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             try {
                 // JSON 파일을 읽어서 Java 객체로 변환
-                List<StockThemeResponseDto> stockThemeResponseDtoList = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<StockThemeResponseDto>>() {});
+                List<StockThemeRequestDto> stockThemeRequestDtoList = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<StockThemeRequestDto>>() {});
 
-                stockThemeService.insertStockTheme(stockThemeResponseDtoList);
+                stockThemeService.insertStockTheme(stockThemeRequestDtoList);
 
             } catch (IOException e) {
                 e.printStackTrace();

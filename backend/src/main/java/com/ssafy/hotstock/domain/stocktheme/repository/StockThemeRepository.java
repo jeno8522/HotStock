@@ -20,5 +20,7 @@ public interface StockThemeRepository extends JpaRepository<StockTheme, Long> {
     @Query("SELECT st FROM StockTheme st JOIN FETCH st.stock WHERE st.theme.id = :themeId")
     List<StockTheme> findStockThemesByTheme(Long themeId);
 
+    @Query("SELECT st FROM StockTheme st JOIN FETCH st.theme WHERE st.stock.code = :stockCode")
+    List<StockTheme> findStockThemesByStock(int stockCode);
 
 }

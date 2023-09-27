@@ -1,39 +1,39 @@
-"use client";
+"use client"
 
 import { Stock } from "@/types";
 import React, { useEffect, useRef } from "react";
-// import { render } from "react-dom";
 import cytoscape from "cytoscape";
-import coseBilkent from "cytoscape-cose-bilkent"; // Import the cose-bilkent layout extension
-import StockInfo from "@/components/stock/StockInfo"; // Import the StockInfo component
+import coseBilkent from "cytoscape-cose-bilkent";
+import StockInfo from "@/components/stock/StockInfo";
 
+cytoscape.use(coseBilkent);
 
-
-cytoscape.use(coseBilkent); // Register the cose-bilkent layout extension
+interface Theme {
+  name: string;
+}
 
 interface StockProps {
   stock: Stock;
+  themes: Theme[];
 }
 
-export const Mindmap = ({stock}: StockProps) => {
-  const {
-    name,
-    code,
-    market_sum,
-    price_now,
-    price_high,
-    price_low,
-    price_rate,
-    amount,
-  } = stock;
-
+export const Mindmap = ({ stock, themes }: StockProps) => {
+  const { name } = stock;
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const themeStrings = themes.map((theme) => theme.name);
+
+    const elements = [
+      { data: { id: name, label: name } },
+      ...themes.map((theme) => ({ data: { id: theme.name, label: theme.name } })),
+      ...themes.map((theme) => ({ data: { id: `e_${name}_${theme.name}`, source: name, target: theme.name } })),
+    ];
+
     const config = {
       container: container.current,
       layout: {
-        name: "cose-bilkent", // Use the cose-bilkent layout
+        name: "cose-bilkent",
         idealEdgeLength: 100,
         nodeDimensionsIncludeLabels: true,
         randomize: true,
@@ -42,7 +42,7 @@ export const Mindmap = ({stock}: StockProps) => {
         {
           selector: "node",
           style: {
-            content: "data(id)",
+            content: "data(label)",
             "border-color": "black",
             "background-color": "gray",
             "border-opacity": "1",
@@ -54,37 +54,19 @@ export const Mindmap = ({stock}: StockProps) => {
           style: {
             width: "2px",
             "target-arrow-shape": "triangle",
-            "line-color": "pink", // Changed from "border-color" to "line-color"
+            "line-color": "pink",
             "background-color": "purple",
             "border-opacity": "1",
             "border-width": "10px",
           },
         },
       ],
-      elements: [
-        { data: { id: name } }, // Use StockInfo component here
-        { data: { id: "테마1" } },
-        { data: { id: "테마2" } },
-        { data: { id: "테마3" } },
-        { data: { id: "테마4" } },
-        { data: { id: "테마5" } },
-        { data: { id: "e1", source: name, target: "테마1" } },
-        { data: { id: "e2", source: name, target: "테마2" } },
-        { data: { id: "e3", source: name, target: "테마3" } },
-        { data: { id: "e4", source: name, target: "테마4" } },
-        { data: { id: "e5", source: name, target: "테마5" } },
-      ],
+      elements,
     };
 
     const cy = cytoscape(config);
-
-    // You can optionally fit the graph to the container after the layout is applied
     cy.fit();
-
-    // If you want to disable user panning and zooming, you can add the following:
-    // cy.userZoomingEnabled(false);
-    // cy.userPanningEnabled(false);
-  }, []);
+  }, [stock, themes]);
 
   return (
     <div>
@@ -92,7 +74,5 @@ export const Mindmap = ({stock}: StockProps) => {
     </div>
   );
 };
-
-// render(<Mindmap />, document.getElementById("root"));
 
 export default Mindmap;

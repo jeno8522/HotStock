@@ -4,12 +4,27 @@ import { ArticleCard } from "@/components";
 import StockInfo from "@/components/stock/StockInfo";
 import Mindmap from "@/components/Mindmap";
 
+
+const getStockThemes = async (code : string) => {
+  // const res = await fetch(`http://localhost:8080/api/theme/${theme_id}`);
+  const res = await fetch(`http://hot-stock.shop/api/stocktheme/stock/${code}`);
+  // const res = await fetch(`/api/theme/${theme_id}`);
+  const data = await res.json();
+  console.log(data);
+  return data;
+};
+
 const StockDetail = async ({ params }: { params: { stock: string } }) => {
   const stockInfo = await fetchStockDetail(`${params.stock}`);
   const curStock = stockInfo[0];
+  const stockThemeList = await getStockThemes(curStock.code);
 
   // const { code } = curStock;
-  console.log(stockInfo[0]);
+  // console.log(stockInfo[0]);
+  // console.log(curStock.code);
+  // const getStockThemes = await fetch(`http://hot-stock.shop/api/stocktheme/${curStock.code}`);
+  // console.log(getStockThemes(curStock.code));
+
   // 더미데이터 --------------------------
   // const stockInfo: Stock = {
   //   stockName: "1번종목",
@@ -57,7 +72,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         {/* 오른쪽 정보 탭  */}
         <div className="items-center xl:w-4/5">
           {/* 테마 탭 */}
-          <Mindmap stock={curStock}/>
+          <Mindmap stock={curStock} themes={stockThemeList}/>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>

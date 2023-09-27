@@ -5,16 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
-import com.ssafy.hotstock.domain.keywordtheme.repository.KeywordThemeRepository;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordByThemeIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.dto.KeywordThemeResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
+import com.ssafy.hotstock.domain.keywordtheme.repository.KeywordThemeRepository;
 import com.ssafy.hotstock.domain.theme.domain.Theme;
 import com.ssafy.hotstock.domain.theme.service.ThemeService;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -50,8 +49,8 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
 
         List<KeywordByThemeIdResponseDto> keywordByThemeIdResponseDtoList = new ArrayList<>();
         for (KeywordTheme keywordTheme : keywordThemeList) {
-            Keyword keyword=keywordTheme.getKeyword();
-            KeywordByThemeIdResponseDto keywordByThemeIdResponseDto= KeywordByThemeIdResponseDto.builder()
+            Keyword keyword = keywordTheme.getKeyword();
+            KeywordByThemeIdResponseDto keywordByThemeIdResponseDto = KeywordByThemeIdResponseDto.builder()
                 .keywordId(keyword.getId())
                 .content(keyword.getContent())
                 .build();
@@ -122,9 +121,10 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
     @Override
     public List<ThemeByKeywordIdResponseDto> getThemeByKeywordId(Long keywordId) {
 
-        List<KeywordTheme> keywordThemeList = keywordThemeRepository.findByKeywordIdWithTheme(keywordId);
+        List<KeywordTheme> keywordThemeList = keywordThemeRepository.findByKeywordIdWithTheme(
+            keywordId);
 
-        if (keywordThemeList == null) {
+        if (keywordThemeList.size() == 0) {
             return null;
         }
 
@@ -140,7 +140,6 @@ public class KeywordThemeServiceImpl implements KeywordThemeService {
 
         return themeByKeywordIdResponseDtoList;
     }
-
 
 
 }

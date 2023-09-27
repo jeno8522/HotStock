@@ -52,9 +52,6 @@ dependencies {
 
     // cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-
-    // selenium
-    implementation 'org.seleniumhq.selenium:selenium-java:4.1.2'
 }
 
 

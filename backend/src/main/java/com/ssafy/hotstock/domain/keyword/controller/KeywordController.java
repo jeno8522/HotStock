@@ -91,7 +91,6 @@ public class KeywordController {
     @GetMapping
     public List<TopKeywordsResponseDto> getKeywordsByCount() {
         return keywordService.getKeywordsByCount();
-
     }
 
 }

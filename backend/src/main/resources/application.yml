@@ -26,9 +26,9 @@ logging:
     org.hibernate.type: trace
 
 server:
-  port: 8080 # 포트 설정
+  port: 8080  # 포트 설정
   servlet:
-    context-path: /api # 기본 경로(prefix) 설정
+    context-path: /api  # 기본 경로(prefix) 설정
 
 management:
   endpoints:
@@ -38,3 +38,14 @@ management:
   endpoint:
     prometheus:
       enabled: true
+
+notification:
+  mattermost:
+    enabled: true
+    webhook-url: https://meeting.ssafy.com/hooks/t9sxc9cpsjyfuqumuydk3hmp8w
+#    channel:
+#    pretext:
+#    color:
+#    author-name:
+#    author-icon:
+#    footer:

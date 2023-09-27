@@ -18,12 +18,6 @@ RUN wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/` 
 
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin
 
-ARG JAR_FILE=/build/libs/sejongmate-0.0.1-SNAPSHOT.jar
-
-COPY ${JAR_FILE} /sejongmate.jar
-
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod", "/sejongmate.jar"]
-
 #Copy the application jar file and resources
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar

@@ -41,7 +41,7 @@ public class ThemeController {
     @GetMapping("/{themeId}")
     public ResponseEntity<?> getKeywordStockByThemeId(@PathVariable Long themeId) {
 
-        Theme theme = themeService.findById(themeId).orElse(null);
+        Theme theme = themeService.findById(themeId).orElse(new Theme());
 
         List<KeywordByThemeIdResponseDto> keywordList= keywordThemeService.getKeywordByThemeId(
             themeId);

@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "keword_theme")
+//@Table(name = "keyword_theme", indexes = @Index(name = "idx_theme", columnList = "theme"))
 public class KeywordTheme {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

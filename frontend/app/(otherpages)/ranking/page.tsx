@@ -1,64 +1,45 @@
-import KeywordDetail from "../keyword/[key]/page";
-import { Keyword } from "@/types";
-import Link from "next/link";
 import { RankingList } from "@/components";
+import localfont from "next/font/local";
 
-const dummy: Keyword[] = [
+const NanumBarunGothicLight = localfont({
+  src: [
     {
-        name: "반도체",
-        themes: ["반도체장비", "반도체부품"],
-        id: "1",
-        articles: [
-            {
-                title: "반도체 기사 1번 제목임",
-                content: "반도체 기사 1번 내용임",
-            },
-            {
-                title: "반도체 기사 2번 제목임",
-                content: "반도체 기사 2번 내용임",
-            },
-        ],
+      path: "../../../public/fonts/NanumBarunGothicLight.ttf",
+      weight: "normal",
+      style: "normal",
     },
-    {
-        name: "초전도체",
-        themes: ["히히히", "헤헤헤"],
-        id: "2",
-        articles: [
-            {
-                title: "초전도체 기사 1번 제목임",
-                content: "초전도체 기사 1번 내용임",
-            },
-            {
-                title: "초전도체 기사 2번 제목임",
-                content: "초전도체 기사 2번 내용임",
-            },
-            {
-                title: "초전도체 기사 3번 제목임",
-                content: "초전도체 기사 3번 내용임",
-            },
-        ],
-    },
-];
+  ],
+});
 
 const Ranking = () => {
-    return (
-        <div className="max-w-screen-xl px-8 xl:px-16 mx-auto">
-            <div className="flex flex-col justify-center items-start row-start-2 sm:row-start-1">
-                <h2>키워드 랭킹 페이지</h2>
-                <p>지금 가장 핫한 키워드들을 보여드려요</p>
-            </div>
+  let today = new Date();
 
-            <div>
-                {dummy.map((keyword, index) => (
-                    <div key={index}>
-                        <Link href={`/keyword/${keyword.id}`}>
-                            {keyword.name}
-                        </Link>
-                    </div>
-                ))}
-            </div>
+  let year = today.getFullYear(); // 년도
+  let month = today.getMonth() + 1; // 월
+  let date = today.getDate(); // 날짜
+  let day = today.getDay(); // 요일
+  let hours = today.getHours(); // 시
+  let minutes = today.getMinutes(); // 분
+
+  return (
+    <div
+      className={`flex flex-col justify-between h-screen max-w-screen-2xl lg:flex-row mx-auto ${NanumBarunGothicLight.className}`}
+    >
+      <div className="xl:w-1/4 bg-indigo-50">
+        <div className="mt-20 ml-10">
+          <div className="font-bold">Hot Stock</div>
+          <p>실시간 뉴스들의 키워드를 알고싶다면?</p>
+          <p>냥냥냥냥냥</p>
         </div>
-    );
+      </div>
+      <div className="text-end xl:w-3/4 mt-20 px-20 xl:pr-16">
+        <div className="p-3 font-bold text-gray-500">
+          {year}년 {month}월 {date}일 {hours}:{minutes} 기준
+        </div>
+        <RankingList />
+      </div>
+    </div>
+  );
 };
 
 export default Ranking;

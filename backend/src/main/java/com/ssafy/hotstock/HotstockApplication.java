@@ -1,28 +1,25 @@
 package com.ssafy.hotstock;
 
-import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
-import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
-import com.ssafy.hotstock.domain.news.domain.News;
-import com.ssafy.hotstock.domain.stock.domain.Stock;
-import com.ssafy.hotstock.domain.theme.domain.Theme;
-import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import jakarta.persistence.EntityManager;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 
+@EnableCaching // spring에서 제공해주는 cache를 사용하겠다
 @SpringBootApplication
 public class HotstockApplication implements CommandLineRunner {
 
-	private final EntityManager em;
 
-	public HotstockApplication(EntityManager em) {
-		this.em = em;
-	}
+//	private final EntityManager em;
+//	private final NewsServiceImpl newsService;  // 이 부분을 추가
+//
+//	public HotstockApplication(EntityManager em, NewsServiceImpl newsService) {
+//		this.em = em;
+//		this.newsService = newsService;  // 이 부분을 추가
+//	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(HotstockApplication.class, args);
@@ -31,49 +28,39 @@ public class HotstockApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-
-		// POST keyword 더미데이터
-		// request body 더미데이터를 main에서 강제로 집어넣음 -> swagger ui용 request body 더미데이터는 keywordController에 있음.
-
-
-		KeywordSummary keywordSummary = new KeywordSummary();
-		keywordSummary.setCount(5L);
-		keywordSummary.setCreateDate(LocalDateTime.parse("2023-09-05T07:28:55.382"));
-		em.persist(keywordSummary);
-
-
-		News news = new News();
-		news.setTitle("Finance News Title");
-//		news.setSummary("This is a summary");
-		news.setLink("http://example.com");
-		em.persist(news);
-
-
-
-
-		Theme theme = new Theme();
-		theme.setName("Banking");
-		em.persist(theme);
-
-
-		Stock stock1 = new Stock();
-		stock1.setName("ABC Bank");
-		stock1.setContent("Top-tier bank");
-		stock1.setTheme(theme);
-		em.persist(stock1);
-
-
-		KeywordTheme keywordTheme = new KeywordTheme();
-		keywordTheme.setTheme(theme);
-		em.persist(keywordTheme);
+//
+//
+//
+//		// 더미 KeywordResponseDto 리스트를 생성합니다.
+//		List<KeywordResponseDto> keywordResponseDtoList = Arrays.asList(
+//				KeywordResponseDto.builder()
+//						.keywordContent("Apple")
+//						.themeNames(Arrays.asList("Technology", "Smartphones", "Innovation"))
+//						.build(),
+//
+//				KeywordResponseDto.builder()
+//						.keywordContent("Tesla")
+//						.themeNames(Arrays.asList("Automobiles", "Electric Vehicles", "Innovation"))
+//						.build(),
+//
+//				KeywordResponseDto.builder()
+//						.keywordContent("Bitcoin")
+//						.themeNames(Arrays.asList("Cryptocurrency", "Finance", "Investment"))
+//						.build(),
+//
+//				KeywordResponseDto.builder()
+//						.keywordContent("Netflix")
+//						.themeNames(Arrays.asList("Entertainment", "Streaming", "Movies"))
+//						.build()
+//		);
+//
+//		News news = new News();
+//		news.setTitle("Finance News Title");
+////		news.setSummary("This is a summary");
+//		news.setLink("http://example.com");
+////		em.persist(news);
+//		newsService.insertKeywordandThemeList(keywordResponseDtoList, news);
 
 
-		Keyword keyword = new Keyword();
-		keyword.setContent("Finance Related");
-		keyword.setCreateDate(LocalDateTime.parse("2023-09-05T07:28:55.382"));
-		keyword.setKeywordThemes(Arrays.asList(keywordTheme));
-		keyword.setNews(news);
-		keyword.setKeywordSummary(keywordSummary);
-		em.persist(keyword);
 	}
 }

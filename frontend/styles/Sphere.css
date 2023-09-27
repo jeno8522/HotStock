@@ -1,0 +1,32 @@
+text-sphere {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.tagcloud {
+  display: inline-block;
+  top: 0;
+  /* left: 0; */
+  /* font-family: "Inter", sans-serif; */
+  font-weight: 600;
+  letter-spacing: 0.0625em;
+  font-size: 1.1em;
+}
+
+.tagcloud--item {
+  color: white;
+  text-transform: uppercase;
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.tagcloud--item:hover {
+  color: rgb(204, 238, 248);
+  cursor: pointer;
+  font-size: 1.2em;
+}

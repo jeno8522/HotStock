@@ -1,32 +1,65 @@
-export interface Article {
-    title: string;
-    date?: string;
-    content: string;
-    company?: string;
+export interface News {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+  mediaCompanyNum: number;
+  link: string;
+}
+
+export interface StockNews {
+  title: string;
+  originallink: string;
+  link: string;
+  description: string;
+  pubDate: string;
+}
+export interface StockPPP {
+  stockId: number;
+  name: string;
+  code: number;
 }
 
 export interface Stock {
-    name: string;
-    code: number;
-    articles: Article[];
+  name: string;
+  code: string;
+  // openPrice: string;
+  market_sum: string;
+  price_now: string;
+  price_rate: string;
+  amount: string;
+  price_high: string;
+  price_low: string;
+  price_diff: string;
+
+  // newslist: News[];
 }
 
 export interface Theme {
-    name: string;
-    id: number;
+  themeId: number;
+  name: string;
 }
 
-export interface KeywordNowFormat {
-    id: string;
-    name: string;
+// 워드클라우드 type
+export interface KeywordProps {
+  id: number;
+  text: string;
+  value: number;
 }
 
-export interface KeywordRes {
-    keywords: KeywordNowFormat[];
+export interface ThemeProps {
+  keywords: Keyword[];
+  stocks: Stock[];
 }
+
 export interface Keyword {
-    name: string;
-    themes: string[];
-    id: string;
-    articles: Article[];
+  id: number;
+  name: string;
+  themes: Theme[];
+  newslist: News[];
+}
+
+export interface reqBody {
+  search: string;
+  display: number;
 }

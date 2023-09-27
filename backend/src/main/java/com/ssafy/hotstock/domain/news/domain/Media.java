@@ -18,7 +18,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Media {
 
     @Id

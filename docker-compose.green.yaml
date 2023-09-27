@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend-green
+    image: mydowson/a206:back
+    ports:
+      - '8081:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/hotstock
+      SPRING_DATASOURCE_USERNAME: A206
+      SPRING_DATASOURCE_PASSWORD: ssafyA206
+
+networks:
+  default:
+    external: true
+    name: service-network

@@ -1,16 +1,21 @@
 package com.ssafy.hotstock.domain.theme.domain;
 
+import static jakarta.persistence.CascadeType.ALL;
 
 import com.ssafy.hotstock.domain.keywordtheme.domain.KeywordTheme;
-import com.ssafy.hotstock.domain.stock.domain.Stock;
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
-import static jakarta.persistence.CascadeType.*;
-import static jakarta.persistence.GenerationType.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -19,16 +24,16 @@ import static jakarta.persistence.GenerationType.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Theme {
-    @Id @GeneratedValue(strategy = IDENTITY)
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "theme_name")
     private String name;
 
     @OneToMany(mappedBy = "theme", cascade = ALL)
     private List<KeywordTheme> keywordThemes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "theme", cascade = ALL)
-    private List<Stock> stocks = new ArrayList<>();
+
 }

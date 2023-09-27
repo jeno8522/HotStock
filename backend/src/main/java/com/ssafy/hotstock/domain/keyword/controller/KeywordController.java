@@ -1,32 +1,45 @@
 package com.ssafy.hotstock.domain.keyword.controller;
 
 
+import com.ssafy.hotstock.domain.keyword.dto.KeywordDetailResponseDto;
+import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keyword.domain.Keyword;
+import com.ssafy.hotstock.domain.keywordnews.dto.NewsByKeywordIdResponseDto;
+import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
+import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
+import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @CrossOrigin(origins = {"*"})
-@RequestMapping("keyword")
+@RequestMapping("/keyword")
 public class KeywordController {
 
-//    http://localhost:8080/hotstock/swagger-ui/index.html  -> swagger-ui URL 주소
+//    http://localhost:8080/api/swagger-ui/index.html  -> swagger-ui URL 주소
 
 
     @Autowired
     private KeywordService keywordService;
 
+    @Autowired
+    private KeywordThemeService keywordThemeService;
+
+    @Autowired
+    private KeywordNewsService keywordNewsService;
+
+    private static final Logger log = LoggerFactory.getLogger(KeywordController.class);
 
     //  POST keyword  swagger 용 더미데이터
 //{
@@ -52,35 +65,33 @@ public class KeywordController {
 //},
 //    "keywordTheme": {}
 //}
-    @PostMapping
-    public ResponseEntity<Keyword> createKeyword(@RequestBody Keyword keyword) {
-        Keyword createdKeyword = keywordService.createKeyword(keyword);
-        return ResponseEntity.ok(createdKeyword);
+
+
+    //    Todo: KeywordNews 이거 만들어야함
+    @GetMapping("/{keywordId}")
+    public ResponseEntity<?> getKeywordThemeNewsById(@PathVariable Long keywordId) {
+        String keywordContent = keywordService.getKeywordContent(keywordId);
+
+        List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordId(
+            keywordId);
+
+        List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordId(
+            keywordId);
+
+        KeywordDetailResponseDto keywordDetailResponseDto = KeywordDetailResponseDto.builder()
+            .keywordContent(keywordContent)
+            .themeByKeywordIdResponseDtoList(themeList)
+            .newsByKeywordIdResponseDtoList(newsList)
+            .build();
+
+        return new ResponseEntity<>(keywordDetailResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Keyword> getKeywordById(@PathVariable Long id) {
-        return keywordService.getKeywordById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
 
     @GetMapping
-    public ResponseEntity<List<Keyword>> getAllKeywords() {
-        List<Keyword> keywords = keywordService.getAllKeywords();
-        return ResponseEntity.ok(keywords);
+    public List<TopKeywordsResponseDto> getKeywordsByCount() {
+        return keywordService.getKeywordsByCount();
+
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Keyword> updateKeyword(@PathVariable Long id, @RequestBody Keyword keyword) {
-        keyword.setId(id);
-        Keyword updatedKeyword = keywordService.updateKeyword(keyword);
-        return ResponseEntity.ok(updatedKeyword);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteKeyword(@PathVariable Long id) {
-        keywordService.deleteKeyword(id);
-        return ResponseEntity.noContent().build();
-    }
 }

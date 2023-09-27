@@ -2,72 +2,76 @@ package com.ssafy.hotstock.domain.keyword.service;
 
 
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
-import com.ssafy.hotstock.domain.keyword.domain.KeywordRepository;
-import com.ssafy.hotstock.domain.keyword.service.KeywordService;
-import com.ssafy.hotstock.domain.keywordsummary.service.KeywordSummaryService;
-
-import com.ssafy.hotstock.domain.keywordsummary.domain.KeywordSummary;
-
-import com.ssafy.hotstock.domain.news.domain.News;
-import com.ssafy.hotstock.domain.news.service.NewsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
+import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
+import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class KeywordServiceImpl implements KeywordService {
 
-    @Autowired
-    private KeywordRepository keywordRepository;
+    private final KeywordRepository keywordRepository;
 
-    @Autowired
-    private NewsService newsService;
+    /**
+     *
 
-    @Autowired
-    private KeywordSummaryService keywordSummaryService;
+     * inputKeyword가 이미 존재하면 count값만 증가 시킴
+     * 존재하지 않다면 DB 테이블에 초기화
 
+     *
+     */
     @Override
-    public Keyword createKeyword(Keyword keyword) {
-        News news = newsService.createNews(keyword.getNews());
-        KeywordSummary keywordSummary = keywordSummaryService.createKeywordSummary(keyword.getKeywordSummary());
-        keyword.setNews(news);
-        keyword.setKeywordSummary(keywordSummary);
-
-        return keywordRepository.save(keyword);
+    public Keyword insertKeyword(Keyword inputKeyword) {
+        // 최종 변경된 keyword를 저장하고 반환
+        return keywordRepository.save(inputKeyword);
     }
 
     @Override
-    public Optional<Keyword> getKeywordById(Long id) {
-        return keywordRepository.findById(id);
+    public Keyword findKeywordByContent(String content) {
+            return keywordRepository.findByContent(content).orElse(null);
+
+    }
+
+    // count가 0이상인 키워드만 가져온다.
+    @Override
+    @Cacheable(value = "keywordCache", key = "#root.methodName")
+    public List<TopKeywordsResponseDto> getKeywordsByCount() {
+        List<Keyword> keywordList = keywordRepository.findKeywordsByCount(
+            PageRequest.of(0, 1000));
+        List<TopKeywordsResponseDto> topKeywordsResponseDtoList = keywordList.stream()
+            .map(keyword -> TopKeywordsResponseDto.builder()
+                .id(keyword.getId())
+                .text(keyword.getContent())
+                .value(keyword.getCount())
+                .build())
+            .collect(Collectors.toList());
+
+        return topKeywordsResponseDtoList;
     }
 
     @Override
-    public List<Keyword> getAllKeywords() {
-        return keywordRepository.findAll();
+    public String getKeywordContent(Long keywordId) {
+        // 키워드 가져오기
+        Keyword keyword = keywordRepository.findById(keywordId).orElse(null);
+
+        String keywordContent = keyword.getContent();
+
+        return keywordContent;
     }
 
+    // 메뉴 캐시 비우기
     @Override
-    public Keyword updateKeyword(Keyword keyword) {
-
-        News updatedNews = newsService.updateNews(keyword.getNews());
-        KeywordSummary updatedKeywordSummary = keywordSummaryService.updateKeywordSummary(keyword.getKeywordSummary());
-        keyword.setNews(updatedNews);
-        keyword.setKeywordSummary(updatedKeywordSummary);
-
-        return keywordRepository.save(keyword);
-    }
-
-    @Override
-    public void deleteKeyword(Long id) {
-        Keyword existingKeyword = keywordRepository.findById(id).orElse(null);
-        if (existingKeyword != null) {
-            newsService.deleteNews(existingKeyword.getNews().getId());
-            keywordSummaryService.deleteKeywordSummary(existingKeyword.getKeywordSummary().getId());
-        }
-
-        keywordRepository.deleteById(id);
+    @CacheEvict(value = "keywordCache", allEntries = true)
+    public void clearKeywordCache() {
+        // 캐시를 비우는 메서드입니다.
     }
 
 }

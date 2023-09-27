@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
+import com.ssafy.hotstock.domain.theme.dto.ThemeResponseDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,7 @@ public class ThemeController {
     private final KeywordThemeService keywordThemeService;
 
     private final StockThemeService stockThemeService;
+
     @GetMapping("/{themeId}")
     public ResponseEntity<?> getKeywordStockByThemeId(@PathVariable Long themeId) {
 
@@ -55,5 +58,12 @@ public class ThemeController {
             .build();
 
         return new ResponseEntity<>(themeDetailResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllThemes() {
+        List<ThemeResponseDto> themeResponseDtos = themeService.getAllThemes();
+
+        return new ResponseEntity<>(themeResponseDtos, HttpStatus.OK);
     }
 }

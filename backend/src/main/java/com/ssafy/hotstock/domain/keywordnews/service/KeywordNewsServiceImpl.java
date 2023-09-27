@@ -80,9 +80,9 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
             } else {
 
                 keyword = Keyword.builder()
-                .content(keywordContent)
-                .count(subCount)
-                .build();
+                    .content(keywordContent)
+                    .count(subCount)
+                    .build();
                 keywordService.insertKeyword(keyword);
 
                 List<KeywordNews> keywordNewsList = new ArrayList<>();
@@ -114,7 +114,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
     @Override
     public List<NewsByKeywordIdResponseDto> getNewsByKeywordId(Long keywordId) {
 
-        
+
         // 뉴스 가져오기
         List<KeywordNews> newsByKeywordId = keywordNewsRepository.findByKeywordIdWithNews(
             keywordId);
@@ -130,6 +130,7 @@ public class KeywordNewsServiceImpl implements KeywordNewsService{
                 .newsId(news.getId())
                 .title(news.getTitle())
                 .content(news.getContent())
+                .summaryContent(news.getSummaryContent())
                 .link(news.getLink())
                 .date(news.getDate())
                 .mediaCompanyNum(news.getMediaCompanyNum())

@@ -1,8 +1,4 @@
 const server_url = "https://hot-stock.shop";
-<<<<<<< frontend/utils/index.ts
-// const server_url_local = "http://localhost:8080";
-=======
->>>>>>> frontend/utils/index.ts
 const newsCompanyDict: Record<number, string> = {
   23: "조선일보",
   25: "중앙일보",

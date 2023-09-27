@@ -43,7 +43,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "/src/main/resources/chromedriver_linux");
+        System.setProperty("webdriver.chrome.driver", "chromedriver_linux");
 
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 

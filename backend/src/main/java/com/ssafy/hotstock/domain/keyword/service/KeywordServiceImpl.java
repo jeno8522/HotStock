@@ -46,6 +46,10 @@ public class KeywordServiceImpl implements KeywordService {
     public List<TopKeywordsResponseDto> getKeywordsByCount() {
         List<Keyword> keywordList = keywordRepository.findKeywordsByCount(
             PageRequest.of(0, 1000));
+        if (keywordList.size() == 0) {
+            return null;
+        }
+
         List<TopKeywordsResponseDto> topKeywordsResponseDtoList = keywordList.stream()
             .map(keyword -> TopKeywordsResponseDto.builder()
                 .id(keyword.getId())

@@ -34,7 +34,12 @@ public class KeywordCountLogServiceImpl implements KeywordCountLogService{
     private final KeywordCheckPointService keywordCheckPointService;
     @Override
     public List<KeywordCountLog> getKeywordCountLogByCheckPointId(Long checkPointId) {
-        return keywordCountLogRepository.findByKeywordCheckPointId(checkPointId);
+        List<KeywordCountLog> keywordCountLogList = keywordCountLogRepository.findByKeywordCheckPointId(
+            checkPointId);
+        if (keywordCountLogList.size() == 0) {
+            return new ArrayList<>();
+        }
+        return keywordCountLogList;
     }
 
     // 현웅이 파이썬 서버에서 받은 response로 List<KeywordResponseDto> -> 우리 엔티티에 저장하는 로직
@@ -108,7 +113,7 @@ public class KeywordCountLogServiceImpl implements KeywordCountLogService{
         //예외 처리 추가해야함유
         if (keywordSubCountResponseDtoList == null) {
             log.error("기사와 관련 키워드가 존재하지 않습니다.");
-            return null;
+            return new ArrayList<>();
         } else {
             insertKeywordList(keywordSubCountResponseDtoList);
         }

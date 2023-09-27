@@ -6,6 +6,7 @@ import RankingList from "./ranking/RankingList";
 import RankingCard from "./ranking/RankingCard";
 import NewsCardForStocks from "./NewsCardForStocks";
 import Top from "./aboutus/Top";
+import ThemeListForKeywords from "@/components/keywordDetail/ThemeListForKeywords";
 // import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
 // import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
 
@@ -18,6 +19,6 @@ export {
   RankingCard,
   Top,
   NewsCardForStocks,
-  // ThemeListForKeywords,
+  ThemeListForKeywords,
   // ScrollAnimationWrapper,
 };

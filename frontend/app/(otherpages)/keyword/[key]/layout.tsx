@@ -24,8 +24,30 @@ export default async function KeywordDetailLayout({
       <div className="max-w-screen-lg px-8 xl:px-10 mt-10 mx-auto">
         <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
           {/* 왼쪽 이름 탭 */}
-          <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] xl:w-1/5 font-bold">
-            {keywordData.keywordContent}
+          <div className="xl:w-1/5">
+            <div className="text-[30px] text-gray-700 drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)] font-bold">
+              {keywordData.keywordContent}
+            </div>
+            <div>
+              <div>테마선택하실?</div>
+              <div className="mt-10">
+                {keywordData.themeByKeywordIdResponseDtoList.map(
+                  (themeList: Theme, index: number) => (
+                    <div
+                      className="text-[16px] p-1 my-2 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.2)] bg-sky-50 rounded-md hover:font-bold"
+                      key={index}
+                    >
+                      <Link
+                        href={`/keyword/${keyNumber}/${themeList.themeId}`}
+                        replace
+                      >
+                        {themeList.name}
+                      </Link>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
           </div>
           {/* 오른쪽 정보 탭  */}
           <div className="items-center xl:w-4/5">
@@ -33,28 +55,9 @@ export default async function KeywordDetailLayout({
             <div>
               <div className="items-center">
                 {/* 테마 탭 */}
-                <div className="flex">
+                {/* <div className="flex">
                   {keywordData.themeByKeywordIdResponseDtoList.map(
                     (themeList: Theme, index: number) => (
-                      // <div className="text-[20px] pr-5" key={index}>
-                      //   {themeList.themeId === themeNumber ? (
-                      //     <div className="font-bold">
-                      //       <Link
-                      //         href={`/keyword/${keyNumber}/${themeList.themeId}`}
-                      //       >
-                      //         {themeList.name}
-                      //       </Link>
-                      //     </div>
-                      //   ) : (
-                      //     <div>
-                      //       <Link
-                      //         href={`/keyword/${keyNumber}/${themeList.themeId}`}
-                      //       >
-                      //         {themeList.name}
-                      //       </Link>
-                      //     </div>
-                      //   )}
-                      // </div>
                       <div className="text-[20px] pr-5" key={index}>
                         <Link
                           href={`/keyword/${keyNumber}/${themeList.themeId}`}
@@ -65,7 +68,7 @@ export default async function KeywordDetailLayout({
                       </div>
                     )
                   )}
-                </div>
+                </div> */}
                 <div>{children}</div>
               </div>
             </div>

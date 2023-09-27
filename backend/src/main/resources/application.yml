@@ -7,7 +7,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 
     properties:
       hibernate:
@@ -26,9 +26,9 @@ logging:
     org.hibernate.type: trace
 
 server:
-  port: 8080  # 포트 설정
+  port: 8080 # 포트 설정
   servlet:
-    context-path: /api  # 기본 경로(prefix) 설정
+    context-path: /api # 기본 경로(prefix) 설정
 
 management:
   endpoints:

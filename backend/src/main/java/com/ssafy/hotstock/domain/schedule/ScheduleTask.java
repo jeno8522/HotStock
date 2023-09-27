@@ -47,11 +47,11 @@ public class ScheduleTask {
         // 서버에 올릴 때
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver_linux");
 
-        File dirFile = new File("src/main/resources/chromedriver_linux");
-        File[] fileList = dirFile.listFiles();
-        for(File file: fileList) {
-            System.out.println(file.getName());
-        }
+//        File dirFile = new File("src/main/resources/chromedriver_linux");
+//        File[] fileList = dirFile.listFiles();
+//        for(File file: fileList) {
+//            System.out.println(file.getName());
+//        }
 
         /**
          * 현재 시간 가져오기

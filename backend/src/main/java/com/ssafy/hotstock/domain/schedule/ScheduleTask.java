@@ -42,7 +42,7 @@ public class ScheduleTask {
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_linux");
+        System.setProperty("webdriver.chrome.driver", "/src/main/resources/chromedriver_linux");
 
         /**
          * 현재 시간 가져오기

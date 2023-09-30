@@ -53,6 +53,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
       // const getKeywordDetail = await fetchKeywordDetail(id);
 
       const firstThemeIdOfKeyword =
+        getKeywordDetail.themeByKeywordIdResponseDtoList.length !== null &&
         getKeywordDetail.themeByKeywordIdResponseDtoList.length > 0
           ? getKeywordDetail.themeByKeywordIdResponseDtoList[0].themeId
           : 0;

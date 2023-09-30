@@ -49,7 +49,7 @@ const KeywordDetailWithTheme = async ({
       </div> */}
       <div>
         {!stockIsEmpty ? (
-          <div>
+          <div className="h-96 overflow-y-auto scroll-smooth">
             {stockList.map((stock: Stock, index: number) => (
               // <div key={index}>{stock.name}</div>
               <StockBar key={index} stock={stock} />

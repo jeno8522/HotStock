@@ -9,7 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Hot Stock : 키워드로 찾는 주식",
-  description: "실시간 뉴스를 종합한 키워드로 당신을 위한 주식 찾기",
+  description:
+    "실시간 뉴스를 종합한 키워드로 당신을 위한 주식 종목을 찾아드려요.",
 };
 
 const NanumBarunGothicLight = localfont({

@@ -16,7 +16,7 @@ const KeywordDetailWithTheme = async ({
 
   const stockList = themeResult.stockByThemeIdResponseDtoList;
 
-  console.log(themeResult);
+  // console.log(themeResult);
 
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;
@@ -24,7 +24,7 @@ const KeywordDetailWithTheme = async ({
   // ----------------------------------------
   return (
     <div className="items-center">
-      <div>지금 테마는 이러이러한 테마입니다</div>
+      <div>{themeResult.name}</div>
       {/* 테마 탭 */}
       {/* <div className="flex">
         {keywordDetails.themeByKeywordIdResponseDtoList.map(

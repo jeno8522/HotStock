@@ -37,7 +37,9 @@ export const fetchKeywordDetailForCloud = async (keyword_id: number) => {
 
 // 테마에 따른 키워드와 종목 조회하기
 export const fetchContentsByTheme = async (theme_id: number) => {
-  const res = await fetch(server_url + `/api/theme/${theme_id}`);
+  const res = await fetch(server_url + `/api/theme/${theme_id}`, {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 };

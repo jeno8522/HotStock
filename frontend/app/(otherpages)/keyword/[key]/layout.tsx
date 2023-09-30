@@ -19,6 +19,11 @@ export default async function KeywordDetailLayout({
   const keyNumber = parseInt(params.key, 10);
   const keywordData = await fetchKeywordDetail(keyNumber);
 
+  const isEmpty =
+    !Array.isArray(keywordData.themeByKeywordIdResponseDtoList) ||
+    keywordData.themeByKeywordIdResponseDtoList.length < 1 ||
+    !keywordData.themeByKeywordIdResponseDtoList;
+
   return (
     <>
       <div className="max-w-screen-lg px-8 xl:px-10 mt-10 mx-auto">
@@ -31,20 +36,24 @@ export default async function KeywordDetailLayout({
             <div>
               <div>테마선택하실?</div>
               <div className="mt-10">
-                {keywordData.themeByKeywordIdResponseDtoList.map(
-                  (themeList: Theme, index: number) => (
-                    <div
-                      className="text-[16px] p-1 my-2 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.2)] bg-sky-50 rounded-md hover:font-bold"
-                      key={index}
-                    >
-                      <Link
-                        href={`/keyword/${keyNumber}/${themeList.themeId}`}
-                        replace
+                {!isEmpty ? (
+                  keywordData.themeByKeywordIdResponseDtoList.map(
+                    (themeList: Theme, index: number) => (
+                      <div
+                        className="text-[16px] p-1 my-2 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.2)] bg-sky-50 rounded-md hover:font-bold"
+                        key={index}
                       >
-                        {themeList.name}
-                      </Link>
-                    </div>
+                        <Link
+                          href={`/keyword/${keyNumber}/${themeList.themeId}`}
+                          replace
+                        >
+                          {themeList.name}
+                        </Link>
+                      </div>
+                    )
                   )
+                ) : (
+                  <div>테마 없음</div>
                 )}
               </div>
             </div>

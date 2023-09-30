@@ -4,7 +4,6 @@ import { Stock } from "@/types";
 import React, { useEffect, useRef } from "react";
 import cytoscape from "cytoscape";
 import coseBilkent from "cytoscape-cose-bilkent";
-import StockInfo from "@/components/stock/StockInfo";
 import "../public/fonts/font.css";
 
 cytoscape.use(coseBilkent);
@@ -52,33 +51,33 @@ const Mindmap = ({ stock, themes }: StockProps) => {
           selector: "node[type='cur']",
           style: {
             content: "data(label)",
-            width: 25,
-            height: 25,
+            width: "15rem",
+            height: "15rem",
             // borderColor: "#6666d5",
-            backgroundColor: "#6666d5",
+            backgroundColor: "#7e7ecd",
             // "border-opacity": "1",
             // "border-width": "2px",
             "text-outline-color": "#4a4ad3",
             "text-outline-width": "3px",
             color: "white",
-            fontSize: 30,
-            fontFamily: "Cafe24SsurroundAir",
+            "font-size": "17vw",
+            fontFamily: "Nanum Gothic",
           },
         },
         {
           selector: "node[type='themes']",
           style: {
             content: "data(label)",
-            width: 22,
-            height: 22,
-            fontSize: 25,
-            borderColor: "black",
-            backgroundColor: "#ccccea",
+            width: "13rem",
+            height: "13rem",
+            "font-size": "13vw",
+            // borderColor: "black",
+            backgroundColor: "#e6e6ef",
             // "text-outline-color": "#a3a3da",
             // "text-outline-width": "3px",
-            color: "#8a8ac5",
+            color: "#6d6dab",
             fontWeight: "bold",
-            fontFamily: "Cafe24SsurroundAir",
+            fontFamily: "Nanum Gothic",
           },
         },
         {
@@ -86,7 +85,7 @@ const Mindmap = ({ stock, themes }: StockProps) => {
           style: {
             width: "2px",
             "target-arrow-shape": "triangle",
-            "line-color": "#d7d7ee",
+            "line-color": "#e6e6ef",
             // "background-color": "purple",
             "border-opacity": 1,
             // "border-width": "10px",
@@ -98,7 +97,7 @@ const Mindmap = ({ stock, themes }: StockProps) => {
 
     const cy = cytoscape(config);
     cy.fit();
-  }, [stock, themes]);
+  }, [stock, themes, name]);
 
   return (
     <div>

@@ -28,7 +28,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
     if (containerRef.current) {
       TagCloud(containerRef.current, texts, options);
     }
-  }, []);
+  }, [data]);
 
   const router = useRouter();
 

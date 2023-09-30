@@ -25,10 +25,11 @@ const Ranking = () => {
     <div
       className={`flex flex-col justify-between h-screen max-w-screen-2xl lg:flex-row mx-auto ${NanumBarunGothicLight.className}`}
     >
+      <title>실시간 뉴스들의 키워드를 알고싶다면? Hot Stock</title>
       <div className="xl:w-1/4 bg-indigo-50">
         <div className="mt-20 ml-10">
           <div className="font-bold">Hot Stock</div>
-          <p>실시간 뉴스들의 키워드를 알고싶다면?</p>
+          <div>실시간 뉴스들의 키워드를 알고싶다면?</div>
           <p>냥냥냥냥냥</p>
         </div>
       </div>

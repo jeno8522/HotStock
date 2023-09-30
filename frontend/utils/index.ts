@@ -63,7 +63,10 @@ export const fetchStockTheme = async (code: string) => {
 
 export const getNewsByStock = async (search: string, display: number) => {
   const res = await fetch(
-    server_url + `/api/news/naver?search=${search}&display=${display}`
+    server_url + `/api/news/naver?search=${search}&display=${display}`,
+    {
+      cache: "no-store",
+    }
   );
   const data = await res.json();
   return data;

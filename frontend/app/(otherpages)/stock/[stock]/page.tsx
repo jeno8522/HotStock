@@ -1,11 +1,13 @@
-import { fetchStockDetail, getNewsByStock } from "@/utils";
+import { fetchStockDetail, getNewsByStock, fetchStockTheme } from "@/utils";
 import { Stock } from "@/types";
-import { NewsCardForStocks } from "@/components";
+import { NewsCardForStocks, Mindmap } from "@/components";
 import StockInfo from "@/components/stock/StockInfo";
 
 const StockDetail = async ({ params }: { params: { stock: string } }) => {
   const stockInfo = await fetchStockDetail(`${params.stock}`);
   const curStock = stockInfo[0];
+  const stockThemelist = await fetchStockTheme(curStock.code);
+  // console.log(stockThemelist);
 
   // const { code } = curStock;
   // console.log(stockInfo[0]);
@@ -57,7 +59,9 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
         {/* 오른쪽 정보 탭  */}
         <div className="items-center xl:w-4/5">
           {/* 테마 탭 */}
-          <div>그래프</div>
+          <div>
+            <Mindmap stock={curStock} themes={stockThemelist} />
+          </div>
           {/* 기사 탭 */}
           <div className="flex items-center text-[20px]">관련 기사</div>
           <div>

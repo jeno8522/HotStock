@@ -46,7 +46,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
     const target = e.target as HTMLElement;
 
     if (target.className === "tagcloud--item") {
-      console.log(target.innerText);
+      // console.log(target.innerText);
       const keywordId = findKeywordId(target.innerText);
       const id = keywordId !== undefined ? keywordId : 0;
       const getKeywordDetail = await fetchKeywordDetailForCloud(id);

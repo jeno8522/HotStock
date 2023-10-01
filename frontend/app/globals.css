@@ -18,3 +18,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #969696;
 }
+
+.keyword_right_box {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.keyword_right_box::-webkit-scrollbar {
+  display: none;
+}
+
+.stock_right_box {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.stock_right_box::-webkit-scrollbar {
+  display: none;
+}

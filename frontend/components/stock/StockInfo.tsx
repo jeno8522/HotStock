@@ -19,6 +19,7 @@ const StockInfo = ({ stock }: StockProps) => {
     amount,
   } = stock;
   const fluctuationRate = parseFloat(price_diff);
+  const price_diff_abs = Math.abs(fluctuationRate);
   return (
     <div>
       <div className="font-bold text-gray-600 mb-3">{code}</div>
@@ -32,7 +33,7 @@ const StockInfo = ({ stock }: StockProps) => {
               width={10}
               className="ml-2 mr-1 my-2"
             />
-            {/* <div>{stock.diff}</div> */}
+            <div>{price_diff}</div>
           </div>
         ) : fluctuationRate < 0 ? (
           <div className="text-blue-500 flex font-bold items-end">
@@ -43,7 +44,7 @@ const StockInfo = ({ stock }: StockProps) => {
               width={10}
               className="ml-2 mr-1 my-2"
             />
-            {/* <div>{stock.diff}</div> */}
+            <div>{price_diff_abs}</div>
           </div>
         ) : (
           <div>{price_now}</div>
@@ -59,8 +60,8 @@ const StockInfo = ({ stock }: StockProps) => {
           <div className="text-blue-600 font-bold">{price_low}</div>
         </div>
         <div className="flex justify-between">
-          <div>거래량</div>
-          <div className="font-bold">{amount}</div>
+          <div>거래대금</div>
+          <div className="font-bold">{amount}백만</div>
         </div>
       </div>
     </div>

@@ -36,3 +36,66 @@
 .stock_right_box::-webkit-scrollbar {
   display: none;
 }
+
+.loading {
+  font-size: 55px;
+  font-family: "RixInooAriDuriR";
+  font-weight: bold;
+  margin-top: 5em;
+  text-shadow: 0 1px 0 #f5b3b3, 0 2px 0 #e9a2a2, 0 3px 0 #e79898,
+    0 4px 0 #dd8484, 0 5px 0 #d37474, 0 6px 0 transparent, 0 7px 0 transparent,
+    0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+.loading span {
+  display: inline-block;
+  margin: 0 0.03em;
+  animation: loading 2s infinite;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(2) {
+  animation-delay: 0.1s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(3) {
+  animation-delay: 0.2s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(4) {
+  animation-delay: 0.3s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(5) {
+  animation-delay: 0.4s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(6) {
+  animation-delay: 0.5s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(7) {
+  animation-delay: 0.6s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(8) {
+  animation-delay: 0.7s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(9) {
+  animation-delay: 0.8s;
+  color: rgb(255, 185, 185);
+}
+.loading span:nth-child(10) {
+  animation-delay: 0.9s;
+  color: rgb(255, 185, 185);
+}
+
+@keyframes loading {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+}

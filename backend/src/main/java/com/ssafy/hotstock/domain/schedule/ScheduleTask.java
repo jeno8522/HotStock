@@ -13,12 +13,17 @@ import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.MediaService;
 import com.ssafy.hotstock.domain.news.service.NewsService;
 import java.io.File;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,6 +39,7 @@ public class ScheduleTask {
     private final KeywordNewsService keywordNewsService;
     private final KeywordThemeService keywordThemeService;
     private final KeywordService keywordService;
+
     /**
      * 매 10분마다 반복 (cron = "0 0/10 * * * ?")
      */
@@ -45,11 +51,31 @@ public class ScheduleTask {
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+
+        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
+        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
+        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
+        try {
+            service.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // ChromeDriver 옵션 설정
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-debugging-port=4444");
+        options.addArguments("--headless"); // headless 모드 활성화
+        options.addArguments("--no-sandbox"); // no-sandbox 옵션 추가
+        options.addArguments(
+            "--disable-dev-shm-usage"); //  unknown error: session deleted because of page crash
+
+        // WebDriver 객체 생성
+        WebDriver driver = new ChromeDriver(service, options);
 
         File dirFile = new File("/usr/bin");
         File[] fileList = dirFile.listFiles();
-        for(File file: fileList) {
+        for (File file : fileList) {
             System.out.println(file.getName());
         }
 
@@ -76,7 +102,7 @@ public class ScheduleTask {
             List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(
                 mediaResponseDto.getMediaCompanyNum(),
                 mediaResponseDto.getCurrArticleNum(),
-                now);
+                now, driver);
             allNewsResponseDtoList.addAll(newsResponseDtoList);
         }
 
@@ -90,12 +116,14 @@ public class ScheduleTask {
         /**
          * Keyword, KeywordNews 저장
          */
-        List<String> newKeywordList = keywordNewsService.insertKeywordNews(keywordSubCountResponseDtoList);
+        List<String> newKeywordList = keywordNewsService.insertKeywordNews(
+            keywordSubCountResponseDtoList);
 
         /**
          * 새로 발생한 키워드 리스트를 파이썬 서버에 보내 response 받아오기
          */
-        List<KeywordThemeResponseDto> keywordThemeResponseDtoList=keywordThemeService.fetchKeywordTheme(newKeywordList);
+        List<KeywordThemeResponseDto> keywordThemeResponseDtoList = keywordThemeService.fetchKeywordTheme(
+            newKeywordList);
 
         /**
          * 새로 발생한 키워드를 테마와 묶어서 저장

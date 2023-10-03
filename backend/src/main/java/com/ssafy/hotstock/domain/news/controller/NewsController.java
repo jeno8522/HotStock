@@ -33,28 +33,28 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    @GetMapping("/list")
-    public ResponseEntity<?> addNews(@RequestParam int mediaCompanyNum,
-        @RequestParam int articleNum) {
-        long start = System.currentTimeMillis();
-
-        ZonedDateTime currentTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        String format = currentTime.format(formatter);
-
-        List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(mediaCompanyNum,
-            articleNum, format);
-
-        long end = System.currentTimeMillis();
-
-        long tmp = end - start;
-
-        System.out.println("tmp = " + tmp);
-
-        return new ResponseEntity<>(newsResponseDtoList, HttpStatus.OK);
-    }
+//    @GetMapping("/list")
+//    public ResponseEntity<?> addNews(@RequestParam int mediaCompanyNum,
+//        @RequestParam int articleNum) {
+//        long start = System.currentTimeMillis();
+//
+//        ZonedDateTime currentTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//        String format = currentTime.format(formatter);
+//
+//        List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(mediaCompanyNum,
+//            articleNum, format);
+//
+//        long end = System.currentTimeMillis();
+//
+//        long tmp = end - start;
+//
+//        System.out.println("tmp = " + tmp);
+//
+//        return new ResponseEntity<>(newsResponseDtoList, HttpStatus.OK);
+//    }
 
     @GetMapping("/naver")
     public List<NaverApiItemsResponseDto> naver(@RequestParam(value = "search") String search,

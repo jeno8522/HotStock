@@ -8,48 +8,22 @@ const KeywordDetailWithTheme = async ({
   params: { key: string; themeId: string };
 }) => {
   // ----------------------------------------
-  // const keyNumber = parseInt(params.key, 10);
   const themeNumber = parseInt(params.themeId, 10);
-
-  // const keywordDetails = await fetchKeywordDetail(keyNumber);
   const themeResult = await fetchContentsByTheme(themeNumber);
-
   const stockList = themeResult.stockByThemeIdResponseDtoList;
-
-  console.log(themeResult);
-
   const stockIsEmpty =
     !Array.isArray(stockList) || stockList.length < 1 || !stockList;
 
   // ----------------------------------------
   return (
     <div className="items-center">
-      <div>지금 테마는 이러이러한 테마입니다</div>
-      {/* 테마 탭 */}
-      {/* <div className="flex">
-        {keywordDetails.themeByKeywordIdResponseDtoList.map(
-          (themeItem: Theme, index: number) => (
-            <div className="text-[20px] pr-5" key={index}>
-              {themeItem.themeId === themeNumber ? (
-                <div className="font-bold">
-                  <Link href={`/keyword/${keyNumber}/${themeItem.themeId}`}>
-                    {themeItem.name}
-                  </Link>
-                </div>
-              ) : (
-                <div>
-                  <Link href={`/keyword/${keyNumber}/${themeItem.themeId}`}>
-                    {themeItem.name}
-                  </Link>
-                </div>
-              )}
-            </div>
-          )
-        )}
-      </div> */}
-      <div>
+      <div className="text-lg font-bold underline decoration-2 underline-offset-4 decoration-blue-800">
+        {themeResult.name}
+      </div>
+
+      <div className="my-3">
         {!stockIsEmpty ? (
-          <div>
+          <div className="max-h-[370px] overflow-y-auto scroll-smooth">
             {stockList.map((stock: Stock, index: number) => (
               // <div key={index}>{stock.name}</div>
               <StockBar key={index} stock={stock} />
@@ -59,6 +33,7 @@ const KeywordDetailWithTheme = async ({
           <div>테마 혹은 이 테마에 해당하는 종목이 존재하지 않습니다.</div>
         )}
       </div>
+      <div className="border-[#c7ced7] border-2 border-x-0 border-b-0 my-10" />
     </div>
   );
 };

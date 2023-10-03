@@ -69,6 +69,7 @@ public class ScheduleTask {
         options.addArguments("headless");
         options.addArguments("no-sandbox");
         options.addArguments("disable-dev-shm-usage");
+        options.addArguments("--remote-debugging-address=" + "172.19g.0.2"); // IP 고정 시도
         options.addArguments("--remote-debugging-port=4444");
 
         // WebDriver 객체 생성

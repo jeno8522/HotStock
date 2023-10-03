@@ -2,6 +2,11 @@
 FROM openjdk:17-jdk-slim
 
 # Install necessary packages and Chrome
+#RUN apt-get update \
+#    && apt-get install -y wget curl unzip software-properties-common \
+#    && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+#    && dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+
 RUN apt-get -y update
 
 RUN apt -y install wget
@@ -14,7 +19,7 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
 
 RUN apt -y install ./google-chrome-stable_current_amd64.deb
 
-RUN wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/` curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN wget -O /tmp/chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
 
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin
 
@@ -23,7 +28,7 @@ ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 COPY ./src/main/resources/stocks.json /src/main/resources/stocks.json
 COPY ./src/main/resources/chromedriver_linux /src/main/resources/chromedriver_linux
-RUN chmod +x /src/main/resources/chromedriver_linux
+RUN chmod +x /usr/bin/chromedriver
 
 #Set the entrypoint
 ENTRYPOINT ["java", "-jar", "/app.jar"]

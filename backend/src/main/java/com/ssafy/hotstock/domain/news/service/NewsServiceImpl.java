@@ -35,8 +35,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.RequestEntity;
@@ -102,20 +100,8 @@ public class NewsServiceImpl implements NewsService {
      */
 
     @Override
-    public News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException {
-
-        // Chrome 웹 드라이버 초기화
-
-
-        // ChromeDriver 옵션 설정
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-debugging-port=4444");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--ignore-ssl-errors=yes");
-        options.addArguments("--ignore-certificate-errors");
-
-        // WebDriver 객체 생성
-        WebDriver driver = new ChromeDriver(options);
+    public News crawlingNews(int mediaCompanyNum, int articleNum, WebDriver driver)
+        throws IOException {
 
         News news = new News();
         try {
@@ -125,7 +111,7 @@ public class NewsServiceImpl implements NewsService {
 
             driver.get(link);
 
-            String summaryContent="";
+            String summaryContent = "";
 
             while (true) {
                 try {
@@ -253,7 +239,7 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public List<NewsResponseDto> crawlingNewsList(int mediaCompanyNum, int articleNum,
-        String currentTime) {
+        String currentTime, WebDriver driver) {
 
         /**
          * 뉴스 가져온 후 저장
@@ -262,7 +248,7 @@ public class NewsServiceImpl implements NewsService {
 
         while (true) {
             try {
-                News news = crawlingNews(mediaCompanyNum, articleNum);
+                News news = crawlingNews(mediaCompanyNum, articleNum, driver);
                 newsList.add(news);
                 articleNum++;
 

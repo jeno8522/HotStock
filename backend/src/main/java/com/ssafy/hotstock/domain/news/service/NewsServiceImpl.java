@@ -36,6 +36,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.RequestEntity;
@@ -104,7 +105,14 @@ public class NewsServiceImpl implements NewsService {
     public News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException {
 
         // Chrome 웹 드라이버 초기화
-        WebDriver driver = new ChromeDriver();
+
+
+        // ChromeDriver 옵션 설정
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-debugging-port=4444");
+
+        // WebDriver 객체 생성
+        WebDriver driver = new ChromeDriver(options);
 
         News news = new News();
         try {

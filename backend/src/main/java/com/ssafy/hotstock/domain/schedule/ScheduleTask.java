@@ -51,23 +51,28 @@ public class ScheduleTask {
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-//        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 
-        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
-        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
-        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
-        try {
-            service.start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
+//        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
+//        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
+
+//        try {
+//            service.start();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         // ChromeDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-gpu");
+        options.addArguments("headless");
+        options.addArguments("no-sandbox");
+        options.addArguments("disable-dev-shm-usage");
         options.addArguments("--remote-debugging-port=4444");
 
         // WebDriver 객체 생성
-        WebDriver driver = new ChromeDriver(service, options);
+        WebDriver driver = new ChromeDriver(options);
 
         File dirFile = new File("/usr/bin");
         File[] fileList = dirFile.listFiles();

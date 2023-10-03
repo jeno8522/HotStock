@@ -110,6 +110,9 @@ public class NewsServiceImpl implements NewsService {
         // ChromeDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-debugging-port=4444");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--ignore-ssl-errors=yes");
+        options.addArguments("--ignore-certificate-errors");
 
         // WebDriver 객체 생성
         WebDriver driver = new ChromeDriver(options);

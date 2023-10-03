@@ -60,10 +60,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         // ChromeDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-debugging-port=4444");
-        options.addArguments("--headless"); // headless 모드 활성화
-        options.addArguments("--no-sandbox"); // no-sandbox 옵션 추가
-        options.addArguments(
-            "--disable-dev-shm-usage"); //  unknown error: session deleted because of page crash
 
         // WebDriver 객체 생성
         WebDriver driver = new ChromeDriver(service, options);

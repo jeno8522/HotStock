@@ -99,3 +99,10 @@
     transform: translateY(15px);
   }
 }
+
+.aboutus-middle-title {
+  font-family: NanumSquareNeo-Variable;
+  font-weight: 900;
+  color: #484848;
+  font-size: 25px;
+}

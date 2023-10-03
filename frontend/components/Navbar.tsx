@@ -59,18 +59,18 @@ export default function Navbar() {
           </Link>
           <div className="flex text-white">
             <Link href="/ranking">
-              <div className="px-5 hover:scale-105 min-w-[5rem] transition duration-150">
+              <div className="px-5 hover:font-bold min-w-[5rem] transition duration-150">
                 랭킹
               </div>
             </Link>
             <Link href="/theme">
-              <div className="px-5 hover:scale-105 min-w-[5rem] transition duration-150">
+              <div className="px-5 hover:font-bold min-w-[5rem] transition duration-150">
                 테마
               </div>
             </Link>
             <Link href="/aboutus">
-              <div className="px-5 hover:scale-105 min-w-[6rem] transition duration-150">
-                더보기
+              <div className="px-5 hover:font-bold min-w-[6rem] transition duration-150">
+                Hot Stock이란?
               </div>
             </Link>
           </div>

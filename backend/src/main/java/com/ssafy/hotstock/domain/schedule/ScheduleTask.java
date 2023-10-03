@@ -64,7 +64,6 @@ public class ScheduleTask {
 
         // ChromeDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-debugging-port=4444");
         options.addArguments("--headless"); // headless 모드 활성화
         options.addArguments("--no-sandbox"); // no-sandbox 옵션 추가
         options.addArguments(

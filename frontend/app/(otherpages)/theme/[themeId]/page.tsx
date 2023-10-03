@@ -4,12 +4,14 @@ import { StockBar } from "@/components";
 
 const ThemeDetail = async ({ params }: { params: { themeId: string } }) => {
   const themeNumber = parseInt(params.themeId, 10);
+  // console.log(themeNumber);
   const stockList = await fetchThemeDetail(themeNumber);
 
-  // console.log(stockList);
-
   const stockIsEmpty =
-    !Array.isArray(stockList) || stockList.length < 1 || !stockList;
+    stockList === null ||
+    !Array.isArray(stockList) ||
+    stockList.length < 1 ||
+    !stockList;
 
   return (
     <div className="flex justify-center items-center">

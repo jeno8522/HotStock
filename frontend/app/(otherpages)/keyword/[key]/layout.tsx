@@ -2,9 +2,29 @@ import { Theme, News } from "@/types";
 import { ArticleCard } from "@/components";
 import Link from "next/link";
 import { fetchKeywordDetail } from "@/utils";
+import { Metadata, ResolvingMetadata } from "next";
 
 interface Props {
   children: React.ReactNode;
+}
+
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: {
+      key: string;
+    };
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const keyNumber = parseInt(params.key, 10);
+  const keywordData = await fetchKeywordDetail(keyNumber);
+
+  return {
+    title: `${keywordData.keywordContent} - Hot Stock : 키워드로 찾는 주식`,
+    description: `${keywordData.keywordContent} 키워드와 관련된 주식 테마와 기사들을 보여드려요`,
+  };
 }
 
 export default async function KeywordDetailLayout({

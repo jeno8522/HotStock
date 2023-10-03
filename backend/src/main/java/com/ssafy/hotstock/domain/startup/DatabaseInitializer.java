@@ -22,6 +22,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -39,11 +43,30 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
         // 로컬에서
 //        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
         // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+
+        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
+        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
+        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
+        try {
+            service.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // ChromeDriver 옵션 설정
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-debugging-port=4444");
+        options.addArguments("--headless"); // headless 모드 활성화
+        options.addArguments("--no-sandbox"); // no-sandbox 옵션 추가
+        options.addArguments(
+            "--disable-dev-shm-usage"); //  unknown error: session deleted because of page crash
+
+        // WebDriver 객체 생성
+        WebDriver driver = new ChromeDriver(service, options);
 
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 
@@ -56,7 +79,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             try {
                 // JSON 파일을 읽어서 Java 객체로 변환
-                List<StockThemeRequestDto> stockThemeRequestDtoList = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<StockThemeRequestDto>>() {});
+                List<StockThemeRequestDto> stockThemeRequestDtoList = objectMapper.readValue(
+                    new File(jsonFilePath), new TypeReference<List<StockThemeRequestDto>>() {
+                    });
 
                 stockThemeService.insertStockTheme(stockThemeRequestDtoList);
 
@@ -90,7 +115,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             for (int i = 0; i < mediaCompanyNum.length; i++) {
                 int articleNum = newsService.findArticleNum(mediaCompanyNum[i]);
                 List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(
-                    mediaCompanyNum[i], articleNum, format);
+                    mediaCompanyNum[i], articleNum, format, driver);
                 allNewsResponseDtoList.addAll(newsResponseDtoList);
             }
 
@@ -104,12 +129,14 @@ public class DatabaseInitializer implements CommandLineRunner {
             /**
              * Keyword, KeywordNews 저장
              */
-            List<String> newKeywordList = keywordNewsService.insertKeywordNews(keywordSubCountResponseDtoList);
+            List<String> newKeywordList = keywordNewsService.insertKeywordNews(
+                keywordSubCountResponseDtoList);
 
             /**
              * 새로 발생한 키워드 리스트를 파이썬 서버에 보내 response 받아오기
              */
-            List<KeywordThemeResponseDto> keywordThemeResponseDtoList=keywordThemeService.fetchKeywordTheme(newKeywordList);
+            List<KeywordThemeResponseDto> keywordThemeResponseDtoList = keywordThemeService.fetchKeywordTheme(
+                newKeywordList);
 
             /**
              * 새로 발생한 키워드를 테마와 묶어서 저장

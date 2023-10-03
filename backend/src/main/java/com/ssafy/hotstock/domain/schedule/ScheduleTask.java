@@ -66,7 +66,6 @@ public class ScheduleTask {
         // ChromeDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-gpu");
-        options.addArguments("headless");
         options.addArguments("no-sandbox");
         options.addArguments("disable-dev-shm-usage");
         options.addArguments("--remote-debugging-port=4444");

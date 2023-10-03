@@ -6,9 +6,9 @@ import RankingList from "./ranking/RankingList";
 import RankingCard from "./ranking/RankingCard";
 import NewsCardForStocks from "./NewsCardForStocks";
 import Top from "./aboutus/Top";
+import Mindmap from "@/components/Mindmap";
 import ThemeListForKeywords from "@/components/keywordDetail/ThemeListForKeywords";
-// import ThemeListForKeywords from "./keywordDetail/ThemeListForKeywords";
-// import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
+import StockBarLoading from "@/components/skeleton/StockBarLoading";
 
 export {
   Footer,
@@ -20,5 +20,6 @@ export {
   Top,
   NewsCardForStocks,
   ThemeListForKeywords,
-  // ScrollAnimationWrapper,
+  Mindmap,
+  StockBarLoading,
 };

@@ -1,0 +1,109 @@
+"use client";
+
+import { Stock } from "@/types";
+import React, { useEffect, useRef } from "react";
+import cytoscape from "cytoscape";
+import coseBilkent from "cytoscape-cose-bilkent";
+import "../public/fonts/font.css";
+
+cytoscape.use(coseBilkent);
+
+interface Theme {
+  name: string;
+}
+
+interface StockProps {
+  stock: Stock;
+  themes: Theme[];
+}
+
+const Mindmap = ({ stock, themes }: StockProps) => {
+  const { name } = stock;
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const themeStrings = themes.map((theme) => theme.name);
+
+    const elements = [
+      { data: { id: name, label: name, type: "cur" } },
+      ...themes.map((theme) => ({
+        data: { id: theme.name, label: theme.name, type: "themes" },
+      })),
+      ...themes.map((theme) => ({
+        data: {
+          id: `e_${name}_${theme.name}`,
+          source: name,
+          target: theme.name,
+        },
+      })),
+    ];
+
+    const config = {
+      container: container.current,
+      layout: {
+        name: "cose-bilkent",
+        idealEdgeLength: 100,
+        nodeDimensionsIncludeLabels: true,
+        randomize: true,
+      },
+      style: [
+        {
+          selector: "node[type='cur']",
+          style: {
+            content: "data(label)",
+            width: "15rem",
+            height: "15rem",
+            // borderColor: "#6666d5",
+            backgroundColor: "#7e7ecd",
+            // "border-opacity": "1",
+            // "border-width": "2px",
+            "text-outline-color": "#4a4ad3",
+            "text-outline-width": "3px",
+            color: "white",
+            "font-size": "17vw",
+            fontFamily: "Nanum Gothic",
+          },
+        },
+        {
+          selector: "node[type='themes']",
+          style: {
+            content: "data(label)",
+            width: "13rem",
+            height: "13rem",
+            "font-size": "13vw",
+            // borderColor: "black",
+            backgroundColor: "#e6e6ef",
+            // "text-outline-color": "#a3a3da",
+            // "text-outline-width": "3px",
+            color: "#6d6dab",
+            fontWeight: "bold",
+            fontFamily: "Nanum Gothic",
+          },
+        },
+        {
+          selector: "edge",
+          style: {
+            width: "2px",
+            "target-arrow-shape": "triangle",
+            "line-color": "#e6e6ef",
+            // "background-color": "purple",
+            "border-opacity": 1,
+            // "border-width": "10px",
+          },
+        },
+      ],
+      elements,
+    };
+
+    const cy = cytoscape(config);
+    cy.fit();
+  }, [stock, themes, name]);
+
+  return (
+    <div>
+      <div ref={container} style={{ height: "500px" }} />
+    </div>
+  );
+};
+
+export default Mindmap;

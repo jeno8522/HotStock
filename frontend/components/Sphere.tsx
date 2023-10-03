@@ -28,7 +28,7 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
     if (containerRef.current) {
       TagCloud(containerRef.current, texts, options);
     }
-  }, []);
+  }, [data]);
 
   const router = useRouter();
 
@@ -46,13 +46,14 @@ const TextSphere = ({ data, fullData }: keywordTypes) => {
     const target = e.target as HTMLElement;
 
     if (target.className === "tagcloud--item") {
-      console.log(target.innerText);
+      // console.log(target.innerText);
       const keywordId = findKeywordId(target.innerText);
       const id = keywordId !== undefined ? keywordId : 0;
       const getKeywordDetail = await fetchKeywordDetailForCloud(id);
       // const getKeywordDetail = await fetchKeywordDetail(id);
 
       const firstThemeIdOfKeyword =
+        getKeywordDetail.themeByKeywordIdResponseDtoList.length !== null &&
         getKeywordDetail.themeByKeywordIdResponseDtoList.length > 0
           ? getKeywordDetail.themeByKeywordIdResponseDtoList[0].themeId
           : 0;

@@ -2,8 +2,8 @@
 
 import getScrollAnimation from "@/utils/scroll";
 import ScrollAnimationWrapper from "../ScrollAnimationWrapper";
-import {motion} from "framer-motion";
-import React, {useMemo} from "react";
+import { motion } from "framer-motion";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import analyticImage from "@/public/images/undraw_Predictive_analytics_re_wxt8.png";
@@ -12,13 +12,13 @@ const Top = () => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), []);
 
   return (
-    <div className="max-w-screen-xl px-8 xl:px-16 mx-auto" id="about">
+    <div className="max-w-screen-xl px-24 xl:px-32 mx-auto" id="about">
       <ScrollAnimationWrapper>
         <motion.div
-          className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-6 sm:py-16"
+          className="grid grid-flow-row sm:grid-flow-col grid-rows-2 md:grid-rows-1 sm:grid-cols-2 gap-8 py-32 my-10 sm:py-24"
           variants={scrollAnimation}
         >
-          <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
+          <div className="flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <h1
               className={` text-2xl lg:text-3xl xl:text-4xl font-medium text-black-600 leading-normal`}
             >

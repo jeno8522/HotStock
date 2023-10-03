@@ -3,10 +3,10 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../public/images/hotstocklogo.png";
-import {Input} from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import searchIcon from "../public/images/icons/searchicon.png";
-import {useState, useRef} from "react";
-import {useRouter} from "next/navigation";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export default function Navbar() {
   // 검색 시키는거 - 라우팅ㅇ르 시키든 옮기든 해야됨
   const onSearch = () => {
     if (searchInput !== "") {
-      console.log(searchInput);
+      // console.log(searchInput);
       router.push(`/search/${searchInput}`);
       setSearchInput("");
     }
@@ -59,18 +59,18 @@ export default function Navbar() {
           </Link>
           <div className="flex text-white">
             <Link href="/ranking">
-              <div className="px-5 hover:scale-105 min-w-[5rem] transition duration-150">
+              <div className="px-5 hover:font-bold min-w-[5rem] transition duration-150">
                 랭킹
               </div>
             </Link>
             <Link href="/theme">
-              <div className="px-5 hover:scale-105 min-w-[5rem] transition duration-150">
+              <div className="px-5 hover:font-bold min-w-[5rem] transition duration-150">
                 테마
               </div>
             </Link>
             <Link href="/aboutus">
-              <div className="px-5 hover:scale-105 min-w-[6rem] transition duration-150">
-                더보기
+              <div className="px-5 hover:font-bold min-w-[6rem] transition duration-150">
+                Hot Stock이란?
               </div>
             </Link>
           </div>

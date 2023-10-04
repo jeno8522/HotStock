@@ -1,6 +1,6 @@
 import json
 import urllib.request
-
+from collections import defaultdict
 
 class StockService:
     
@@ -9,22 +9,27 @@ class StockService:
     
     
     def get_stock_info(self, item_code: str) -> dict:
-
         url = "https://api.finance.naver.com/service/itemSummary.nhn?itemcode=%s"%(item_code)
         #urllib.request를 통해 링크의 결과를 가져옵니다.
         raw_data: str = urllib.request.urlopen(url).read() #json
-        data: dict = json.loads(raw_data) #dict 구조로 변경
-        
-        resp = dict()
-        resp["code"] = item_code
-        resp["market_sum"] = str(data["marketSum"])
-        resp["price_now"] = str(data["now"])
-        resp["price_rate"] = str(data["rate"])
-        resp["price_diff"] = str(data["diff"])
-        resp["price_high"] = str(data["high"])
-        resp["price_low"] = str(data["low"])
-        resp["amount"] = str(data["amount"])
 
+        try :
+            data: dict = json.loads(raw_data) #dict 구조로 변경
+        except :
+            data = defaultdict(lambda: "-1") #만약 상장 폐지 등으로 정보를 가져오지 못했다면 모든 반환값을 -1로 반환.
+            
+            
+        resp = dict()
+        resp.update(
+                {"code" : str(item_code),
+                "market_sum": str(data["marketSum"]),
+                "price_now": str(data["now"]),
+                "price_rate": str(data["rate"]),
+                "price_diff": str(data["diff"]),
+                "price_high": str(data["high"]),
+                "price_low": str(data["low"]),
+                "amount": str(data["amount"])}
+            )
         return resp
 
 

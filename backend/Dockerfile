@@ -5,8 +5,6 @@ FROM openjdk:17-jdk-slim
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 COPY ./src/main/resources/stocks.json /src/main/resources/stocks.json
-RUN chmod +x /usr/bin/chromedriver
-
 
 #Set the entrypoint
 ENTRYPOINT ["java", "-jar", "/app.jar"]

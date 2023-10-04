@@ -52,7 +52,6 @@ class NewsService:
                         summaryContentElement = wait.until(EC.visibility_of_element_located(
                             (By.CSS_SELECTOR, "div.media_end_head_autosummary_layer_body ._contents_body._SUMMARY_CONTENT_BODY")))
                         summaryContent = summaryContentElement.text
-                        print(summaryContent)
 
                         break
                     except Exception as e:

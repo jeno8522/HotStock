@@ -1,4 +1,4 @@
-import { Stock, StockPPP } from "@/types";
+import {Stock, StockPPP} from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import UpIcon from "@/public/images/icons/up.png";
@@ -12,11 +12,22 @@ interface StockProps {
   stock: Stock;
 }
 
-const StockBar = ({ stock }: StockProps) => {
-  const { name, price_now, code, price_rate, price_diff } = stock;
-  // const { name, code } = stock;
-  const fluctuationRate = parseFloat(price_diff);
-  const price_diff_abs = Math.abs(fluctuationRate);
+const StockBar = ({stock}: StockProps) => {
+  let {name, price_now, code, price_rate, price_diff} = stock;
+  const isDelisted =
+    price_now == "-1" && price_rate == "-1" && price_diff == "-1";
+  if (isDelisted) {
+    name = "상장폐지종목";
+    price_now = "-";
+    price_rate = "-";
+    price_diff = "-";
+  }
+  let fluctuationRate = 0;
+  let price_diff_abs = "-";
+  if (!isDelisted) {
+    fluctuationRate = parseFloat(price_diff);
+    price_diff_abs = Math.abs(fluctuationRate).toString();
+  }
   return (
     <div>
       <div className="flex justify-between rounded-md my-3 border-2 border-gray-300 p-4">

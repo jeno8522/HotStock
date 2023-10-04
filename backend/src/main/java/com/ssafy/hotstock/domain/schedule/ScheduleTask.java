@@ -12,18 +12,12 @@ import com.ssafy.hotstock.domain.news.dto.MediaResponseDto;
 import com.ssafy.hotstock.domain.news.dto.NewsResponseDto;
 import com.ssafy.hotstock.domain.news.service.MediaService;
 import com.ssafy.hotstock.domain.news.service.NewsService;
-import java.io.File;
-import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -48,38 +42,6 @@ public class ScheduleTask {
 
         keywordService.clearKeywordCache();
 
-        // 로컬에서
-//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
-        // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-
-//        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
-//        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
-//        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
-
-//        try {
-//            service.start();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
-        // ChromeDriver 옵션 설정
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-gpu");
-        options.addArguments("headless");
-        options.addArguments("no-sandbox");
-        options.addArguments("disable-dev-shm-usage");
-        options.addArguments("--remote-debugging-port=4444");
-
-        // WebDriver 객체 생성
-        WebDriver driver = new ChromeDriver(options);
-
-        File dirFile = new File("/usr/bin");
-        File[] fileList = dirFile.listFiles();
-        for (File file : fileList) {
-            System.out.println(file.getName());
-        }
-
         /**
          * 현재 시간 가져오기
          * */
@@ -103,7 +65,7 @@ public class ScheduleTask {
             List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(
                 mediaResponseDto.getMediaCompanyNum(),
                 mediaResponseDto.getCurrArticleNum(),
-                now, driver);
+                now);
             allNewsResponseDtoList.addAll(newsResponseDtoList);
         }
 

@@ -14,7 +14,6 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -100,135 +93,108 @@ public class NewsServiceImpl implements NewsService {
      */
 
     @Override
-    public News crawlingNews(int mediaCompanyNum, int articleNum, WebDriver driver)
-        throws IOException {
+    public News crawlingNews(int mediaCompanyNum, int articleNum) throws IOException {
 
         News news = new News();
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://hot-stock.shop:5000/news/"; // Python 서버 URL
+        ResponseEntity<Map> response = restTemplate.getForEntity(
+            url + mediaCompanyNum + "/" + articleNum, Map.class);
+        Map<String, Object> newsData = response.getBody();
+
+        String summaryContent = (String) newsData.get("summaryContent");
+
+        String link =
+            "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
+                + "/" + String.format("%010d", articleNum);
+
+        Connection conn = Jsoup.connect(link)
+            .userAgent(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
+
+        Document doc = null;
+
         try {
-            String link =
-                "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
-                    + "/" + String.format("%010d", articleNum);
-
-            driver.get(link);
-
-            String summaryContent = "";
-
-            while (true) {
-                try {
-                    // 요약 봇 버튼을 찾아 클릭
-                    WebElement summaryButton = driver.findElement(
-                        By.cssSelector("a.media_end_head_autosummary_button"));
-                    summaryButton.click();
-
-                    try {
-                        // 요약된 내용을 가져오기 (선택자를 요약 봇 레이어의 클래스 이름으로 지정)
-                        // 요약 내용이 로딩될 때까지 대기
-                        // WebDriverWait를 사용하여 요약 봇 레이어가 나타날 때까지 대기
-                        Duration timeout = Duration.ofSeconds(3);
-                        WebDriverWait wait = new WebDriverWait(driver, timeout);
-                        WebElement summaryContentElement = wait.until(
-                            ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
-                                "div.media_end_head_autosummary_layer_body ._contents_body._SUMMARY_CONTENT_BODY")));
-                        summaryContent = summaryContentElement.getText();
-
-                        break;
-                    } catch (TimeoutException e) {
-                        // TimeoutException 발생 시 알림 또는 로깅
-                        log.error("TimeoutException 발생: 버튼 또는 요소가 나타나지 않음.");
-                    }
-
-                } catch (NoSuchElementException e) {
-                    log.error("요약 봇 버튼을 찾을 수 없습니다.");
-                    break;
-                }
-            }
-            driver.close();
-
-            Connection conn = Jsoup.connect(link)
-                .userAgent(
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
-
-            Document doc = conn.get();
-
-            // 제목 찾아오기
-            String title = doc.select("h2#title_area").text();
-
-            // 시사/ 연예
-            if (title.isEmpty()) {
-                title = doc.select("h2.end_tit").text();
-            }
-
-            // 스포츠
-            if (title.isEmpty()) {
-                title = doc.select("h4.title").text();
-            }
-
-            // 본문 찾아오기
-            String content = doc.select("article#dic_area").text();
-
-            // 시사/ 연예
-            if (content.isEmpty()) {
-                Elements elements = doc.select("div#articeBody");
-                if (!elements.isEmpty()) {
-                    content = elements.text();
-                } else {
-                    System.out.println("해당 게시글의 본문을 찾을 수 없습니다.");
-                }
-            }
-
-            // 스포츠
-            if (content.isEmpty()) {
-                Elements elements = doc.select("div#newsEndContents");
-                if (!elements.isEmpty()) {
-                    content = elements.text();
-                } else {
-                    System.out.println("해당 게시글의 본문을 찾을 수 없습니다.");
-                }
-            }
-
-            // 날짜 찾아오기
-            String date = doc.select("span.media_end_head_info_datestamp_time")
-                .attr("data-date-time");
-
-            // 시사/ 연예
-            if (date.isEmpty()) {
-                Elements elements = doc.select("span.author em");
-
-                // 첫 번째 태그의 내용 가져오기
-                if (!elements.isEmpty()) {
-                    String dataTime = elements.first().text();
-                    date = formatDateTime(dataTime);
-                } else {
-                    System.out.println("해당 날짜를 찾을 수 없습니다.");
-                }
-            }
-
-            // 스포츠
-            if (date.isEmpty()) {
-                Elements elements = doc.select("div.news_headline span");
-
-                // 첫 번째 태그의 내용 가져오기
-                if (!elements.isEmpty()) {
-                    String dataTime = elements.get(1).text();
-                    dataTime = dataTime.replace("기사입력", "").trim();
-                    date = formatDateTime(dataTime);
-                } else {
-                    System.out.println("해당 날짜를 찾을 수 없습니다.");
-                }
-            }
-
-            news.setTitle(title);
-            news.setContent(content);
-            news.setLink(link);
-            news.setDate(date);
-            news.setMediaCompanyNum(mediaCompanyNum);
-            news.setArticleNum(articleNum);
-            news.setSummaryContent(summaryContent);
-
-
+            doc = conn.get();
         } catch (IOException e) {
             throw e;
         }
+
+        // 제목 찾아오기
+        String title = doc.select("h2#title_area").text();
+
+        // 시사/ 연예
+        if (title.isEmpty()) {
+            title = doc.select("h2.end_tit").text();
+        }
+
+        // 스포츠
+        if (title.isEmpty()) {
+            title = doc.select("h4.title").text();
+        }
+
+        // 본문 찾아오기
+        String content = doc.select("article#dic_area").text();
+
+        // 시사/ 연예
+        if (content.isEmpty()) {
+            Elements elements = doc.select("div#articeBody");
+            if (!elements.isEmpty()) {
+                content = elements.text();
+            } else {
+                System.out.println("해당 게시글의 본문을 찾을 수 없습니다.");
+            }
+        }
+
+        // 스포츠
+        if (content.isEmpty()) {
+            Elements elements = doc.select("div#newsEndContents");
+            if (!elements.isEmpty()) {
+                content = elements.text();
+            } else {
+                System.out.println("해당 게시글의 본문을 찾을 수 없습니다.");
+            }
+        }
+
+        // 날짜 찾아오기
+        String date = doc.select("span.media_end_head_info_datestamp_time")
+            .attr("data-date-time");
+
+        // 시사/ 연예
+        if (date.isEmpty()) {
+            Elements elements = doc.select("span.author em");
+
+            // 첫 번째 태그의 내용 가져오기
+            if (!elements.isEmpty()) {
+                String dataTime = elements.first().text();
+                date = formatDateTime(dataTime);
+            } else {
+                System.out.println("해당 날짜를 찾을 수 없습니다.");
+            }
+        }
+
+        // 스포츠
+        if (date.isEmpty()) {
+            Elements elements = doc.select("div.news_headline span");
+
+            // 첫 번째 태그의 내용 가져오기
+            if (!elements.isEmpty()) {
+                String dataTime = elements.get(1).text();
+                dataTime = dataTime.replace("기사입력", "").trim();
+                date = formatDateTime(dataTime);
+            } else {
+                System.out.println("해당 날짜를 찾을 수 없습니다.");
+            }
+        }
+
+        news.setTitle(title);
+        news.setContent(content);
+        news.setLink(link);
+        news.setDate(date);
+        news.setMediaCompanyNum(mediaCompanyNum);
+        news.setArticleNum(articleNum);
+        news.setSummaryContent(summaryContent);
 
         return news;
 
@@ -239,7 +205,7 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public List<NewsResponseDto> crawlingNewsList(int mediaCompanyNum, int articleNum,
-        String currentTime, WebDriver driver) {
+        String currentTime) {
 
         /**
          * 뉴스 가져온 후 저장
@@ -248,7 +214,7 @@ public class NewsServiceImpl implements NewsService {
 
         while (true) {
             try {
-                News news = crawlingNews(mediaCompanyNum, articleNum, driver);
+                News news = crawlingNews(mediaCompanyNum, articleNum);
                 newsList.add(news);
                 articleNum++;
 

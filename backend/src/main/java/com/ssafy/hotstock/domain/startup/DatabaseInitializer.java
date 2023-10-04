@@ -22,10 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -42,31 +38,6 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        // 로컬에서
-//        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver_window.exe");
-        // 서버에 올릴 때
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-
-//        ChromeDriverService.Builder serviceBuilder = new ChromeDriverService.Builder();
-//        serviceBuilder.usingDriverExecutable(new File("/usr/bin/chromedriver"));
-//        ChromeDriverService service = serviceBuilder.usingPort(4444).build();
-//        try {
-//            service.start();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
-        // ChromeDriver 옵션 설정
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-gpu");
-        options.addArguments("headless");
-        options.addArguments("no-sandbox");
-        options.addArguments("disable-dev-shm-usage");
-        options.addArguments("--remote-debugging-port=4444");
-
-        // WebDriver 객체 생성
-        WebDriver driver = new ChromeDriver(options);
 
         StockTheme stockTheme = stockThemeService.findStockThemeById(1L);
 
@@ -115,7 +86,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             for (int i = 0; i < mediaCompanyNum.length; i++) {
                 int articleNum = newsService.findArticleNum(mediaCompanyNum[i]);
                 List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(
-                    mediaCompanyNum[i], articleNum, format, driver);
+                    mediaCompanyNum[i], articleNum, format);
                 allNewsResponseDtoList.addAll(newsResponseDtoList);
             }
 

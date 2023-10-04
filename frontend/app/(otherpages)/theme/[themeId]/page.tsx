@@ -1,12 +1,12 @@
-import { fetchThemeDetail } from "@/utils";
-import { Stock } from "@/types";
-import { StockBar } from "@/components";
+import {fetchThemeDetail} from "@/utils";
+import {Stock} from "@/types";
+import {StockBar} from "@/components";
 
-const ThemeDetail = async ({ params }: { params: { themeId: string } }) => {
+const ThemeDetail = async ({params}: {params: {themeId: string}}) => {
   const themeNumber = parseInt(params.themeId, 10);
   // console.log(themeNumber);
   const stockList = await fetchThemeDetail(themeNumber);
-
+  console.log(stockList);
   const stockIsEmpty =
     stockList === null ||
     !Array.isArray(stockList) ||

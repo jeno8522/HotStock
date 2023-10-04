@@ -18,12 +18,12 @@ const RankingCard = async ({ keyword, index }: getKeywordsProps) => {
   const firstThemeId: string = firstThemeIdOfKeyword.toString();
   const { text } = keyword;
   return (
-    <div className="mx-3 my-10 text-lg">
+    <div className="mx-3 my-4 text-lg">
       <Link href={`/keyword/${keyword.id}/${firstThemeId}`} className="flex">
-        <div className="text-black-500 font-bold text-center w-5 m-2">
+        <div className="text-black-500 font-extrabold text-center w-5 m-2">
           {index}
         </div>
-        <div className="text-gray-700 m-2 truncate">{text}</div>
+        <div className="text-gray-700 m-2 truncate hover:font-bold">{text}</div>
       </Link>
     </div>
   );

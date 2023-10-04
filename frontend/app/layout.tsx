@@ -13,16 +13,6 @@ export const metadata: Metadata = {
     "실시간 뉴스를 종합한 키워드로 당신을 위한 주식 종목을 찾아드려요.",
 };
 
-const NanumBarunGothicLight = localfont({
-  src: [
-    {
-      path: "../public/fonts/NanumBarunGothicLight.ttf",
-      weight: "normal",
-      style: "normal",
-    },
-  ],
-});
-
 export default function RootLayout({
   children,
 }: {
@@ -30,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${NanumBarunGothicLight.className}`}>
+      <body className={`${inter.className}`}>
         <Providers>
           <Navbar />
           <div className="">{children}</div>

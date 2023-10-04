@@ -34,9 +34,13 @@ const StockBar = ({stock}: StockProps) => {
         <div className="flex px-3">
           <div>{code}</div>
           <div className="font-bold w-52 px-2 te">
-            <Link href={`/stock/${code}`}>
+            {isDelisted ? (
               <div className="truncate">{name}</div>
-            </Link>
+            ) : (
+              <Link href={`/stock/${code}`}>
+                <div className="truncate">{name}</div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex text-right">

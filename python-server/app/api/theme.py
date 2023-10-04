@@ -42,5 +42,12 @@ class TempKeywordsThemes(Resource):
             to_json(response_data, "keywords_themes"), content_type='application/json; charset=utf-8')
         return response
 
+@ns.route('/savemodel')
+class TempKeywordsThemes(Resource):
+    @ns.doc(description='업데이트된 vectorDB 모델을 저장하기 위한 테스트코드')
+    def get(self):
+        theme_service.save_updated_model()
+        return "OK"
+
 from app import api_root
 api_root.add_namespace(ns)

@@ -48,11 +48,13 @@ const Ranking = async () => {
           <h2 className="mt-20 text-sm text-end">
             키워드를 클릭해 관련 주식 테마를 알아보세요
           </h2>
-          <Link href="/aboutus">
-            <h2 className="text-sm text-end hover:font-bold">
-              Hot Stock이 궁금하다면?
-            </h2>
-          </Link>
+
+          <h2 className="text-sm text-end  sm:mb-5">
+            Hot Stock이 알고싶다면?{" "}
+            <Link href="/aboutus" className="hover:font-bold">
+              여기
+            </Link>
+          </h2>
         </div>
       </div>
       <div className=" lg:w-3/4 ">

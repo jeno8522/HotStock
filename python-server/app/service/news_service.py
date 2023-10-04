@@ -17,9 +17,18 @@ class NewsService:
         article_id = int(article_id)
 
         chrome_options = Options()
-        chrome_options.add_experimental_option("detach", True)
-        chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-
+        # chrome_options = webdriver.ChromeOptions()
+        # chrome_options.add_experimental_option("detach", True)
+        # chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        
+        chrome_options.add_argument("headless")
+        chrome_options.add_argument("no-sandbox")
+        chrome_options.add_argument("window-size=1920x1080")
+        chrome_options.add_argument("disable-gpu")
+        chrome_options.add_argument("lang=ko_KR")
+        chrome_options.add_argument("disable-dev-shm-usage")
+        
+        
         service = Service(ChromeDriverManager().install())
 
         # 크롬드라이버 실행

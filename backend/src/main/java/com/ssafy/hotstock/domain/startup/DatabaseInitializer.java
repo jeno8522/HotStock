@@ -68,7 +68,7 @@ public class DatabaseInitializer implements CommandLineRunner {
              * 조선, 중앙, 동아, 경향, 한겨레, 한국경제, 매일경제 순
              * */
             int[] mediaCompanyNum = {23, 25, 20, 32, 28, 15, 9};
-            int[] articleNum = {3791576, 3312307, 3523861, 3253020, 2659081, 4898846, 5195069};
+//            int[] articleNum = {3791576, 3312307, 3523861, 3253020, 2659081, 4898846, 5195069};
 
             /**
              * 현재 시간 가져오기
@@ -84,9 +84,9 @@ public class DatabaseInitializer implements CommandLineRunner {
              * */
             List<NewsResponseDto> allNewsResponseDtoList = new ArrayList<>();
             for (int i = 0; i < mediaCompanyNum.length; i++) {
-//                int articleNum = newsService.findArticleNum(mediaCompanyNum[i]);
+                int articleNum = newsService.findArticleNum(mediaCompanyNum[i]);
                 List<NewsResponseDto> newsResponseDtoList = newsService.crawlingNewsList(
-                    mediaCompanyNum[i], articleNum[i], format);
+                    mediaCompanyNum[i], articleNum, format);
                 allNewsResponseDtoList.addAll(newsResponseDtoList);
             }
 

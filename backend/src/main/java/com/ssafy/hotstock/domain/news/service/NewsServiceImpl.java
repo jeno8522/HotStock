@@ -235,12 +235,20 @@ public class NewsServiceImpl implements NewsService {
                     String status = matcher.group(1); // 첫 번째 그룹을 가져옴
                     if (status.equals("404")) {
                         articleNum++;
-                    } else {
+                    }else if (status.equals("429")) {
+                        try {
+                            // 1초 대기
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    else {
                         break;
                     }
                 } else {
                     System.out.println("Status 값을 찾을 수 없습니다.");
-                    break;
+
                 }
             }
         }

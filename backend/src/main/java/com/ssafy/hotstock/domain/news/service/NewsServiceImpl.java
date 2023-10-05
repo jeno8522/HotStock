@@ -238,7 +238,7 @@ public class NewsServiceImpl implements NewsService {
                     }else if (status.equals("429")) {
                         try {
                             // 1초 대기
-                            Thread.sleep(1000);
+                            Thread.sleep(500);
                         } catch (InterruptedException ex) {
                             Thread.currentThread().interrupt();
                         }
@@ -250,7 +250,7 @@ public class NewsServiceImpl implements NewsService {
                     System.out.println("Status 값을 찾을 수 없습니다.");
                     try {
                         // 1초 대기
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
@@ -326,6 +326,13 @@ public class NewsServiceImpl implements NewsService {
             .toUri();
 
         RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            // 1초 대기
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
 
         RequestEntity<Void> req = RequestEntity
             .get(uri)

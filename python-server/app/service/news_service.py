@@ -6,6 +6,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
+chrome_options = Options()
+chrome_options.add_argument("headless")
+chrome_options.add_argument("no-sandbox")
+chrome_options.add_argument("window-size=1920x1080")
+chrome_options.add_argument("disable-gpu")
+chrome_options.add_argument("lang=ko_KR")
+chrome_options.add_argument("disable-dev-shm-usage")
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
+
 class NewsService:
 
     def __init__(self):
@@ -16,20 +27,7 @@ class NewsService:
         media_company_id = int(media_company_id)
         article_id = int(article_id)
 
-        chrome_options = Options()
-        
-        chrome_options.add_argument("headless")
-        chrome_options.add_argument("no-sandbox")
-        chrome_options.add_argument("window-size=1920x1080")
-        chrome_options.add_argument("disable-gpu")
-        chrome_options.add_argument("lang=ko_KR")
-        chrome_options.add_argument("disable-dev-shm-usage")
-        
-        
-        service = Service(ChromeDriverManager().install())
-
         # 크롬드라이버 실행
-        driver = webdriver.Chrome(service=service, options=chrome_options)
         
         # 뉴스 페이지로 이동
         link = f"https://n.news.naver.com/article/{media_company_id:03}/{article_id:010}"

@@ -15,7 +15,7 @@ const Ranking = async () => {
   let month = today.getMonth() + 1; // 월
   let date = today.getDate(); // 날짜
   let day = today.getDay(); // 요일
-  let hours = today.getHours(); // 시
+  let hours = (today.getHours() + 9) % 24; // 시
   let minutes = today.getMinutes(); // 분
 
   const allKeywords = await fetchKeywords();
@@ -35,11 +35,11 @@ const Ranking = async () => {
           <div className="text-3xl tracking-wider">
             <h1 className="ranking_title">Hot Stock</h1>
           </div>
-          <h2 className="mt-20 text-sm text-end">
+          <h2 className="md:mt-5 lg:mt-32 text-base text-end">
             키워드를 클릭해 관련 주식 테마를 알아보세요
           </h2>
 
-          <h2 className="text-sm text-end  sm:mb-5">
+          <h2 className="text-base text-end sm:mb-5">
             Hot Stock이 알고싶다면?{" "}
             <Link href="/aboutus" className="hover:font-bold">
               여기

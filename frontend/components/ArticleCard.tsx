@@ -8,6 +8,10 @@ interface ArticleProps {
 const ArticleCard = ({ news }: ArticleProps) => {
   const { title, content, mediaCompanyNum, link } = news;
   const companyName = findNewsCompany(mediaCompanyNum);
+  // console.log(news);
+
+  const contentEmpty =
+    !content || content.trim().length === 0 || content === "";
 
   return (
     <div>
@@ -16,7 +20,20 @@ const ArticleCard = ({ news }: ArticleProps) => {
           {title}
         </a>
         <div className="text-xs">{companyName}</div>
-        <div>{content}</div>
+
+        {!contentEmpty ? (
+          <div>{content}</div>
+        ) : (
+          <div>
+            <a
+              target="_blank"
+              href={link}
+              className="pr-2 truncate hover:font-bold"
+            >
+              기사 원문을 확인해보세요
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

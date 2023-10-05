@@ -41,7 +41,7 @@ const Mindmap = ({ stock, themes }: StockProps) => {
     const config = {
       container: container.current,
       layout: {
-        name: "cose-bilkent",
+        name: "cose-bilkent", 
         idealEdgeLength: 100,
         nodeDimensionsIncludeLabels: true,
         randomize: true,
@@ -96,7 +96,20 @@ const Mindmap = ({ stock, themes }: StockProps) => {
     };
 
     const cy = cytoscape(config);
-    cy.fit();
+    
+    // 마우스 드래그 및 확대/축소 기능 비활성화
+    cy.userZoomingEnabled(false);
+    cy.userPanningEnabled(false);
+
+    // 레이아웃 재조정 방지
+    cy.on("layoutstop", () => {
+      cy.fit();
+    });
+
+    // 마인드맵 요소들의 드래그 비활성화
+    cy.nodes().forEach((node) => {
+      node.lock();
+    });
   }, [stock, themes, name]);
 
   return (

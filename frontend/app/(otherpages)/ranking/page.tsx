@@ -4,16 +4,6 @@ import { fetchKeywords } from "@/utils";
 import { KeywordProps } from "@/types/index";
 import Link from "next/link";
 
-const NanumBarunGothicLight = localfont({
-  src: [
-    {
-      path: "../../../public/fonts/NanumBarunGothicLight.ttf",
-      weight: "normal",
-      style: "normal",
-    },
-  ],
-});
-
 interface keywordPropList {
   allKeywords: KeywordProps[];
 }

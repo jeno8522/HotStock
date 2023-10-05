@@ -20,15 +20,7 @@ const ThemeStockList = ({ stocks }: stockList) => {
     }
   };
   return (
-    // <div>
-    //   이거얌
-    //   <div>
-    //     {stocks.map((stock: Stock, index: number) => (
-    //       <StockBar key={index} stock={stock} />
-    //     ))}
-    //   </div>
-    // </div>
-    <div className="flex flex-col justify-center m-16">
+    <div className="flex flex-col p-10 min-h-screen">
       <div className="xl:mx-32 lg:mx-10">
         {stocks.slice(offset, offset + 10).map((stock, index) => (
           <StockBar key={index} stock={stock} />

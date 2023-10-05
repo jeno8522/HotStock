@@ -1,8 +1,6 @@
 from krwordrank.word import KRWordRank
 from mecab import MeCab
 
-from app.service.theme_service import ThemeService
-theme_service = ThemeService()
 
 min_count = 2   # 단어의 최소 출현 빈도수 (그래프 생성 시)
 max_length = 10  # 단어의 최대 길이

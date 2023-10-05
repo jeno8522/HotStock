@@ -345,12 +345,18 @@ public class NewsServiceImpl implements NewsService {
 
             for (NaverApiItemsResponseDto naverApiItemsResponseDto : naverApiResponseDto.getItems()) {
 
+                String title = naverApiItemsResponseDto.getTitle();
+
                 String description = naverApiItemsResponseDto.getDescription();
 
                 // HTML 태그 제거
-                String cleanedText = Jsoup.parse(description).text();
+                String cleanedTitle = Jsoup.parse(title).text();
 
-                naverApiItemsResponseDto.setDescription(cleanedText);
+                // HTML 태그 제거
+                String cleanedDescription = Jsoup.parse(description).text();
+
+                naverApiItemsResponseDto.setTitle(cleanedTitle);
+                naverApiItemsResponseDto.setDescription(cleanedDescription);
 
                 naverApiResponseDtoList.add(naverApiItemsResponseDto);
             }

@@ -2,7 +2,8 @@ from krwordrank.word import KRWordRank
 from mecab import MeCab
 import re
 
-import app.service.theme_service as ts
+from app.service.theme_service import ThemeService
+theme_service = ThemeService()
 
 min_count = 2   # 단어의 최소 출현 빈도수 (그래프 생성 시)
 max_length = 10  # 단어의 최대 길이
@@ -24,7 +25,7 @@ class KeywordService:
         preprossed_sentences = []
         for s in sentences:
             preprossed_sentences.append(self.mecab.morphs(s.replace('.', '')))
-        ts.improve_fasttext_model(preprossed_sentences)
+        theme_service.improve_fasttext_model(preprossed_sentences)
 
         result_text = ' '.join(self.mecab.nouns(text))
         wordrank_extractor = KRWordRank(

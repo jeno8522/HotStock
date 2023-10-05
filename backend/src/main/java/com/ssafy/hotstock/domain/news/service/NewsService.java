@@ -16,17 +16,9 @@ public interface NewsService {
 
     String formatDateTime(String dataTime);
 
-    News insertNews(News news);
-
     List<News> createNewsList(List<News> newsList);
 
     News findNewsById(Long id);
-
-    List<News> getAllNews();
-
-    News updateNews(News news);
-
-    void deleteNews(Long id);
 
     List<NaverApiItemsResponseDto> naverApi(String search, int display);
 

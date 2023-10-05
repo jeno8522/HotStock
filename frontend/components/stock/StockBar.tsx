@@ -27,7 +27,7 @@ const StockBar = ({ stock }: StockProps) => {
   return (
     <div>
       <Link href={`/stock/${code}`}>
-        <div className="flex justify-between rounded-md my-3 border-2 border-gray-300 p-4 hover:bg-[#e4f2ff] hover:border-[#e4f2ff]">
+        <div className="flex justify-between rounded-md my-3 border-2 border-gray-300 p-4 hover:bg-[#e0eef0] hover:border-[#e0eef0]">
           <div className="flex px-3">
             <div>{code}</div>
             <div className="font-bold w-52 px-2">

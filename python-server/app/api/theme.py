@@ -41,6 +41,7 @@ class TempKeywordsThemes(Resource):
         response = Response(
             to_json(response_data, "keywords_themes"), content_type='application/json; charset=utf-8')
         return response
+    
 
 from app import api_root
 api_root.add_namespace(ns)

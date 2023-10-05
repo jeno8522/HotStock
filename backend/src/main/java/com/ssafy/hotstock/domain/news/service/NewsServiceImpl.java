@@ -240,6 +240,7 @@ public class NewsServiceImpl implements NewsService {
                     }
                 } else {
                     System.out.println("Status 값을 찾을 수 없습니다.");
+                    break;
                 }
             }
         }

@@ -1,9 +1,13 @@
-import { KeywordProps } from "../../types/index";
+import { KeywordProps } from "@/types/index";
 import { RankingCard } from "..";
 import { fetchKeywords } from "@/utils";
 
-const RankingList = async () => {
-  const allKeywords = await fetchKeywords();
+interface keywordPropList {
+  allKeywords: KeywordProps[];
+}
+
+const RankingList = async ({ allKeywords }: keywordPropList) => {
+  // const allKeywords = await fetchKeywords();
   // console.log(allKeywords);
   const isEmpty =
     !Array.isArray(allKeywords) || allKeywords.length < 1 || !allKeywords;
@@ -14,7 +18,7 @@ const RankingList = async () => {
   }
   // console.log(eachKeywords);
   return (
-    <div className="relative bg-white px-6 pt-3 pb-3 shadow-xl h-[30rem] ring-1 rounded-2xl ring-gray-900/5">
+    <div className="relative bg-white px-16 pt-3 pb-10 h-fit ">
       {!isEmpty ? (
         <div className="flex justify-between mx-2 overflow-hidden ">
           {eachKeywords?.map((group, eIndex) => (

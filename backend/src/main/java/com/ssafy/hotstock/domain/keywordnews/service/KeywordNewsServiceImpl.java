@@ -123,16 +123,27 @@ public class KeywordNewsServiceImpl implements KeywordNewsService {
 
         for (KeywordNews keywordNews : newsByKeywordId) {
             News news = keywordNews.getNews();
-            NewsByKeywordIdResponseDto newsByKeywordIdResponseDto = NewsByKeywordIdResponseDto.builder()
-                .newsId(news.getId())
-                .title(news.getTitle())
-                .content(news.getContent())
-                .summaryContent(news.getSummaryContent())
-                .link(news.getLink())
-                .date(news.getDate())
-                .mediaCompanyNum(news.getMediaCompanyNum())
-                .build();
-            newsByKeywordIdResponseDtoList.add(newsByKeywordIdResponseDto);
+            if (news.getSummaryContent().equals("")) {
+                NewsByKeywordIdResponseDto newsByKeywordIdResponseDto = NewsByKeywordIdResponseDto.builder()
+                    .newsId(news.getId())
+                    .title(news.getTitle())
+                    .content(news.getContent())
+                    .link(news.getLink())
+                    .date(news.getDate())
+                    .mediaCompanyNum(news.getMediaCompanyNum())
+                    .build();
+                newsByKeywordIdResponseDtoList.add(newsByKeywordIdResponseDto);
+            } else {
+                NewsByKeywordIdResponseDto newsByKeywordIdResponseDto = NewsByKeywordIdResponseDto.builder()
+                    .newsId(news.getId())
+                    .title(news.getTitle())
+                    .content(news.getSummaryContent())
+                    .link(news.getLink())
+                    .date(news.getDate())
+                    .mediaCompanyNum(news.getMediaCompanyNum())
+                    .build();
+                newsByKeywordIdResponseDtoList.add(newsByKeywordIdResponseDto);
+            }
         }
 
         return newsByKeywordIdResponseDtoList;

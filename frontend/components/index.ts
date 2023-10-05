@@ -9,6 +9,10 @@ import Top from "./aboutus/Top";
 import Mindmap from "@/components/Mindmap";
 import ThemeListForKeywords from "@/components/keywordDetail/ThemeListForKeywords";
 import StockBarLoading from "@/components/skeleton/StockBarLoading";
+import RankingNews from "@/components/ranking/RankingNews";
+import ThemeList from "@/components/theme/ThemeList";
+import ThemeBar from "@/components/theme/ThemeBar";
+import ThemeStockList from "@/components/theme/ThemeStockList";
 
 export {
   Footer,
@@ -22,4 +26,8 @@ export {
   ThemeListForKeywords,
   Mindmap,
   StockBarLoading,
+  RankingNews,
+  ThemeList,
+  ThemeBar,
+  ThemeStockList,
 };

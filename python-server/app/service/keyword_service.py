@@ -1,6 +1,5 @@
 from krwordrank.word import KRWordRank
 from mecab import MeCab
-import re
 
 from app.service.theme_service import ThemeService
 theme_service = ThemeService()
@@ -20,12 +19,6 @@ class KeywordService:
     def get_keyword(self, id, title, content):
         text = title + " " + content
         res = dict()
-
-        sentences = re.split(r'\.\n|\. ', text)
-        preprossed_sentences = []
-        for s in sentences:
-            preprossed_sentences.append(self.mecab.morphs(s.replace('.', '')))
-        theme_service.improve_fasttext_model(preprossed_sentences)
 
         result_text = ' '.join(self.mecab.nouns(text))
         wordrank_extractor = KRWordRank(

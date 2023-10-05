@@ -12,11 +12,6 @@ try :
 except :
     ko_model = FastText.load('vectordb_model/ko.bin')
 
-def study_model(new_sentences: list):
-    ko_model.build_vocab(new_sentences, update=True)
-    ko_model.train(new_sentences, total_examples=ko_model.corpus_count, epochs=ko_model.epochs)
-    print("ko_model updated")
-
 #TODO : 테마 아이디를 가지고 있어야 나중에 저장하기 쉬움.
 def map_keywords_themes(keywords: list):
     themes = snapshot
@@ -71,10 +66,3 @@ class ThemeService:
         elif mode == 'non-gpt' :
             chat_response = mapping_data
         return chat_response
-    
-    def improve_fasttext_model(self, new_sentences: list):
-        study_model(new_sentences)
-
-    def save_updated_model(self):
-        ko_model.save('vectordb_model/ko_updated.bin')
-        print("ko_model saved")

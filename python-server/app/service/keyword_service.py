@@ -1,12 +1,15 @@
 from krwordrank.word import KRWordRank
 from mecab import MeCab
+import re
+
+from app.service.theme_service import ThemeService
+theme_service = ThemeService()
 
 min_count = 2   # 단어의 최소 출현 빈도수 (그래프 생성 시)
 max_length = 10  # 단어의 최대 길이
 beta = 0.90    # PageRank의 decaying factor beta
 max_iter = 20
 extract_length = 5  # 우선순위로 정렬 후, 추출할 키워드의 최대 개수
-
 
 class KeywordService:
 
@@ -17,6 +20,12 @@ class KeywordService:
     def get_keyword(self, id, title, content):
         text = title + " " + content
         res = dict()
+
+        sentences = re.split(r'\.\n|\. ', text)
+        preprossed_sentences = []
+        for s in sentences:
+            preprossed_sentences.append(self.mecab.morphs(s.replace('.', '')))
+        theme_service.improve_fasttext_model(preprossed_sentences)
 
         result_text = ' '.join(self.mecab.nouns(text))
         wordrank_extractor = KRWordRank(

@@ -21,7 +21,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -97,14 +96,6 @@ public class NewsServiceImpl implements NewsService {
 
         News news = new News();
 
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://hot-stock.shop:5000/news/"; // Python 서버 URL
-        ResponseEntity<Map> response = restTemplate.getForEntity(
-            url + mediaCompanyNum + "/" + articleNum, Map.class);
-        Map<String, Object> newsData = response.getBody();
-
-        String summaryContent = (String) newsData.get("summaryContent");
-
         String link =
             "https://n.news.naver.com/article/" + String.format("%03d", mediaCompanyNum)
                 + "/" + String.format("%010d", articleNum);
@@ -132,6 +123,13 @@ public class NewsServiceImpl implements NewsService {
         // 스포츠
         if (title.isEmpty()) {
             title = doc.select("h4.title").text();
+        }
+
+        List<NaverApiItemsResponseDto> naverApiItemsResponseDto = naverApi(title, 1);
+
+        String summaryContent = "";
+        if (naverApiItemsResponseDto.size() != 0) {
+            summaryContent = naverApiItemsResponseDto.get(0).getDescription();
         }
 
         // 본문 찾아오기
@@ -289,11 +287,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News insertNews(News news) {
-        return newsRepository.save(news);
-    }
-
-    @Override
     public List<News> createNewsList(List<News> newsList) {
         return newsRepository.saveAll(newsList);
     }
@@ -301,21 +294,6 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News findNewsById(Long id) {
         return newsRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<News> getAllNews() {
-        return newsRepository.findAll();
-    }
-
-    @Override
-    public News updateNews(News news) {
-        return newsRepository.save(news);  // JPA 에서는 업데이트도 save 사용
-    }
-
-    @Override
-    public void deleteNews(Long id) {
-        newsRepository.deleteById(id);
     }
 
     @Override
@@ -333,7 +311,6 @@ public class NewsServiceImpl implements NewsService {
             .build()
             .toUri();
 
-        log.info("uri : {}", uri);
         RestTemplate restTemplate = new RestTemplate();
 
         RequestEntity<Void> req = RequestEntity
@@ -344,8 +321,6 @@ public class NewsServiceImpl implements NewsService {
 
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
 
-        System.out.println("response.getBody() = " + response.getBody());
-
         List<NaverApiItemsResponseDto> naverApiResponseDtoList = new ArrayList<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -355,6 +330,14 @@ public class NewsServiceImpl implements NewsService {
                 NaverApiResponseDto.class);
 
             for (NaverApiItemsResponseDto naverApiItemsResponseDto : naverApiResponseDto.getItems()) {
+
+                String description = naverApiItemsResponseDto.getDescription();
+
+                // HTML 태그 제거
+                String cleanedText = Jsoup.parse(description).text();
+
+                naverApiItemsResponseDto.setDescription(cleanedText);
+
                 naverApiResponseDtoList.add(naverApiItemsResponseDto);
             }
         } catch (Exception e) {

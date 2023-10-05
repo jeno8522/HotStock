@@ -1,13 +1,25 @@
-import { fetchThemeDetail, fetchContentsByTheme } from "@/utils";
-import { Stock } from "@/types";
-import { StockBar, ThemeStockList } from "@/components";
+import { fetchThemeDetail } from "@/utils";
+import { ThemeStockList } from "@/components";
 
-const ThemeDetail = async ({ params }: { params: { themeId: string } }) => {
+import { NextPage } from "next";
+
+interface themeId {
+  themeId: string;
+}
+interface themeName {
+  name: string;
+}
+
+interface ThemeDetailProps {
+  params: themeId;
+  searchParams: themeName;
+}
+const ThemeDetail: NextPage<ThemeDetailProps> = async ({
+  params,
+  searchParams,
+}) => {
   const themeNumber = parseInt(params.themeId, 10);
-  // console.log(themeNumber);
   const stockList = await fetchThemeDetail(themeNumber);
-  const themeName = await fetchContentsByTheme(themeNumber);
-  // console.log(themeName.name);
   const stockIsEmpty =
     stockList === null ||
     !Array.isArray(stockList) ||
@@ -15,12 +27,12 @@ const ThemeDetail = async ({ params }: { params: { themeId: string } }) => {
     !stockList;
 
   return (
-    <div className="flex flex-col justify-between h-screen lg:flex-row">
+    <div className="flex flex-col justify-between h-fit lg:flex-row">
       <div className="lg:w-1/3 bg-[#24364d] text-white">
         <div className="mt-40 mx-10">
-          <h1 className="text-3xl font-bold mb-2">{themeName.name}</h1>
+          <h1 className="text-3xl font-bold mb-2">{searchParams.name}</h1>
           <h2 className="text-lg">
-            {themeName.name} 테마의 종목들을 보여드려요
+            {searchParams.name} 테마의 종목들을 보여드려요
           </h2>
         </div>
       </div>

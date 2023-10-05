@@ -13,7 +13,12 @@ const ThemeBar = ({ themeId, name }: ThemeProps) => {
         <div className="pr-2">No.{themeId}</div>
         <div className="font-bold  px-2 truncate">{name}</div>
       </div>
-      <Link href={`/theme/${themeId}`}>
+      <Link
+        href={{
+          pathname: `/theme/${themeId}`,
+          query: { name: `${name}` },
+        }}
+      >
         <button className=" bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
           상세보기
         </button>

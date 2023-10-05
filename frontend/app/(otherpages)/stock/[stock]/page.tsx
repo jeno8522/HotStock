@@ -14,7 +14,7 @@ const StockDetail = async ({ params }: { params: { stock: string } }) => {
     !Array.isArray(newsData) || newsData.length < 1 || !newsData;
 
   return (
-    <div className="max-w-screen-lg px-8 xl:px-10 my-10 mx-auto">
+    <div className="max-w-screen-xl px-8 xl:px-10 my-10 mx-auto">
       <div className="flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto">
         {/* 왼쪽 이름 탭 */}
         <div className="xl:w-1/5">

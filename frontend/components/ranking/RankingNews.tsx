@@ -24,7 +24,7 @@ const RankingNews = async ({ keywords }: keywordPropList) => {
     !Array.isArray(newsData3) || newsData3.length < 1 || !newsData3;
   return (
     <div className="px-16">
-      <div className="text-lg font-bold">주요 키워드 관련 기사 알아보기</div>
+      <div className="text-xl font-bold">주요 키워드 관련 기사 알아보기</div>
       <div className="my-5  mb-10">
         <span className="text-lg font-bold underline decoration-2 underline-offset-4 decoration-blue-800">
           {keywords[0].text}

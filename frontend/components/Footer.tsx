@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
         <div className="flex justify-between items-center flex-wrap mt-12">
           <div>SSAFY 9기 특화프로젝트</div>
-          <div>냥냥 정책 어쩌고</div>
+          <div>A206</div>
         </div>
       </div>
     </footer>

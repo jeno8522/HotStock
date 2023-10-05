@@ -14,6 +14,7 @@ import ThemeList from "@/components/theme/ThemeList";
 import ThemeBar from "@/components/theme/ThemeBar";
 import ThemeStockList from "@/components/theme/ThemeStockList";
 import ErrorComp from "@/components/ErrorComp";
+import StockComp from "@/components/stock/StockComp";
 
 export {
   Footer,
@@ -32,4 +33,5 @@ export {
   ThemeBar,
   ThemeStockList,
   ErrorComp,
+  StockComp,
 };

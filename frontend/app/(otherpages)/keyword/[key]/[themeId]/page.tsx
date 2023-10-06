@@ -1,5 +1,5 @@
 import { Stock } from "@/types";
-import { StockBar } from "@/components";
+import { StockBar, ErrorComp } from "@/components";
 import { fetchContentsByTheme } from "@/utils";
 
 const KeywordDetailWithTheme = async ({
@@ -9,6 +9,9 @@ const KeywordDetailWithTheme = async ({
 }) => {
   // ----------------------------------------
   const themeNumber = parseInt(params.themeId, 10);
+
+  if (isNaN(themeNumber)) return <ErrorComp />;
+
   const themeResult = await fetchContentsByTheme(themeNumber);
   const stockList = themeResult.stockByThemeIdResponseDtoList;
   const stockIsEmpty =

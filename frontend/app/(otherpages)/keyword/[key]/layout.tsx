@@ -1,5 +1,5 @@
 import { Theme, News } from "@/types";
-import { ArticleCard } from "@/components";
+import { ArticleCard, ErrorComp } from "@/components";
 import Link from "next/link";
 import { fetchKeywordDetail } from "@/utils";
 import { Metadata, ResolvingMetadata } from "next";
@@ -37,7 +37,12 @@ export default async function KeywordDetailLayout({
   };
 }) {
   const keyNumber = parseInt(params.key, 10);
+
+  if (isNaN(keyNumber)) return <ErrorComp />;
+
   const keywordData = await fetchKeywordDetail(keyNumber);
+
+  if (keywordData === null) return <ErrorComp />;
 
   const isEmpty =
     !Array.isArray(keywordData.themeByKeywordIdResponseDtoList) ||

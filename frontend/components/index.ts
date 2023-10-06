@@ -13,6 +13,7 @@ import RankingNews from "@/components/ranking/RankingNews";
 import ThemeList from "@/components/theme/ThemeList";
 import ThemeBar from "@/components/theme/ThemeBar";
 import ThemeStockList from "@/components/theme/ThemeStockList";
+import ErrorComp from "@/components/ErrorComp";
 
 export {
   Footer,
@@ -30,4 +31,5 @@ export {
   ThemeList,
   ThemeBar,
   ThemeStockList,
+  ErrorComp,
 };

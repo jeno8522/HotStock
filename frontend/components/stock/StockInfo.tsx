@@ -61,7 +61,7 @@ const StockInfo = ({ stock }: StockProps) => {
         </div>
         <div className="flex justify-between">
           <div>거래대금</div>
-          <div className="font-bold">{amount}백만</div>
+          <div className="font-bold">{amount}천원</div>
         </div>
       </div>
     </div>

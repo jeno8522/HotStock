@@ -8,6 +8,7 @@ import com.ssafy.hotstock.domain.keywordnews.dto.NewsByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordnews.service.KeywordNewsService;
 import com.ssafy.hotstock.domain.keywordtheme.dto.ThemeByKeywordIdResponseDto;
 import com.ssafy.hotstock.domain.keywordtheme.service.KeywordThemeService;
+import com.ssafy.hotstock.global.advice.exception.KeywordFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -70,21 +71,24 @@ public class KeywordController {
     //    Todo: KeywordNews 이거 만들어야함
     @GetMapping("/{keywordId}")
     public ResponseEntity<?> getKeywordThemeNewsById(@PathVariable Long keywordId) {
-        String keywordContent = keywordService.getKeywordContent(keywordId);
+        try {
+            String keywordContent = keywordService.getKeywordContent(keywordId);
+            List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordId(
+                keywordId);
 
-        List<ThemeByKeywordIdResponseDto> themeList = keywordThemeService.getThemeByKeywordId(
-            keywordId);
+            List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordId(
+                keywordId);
 
-        List<NewsByKeywordIdResponseDto> newsList = keywordNewsService.getNewsByKeywordId(
-            keywordId);
+            KeywordDetailResponseDto keywordDetailResponseDto = KeywordDetailResponseDto.builder()
+                .keywordContent(keywordContent)
+                .themeByKeywordIdResponseDtoList(themeList)
+                .newsByKeywordIdResponseDtoList(newsList)
+                .build();
 
-        KeywordDetailResponseDto keywordDetailResponseDto = KeywordDetailResponseDto.builder()
-            .keywordContent(keywordContent)
-            .themeByKeywordIdResponseDtoList(themeList)
-            .newsByKeywordIdResponseDtoList(newsList)
-            .build();
-
-        return new ResponseEntity<>(keywordDetailResponseDto, HttpStatus.OK);
+            return new ResponseEntity<>(keywordDetailResponseDto, HttpStatus.OK);
+        } catch (KeywordFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const ErrorComp = () => {
   return (
     <div className="flex flex-col w-full h-screen items-center">
@@ -6,9 +8,15 @@ const ErrorComp = () => {
         <span>0</span>
         <span>4</span>
       </div>
-      <div className="m-10 text-xl drop-shadow-lg font-bold text-[#43495c]">
+      <div className="mt-10 text-xl drop-shadow-lg font-bold text-[#555b6c]">
         잘못된 접근이에요
       </div>
+      <Link
+        href="/"
+        className="text-xl drop-shadow-lg font-bold text-[#555b6c] hover:text-[#0e121e]"
+      >
+        메인으로
+      </Link>
     </div>
   );
 };

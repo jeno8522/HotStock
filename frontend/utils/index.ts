@@ -20,11 +20,21 @@ export const fetchKeywords = async () => {
 
 // 키워드 상세 조회하기 :: 키워드 아이디로 GET
 export const fetchKeywordDetail = async (keyword_id: number) => {
-  const res = await fetch(server_url + `/api/keyword/${keyword_id}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
+  // const res = await fetch(server_url + `/api/keyword/${keyword_id}`, {
+  //   cache: "no-store",
+  // });
+  // const data = await res.json();
+  // return data;
+
+  try {
+    const res = await fetch(server_url + `/api/keyword/${keyword_id}`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const fetchKeywordDetailForCloud = async (keyword_id: number) => {

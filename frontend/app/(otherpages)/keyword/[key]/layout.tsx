@@ -8,24 +8,24 @@ interface Props {
   children: React.ReactNode;
 }
 
-export async function generateMetadata(
-  {
-    params,
-  }: {
-    params: {
-      key: string;
-    };
-  },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const keyNumber = parseInt(params.key, 10);
-  const keywordData = await fetchKeywordDetail(keyNumber);
+// export async function generateMetadata(
+//   {
+//     params,
+//   }: {
+//     params: {
+//       key: string;
+//     };
+//   },
+//   parent: ResolvingMetadata
+// ): Promise<Metadata> {
+//   const keyNumber = parseInt(params.key, 10);
+//   const keywordData = await fetchKeywordDetail(keyNumber);
 
-  return {
-    title: `${keywordData.keywordContent} - Hot Stock : 키워드로 찾는 주식`,
-    description: `${keywordData.keywordContent} 키워드와 관련된 주식 테마와 기사들을 보여드려요`,
-  };
-}
+//   return {
+//     title: `${keywordData.keywordContent} - Hot Stock : 키워드로 찾는 주식`,
+//     description: `${keywordData.keywordContent} 키워드와 관련된 주식 테마와 기사들을 보여드려요`,
+//   };
+// }
 
 export default async function KeywordDetailLayout({
   children,
@@ -42,7 +42,10 @@ export default async function KeywordDetailLayout({
 
   const keywordData = await fetchKeywordDetail(keyNumber);
 
-  if (keywordData === null) return <ErrorComp />;
+  if (keywordData === null) {
+    console.log(keywordData);
+    return <ErrorComp />;
+  }
 
   const isEmpty =
     !Array.isArray(keywordData.themeByKeywordIdResponseDtoList) ||

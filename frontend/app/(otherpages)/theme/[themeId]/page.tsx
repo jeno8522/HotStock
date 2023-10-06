@@ -1,5 +1,5 @@
 import { fetchThemeDetail } from "@/utils";
-import { ThemeStockList, ErrorComp, StockComp } from "@/components";
+import { ThemeStockList, ErrorComp } from "@/components";
 
 import { NextPage } from "next";
 
@@ -53,7 +53,6 @@ const ThemeDetail: NextPage<ThemeDetailProps> = async ({
               <div>테마 혹은 이 테마에 해당하는 종목이 존재하지 않습니다.</div>
             )}
           </div>
-          {/* <StockComp themeNumber={themeNumber} /> */}
         </div>
       );
     }

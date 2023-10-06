@@ -4,6 +4,7 @@ package com.ssafy.hotstock.domain.keyword.service;
 import com.ssafy.hotstock.domain.keyword.domain.Keyword;
 import com.ssafy.hotstock.domain.keyword.dto.TopKeywordsResponseDto;
 import com.ssafy.hotstock.domain.keyword.repository.KeywordRepository;
+import com.ssafy.hotstock.global.advice.exception.StockFoundException;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public String getKeywordContent(Long keywordId) {
         // 키워드 가져오기
-        Keyword keyword = keywordRepository.findById(keywordId).orElse(null);
+        Keyword keyword = keywordRepository.findById(keywordId).orElseThrow(()-> new StockFoundException("입력한 키워드 아이디값에 해당하는 키워드가 존재하지 않음, 입력값 : " + keywordId));
 
         String keywordContent = keyword.getContent();
 
